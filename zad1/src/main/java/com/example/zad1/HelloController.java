@@ -13,7 +13,7 @@ public class HelloController {
     @FXML
     private ChoiceBox<String> rodzajSygnalu;
     @FXML
-    private TextField amplitudaF,czasTrwaniaF,okresPodstawowyF,poczatkowyF,wspolczynnikWypelnieniaF;
+    private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, okresF;
 
     @FXML
     private ChoiceBox<String> wybierzOperacje;
@@ -38,12 +38,11 @@ public class HelloController {
     private Button zapiszWykres;
 
     private String[] opcje = {"szum o rozkładzie jednostajnym", "szum gaussowski", "sygnał sinusoidalny",
-            "sygnał sinusoidalny wyprostowany jednopołówkowo","sygnał sinusoidalny wyprostowany dwupołówkowo",
-            "sygnał prostokątny","sygnał prostokątny symetryczny","sygnał trójkątny","skok jednostkowy",
+            "sygnał sinusoidalny wyprostowany jednopołówkowo", "sygnał sinusoidalny wyprostowany dwupołówkowo",
+            "sygnał prostokątny", "sygnał prostokątny symetryczny", "sygnał trójkątny", "skok jednostkowy",
             "impuls jednostkowy", "szum impulsowy"};
 
-    private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie",
-            "dzielenie"};
+    private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie"};
     private String[] opcjePrzedzial = {"5", "10", "15", "20"};
 
     @FXML
@@ -52,5 +51,6 @@ public class HelloController {
         wybierzOperacje.getItems().addAll(opcjeOperacje);
         przedzialHistogramu.getItems().addAll(opcjePrzedzial);
     }
+
 
 }
