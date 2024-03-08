@@ -1,4 +1,4 @@
-package com.example.zad1;
+package com.example.zad1.Signals;
 
 public class SymmetricRectangularSignal extends RectangularSignal {
     public SymmetricRectangularSignal(double amplitude, double startTime, double duration, double period, double dutyCycle) {
