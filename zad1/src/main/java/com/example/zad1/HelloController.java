@@ -48,9 +48,84 @@ public class HelloController {
     @FXML
     protected void initialize() {
         rodzajSygnalu.getItems().addAll(opcje);
+        rodzajSygnalu.setValue(opcje[0]); // Ustaw domyślną wartość
         wybierzOperacje.getItems().addAll(opcjeOperacje);
         przedzialHistogramu.getItems().addAll(opcjePrzedzial);
+        checkSignal();
     }
 
+
+    void checkSignal() {
+        String signal = rodzajSygnalu.getValue();
+        if (signal != null) {
+            if (signal.equals("szum o rozkładzie jednostajnym")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(true);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            } else if (signal.equals("szum gaussowski")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(true);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            } else if (signal.equals("sygnał sinusoidalny")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(false);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            } else if (signal.equals("sygnał sinusoidalny wyprostowany jednopołówkowo")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(false);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            } else if (signal.equals("sygnał sinusoidalny wyprostowany dwupołówkowo")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(false);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            } else if (signal.equals("sygnał prostokątny")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(false);
+                wspolczynnikWypelnieniaF.setDisable(false);
+            } else if (signal.equals("sygnał prostokątny symetryczny")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(false);
+                wspolczynnikWypelnieniaF.setDisable(false);
+            } else if (signal.equals("sygnał trójkątny")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(false);
+                wspolczynnikWypelnieniaF.setDisable(false);
+            } else if (signal.equals("skok jednostkowy")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(true);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            } else if (signal.equals("impuls jednostkowy")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(true);
+                okresPodstawowyF.setDisable(true);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            } else if (signal.equals("szum impulsowy")) {
+                amplitudaF.setDisable(false);
+                poczatkowyF.setDisable(false);
+                czasTrwaniaF.setDisable(false);
+                okresPodstawowyF.setDisable(true);
+                wspolczynnikWypelnieniaF.setDisable(true);
+            }
+        }
+    }
 
 }

@@ -5,25 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Base/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Base/Range.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/ContinuousSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/ContinuousSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/FullwaveRectifiedSinusoidalSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/FullwaveRectifiedSinusoidalSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/GaussianNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/GaussianNoise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/HalfwaveRectifiedSinusoidalSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/HalfwaveRectifiedSinusoidalSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/ImpulseNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/ImpulseNoise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/RectangularSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/RectangularSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SinusoidalSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/SinusoidalSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SymmetricRectangularSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/SymmetricRectangularSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/TriangularSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/TriangularSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/UniformNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/UniformNoise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/UnitImpulse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/UnitImpulse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/UnitStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/UnitStep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/HelloController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1709225241127</updated>
       <workItem from="1709225242507" duration="8838000" />
-      <workItem from="1709909519028" duration="4381000" />
+      <workItem from="1709909519028" duration="8343000" />
     </task>
     <servers />
   </component>
