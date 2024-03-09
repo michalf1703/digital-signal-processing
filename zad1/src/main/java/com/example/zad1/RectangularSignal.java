@@ -9,4 +9,9 @@ public class RectangularSignal extends ContinuousSignal{
         this.period = period;
         this.dutyCycle = dutyCycle;
     }
+
+    @Override
+    public double[] generateData(double time) {
+        return new double[0];
+    }
 }

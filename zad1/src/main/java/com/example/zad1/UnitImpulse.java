@@ -15,7 +15,7 @@ public class UnitImpulse extends DiscreteSignal {
     }
 
     @Override
-    public double[] generateData() {
+    public double[] generateData(double time) {
         return new double[0];
     }
 }

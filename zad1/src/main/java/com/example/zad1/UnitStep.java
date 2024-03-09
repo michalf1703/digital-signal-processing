@@ -7,4 +7,9 @@ public class UnitStep extends ContinuousSignal{
         super(amplitude, startTime, duration);
         this.stepTime = stepTime;
     }
+
+    @Override
+    public double[] generateData(double time) {
+        return new double[0];
+    }
 }

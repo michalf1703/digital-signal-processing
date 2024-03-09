@@ -6,7 +6,7 @@ public class ImpulseNoise extends DiscreteSignal {
     }
 
     @Override
-    public double[] generateData() {
-        return new double[0];
+    public double[] generateData(double time) {
+        return super.generateData(time);
     }
 }

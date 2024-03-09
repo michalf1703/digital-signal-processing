@@ -10,7 +10,7 @@ public class UniformNoise extends ContinuousSignal{
     }
 
     @Override
-    public double[] generateData() {
+    public double[] generateData(double time) {
         int numberOfSamples = (int) Math.round(duration);
         double[] data = new double[numberOfSamples];
         Random random = new Random();

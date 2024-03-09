@@ -9,4 +9,9 @@ public class GaussianNoise extends ContinuousSignal {
         this.mean = 0.0;
         this.standardDeviation = 1.0;
     }
+
+    @Override
+    public double[] generateData(double time) {
+        return new double[0];
+    }
 }

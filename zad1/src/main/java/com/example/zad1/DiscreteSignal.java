@@ -7,5 +7,7 @@ public abstract class DiscreteSignal extends Signal {
     }
 
     @Override
-    public abstract double[] generateData();
+    public double[] generateData(double time) {
+        return new double[0];
+    }
 }
