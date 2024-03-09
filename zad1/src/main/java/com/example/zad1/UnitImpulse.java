@@ -13,4 +13,9 @@ public class UnitImpulse extends DiscreteSignal {
         this.samplingFrequency = samplingFrequency;
         this.l = l;
     }
+
+    @Override
+    public double[] generateData() {
+        return new double[0];
+    }
 }

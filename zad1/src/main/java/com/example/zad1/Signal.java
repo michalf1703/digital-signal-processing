@@ -7,5 +7,6 @@ public abstract class Signal {
         this.amplitude = amplitude;
     }
 
-    public abstract double[] generateData();
+    public abstract double[] generateData(double time);
 }
+

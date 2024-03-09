@@ -2,7 +2,7 @@ package com.example.zad1;
 
 
 
-public class ContinuousSignal extends Signal {
+public abstract class ContinuousSignal extends Signal {
     protected double startTime;
     protected double duration;
 
@@ -11,9 +11,6 @@ public class ContinuousSignal extends Signal {
         this.startTime = startTime;
         this.duration = duration;
     }
-
     @Override
-    public double[] generateData() {
-        return new double[0];
-    }
+    public abstract double[] generateData(double time);
 }
