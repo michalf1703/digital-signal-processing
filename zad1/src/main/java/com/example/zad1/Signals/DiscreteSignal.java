@@ -17,7 +17,6 @@ public abstract class DiscreteSignal extends Signal {
         this.sampleRate = sampleRate;
     }
 
-    /* This function act as a REAL continous signal */
     abstract protected double value(double t);
 
     @Override

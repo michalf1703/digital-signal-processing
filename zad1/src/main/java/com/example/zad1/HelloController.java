@@ -1,7 +1,6 @@
 package com.example.zad1;
 
-import com.example.zad1.Signals.Signal;
-import com.example.zad1.Signals.SinusoidalSignal;
+import com.example.zad1.Signals.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -214,24 +213,58 @@ public class HelloController {
                 amplitude = Double.parseDouble(amplitudaF.getText());
                 rangeStart = Double.parseDouble(poczatkowyF.getText());
                 rangeLength = Double.parseDouble(czasTrwaniaF.getText());
-                if (signal.equals("sygnał sinusoidalny") || signal.equals("sygnał sinusoidalny wyprostowany jednopołówkowo") || signal.equals("sygnał sinusoidalny wyprostowany dwupołówkowo") || signal.equals("sygnał prostokątny") || signal.equals("sygnał prostokątny symetryczny") || signal.equals("sygnał trójkątny")) {
+
+                if (signal.equals("szum o rozkładzie jednostajnym")) {
+                    s = new UniformNoise(rangeStart, rangeLength, amplitude);
+                }
+                if (signal.equals("sygnał sinusoidalny")) {
                     term = Double.parseDouble(okresPodstawowyF.getText());
                     s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term);
                 }
-                if (signal.equals("sygnał prostokątny") || signal.equals("sygnał prostokątny symetryczny") || signal.equals("sygnał trójkątny")) {
+                if (signal.equals("sygnał prostokątny")) {
+                    term = Double.parseDouble(okresPodstawowyF.getText());
                     fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
+                }
+                if (signal.equals("szum gaussowski")) {
+                    s = new GaussianNoise(rangeStart, rangeLength, amplitude);
+                }
+                if (signal.equals("sygnał sinusoidalny wyprostowany jednopołówkowo")) {
+                    term = Double.parseDouble(okresPodstawowyF.getText());
+                    s = new HalfwaveRectifiedSinusoidalSignal(amplitude,rangeStart, rangeLength, term);
+                }
+                if (signal.equals("sygnał sinusoidalny wyprostowany dwupołówkowo")) {
+                    term = Double.parseDouble(okresPodstawowyF.getText());
+                    s = new FullwaveRectifiedSinusoidalSignal(amplitude,rangeStart, rangeLength, term);
+                }
+                if (signal.equals("sygnał prostokątny")) {
+                    term = Double.parseDouble(okresPodstawowyF.getText());
+                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
+                }
+                if (signal.equals("sygnał prostokątny symetryczny")) {
+                    term = Double.parseDouble(okresPodstawowyF.getText());
+                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    s = new SymmetricRectangularSignal(amplitude,rangeStart, rangeLength, term, fulfillment);
+                }
+                if (signal.equals("sygnał trójkątny")) {
+                    term = Double.parseDouble(okresPodstawowyF.getText());
+                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    s = new TriangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
                 }
                 if (signal.equals("skok jednostkowy")) {
                     jumpMoment = Double.parseDouble(czasSkokuF.getText());
-                }
-                if (signal.equals("impuls jednostkowy") || signal.equals("szum impulsowy")) {
-                    sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
+                    s = new UnitStep(rangeStart, rangeLength, amplitude, jumpMoment);
                 }
                 if (signal.equals("impuls jednostkowy")) {
                     jumpMoment = Double.parseDouble(czasSkokuF.getText());
+                    sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
+                    s = new UnitImpulse(rangeStart, rangeLength,sampleRate, amplitude, jumpMoment.intValue());
                 }
                 if (signal.equals("szum impulsowy")) {
                     probability = Double.parseDouble(prawdopodobienstwoF.getText());
+                    sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
+                    s = new ImpulseNoise(rangeStart, rangeLength, sampleRate, amplitude, probability);
                 }
                 calculateSignal(s);
             } catch (NumberFormatException e) {
@@ -241,7 +274,7 @@ public class HelloController {
     }
 
     public void calculateSignal(Signal signal) {
-        //signal.generate();
+        signal.generate();
         skutecznaWynik.setText("" + signal.rmsValue());
         sredniaBezwWynik.setText("" + signal.absMeanValue());
         mocSredniaWynik.setText("" + signal.meanPowerValue());

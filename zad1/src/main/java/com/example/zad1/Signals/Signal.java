@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public abstract class Signal implements Serializable {
-    protected Data[] data;
+    protected final Data[] data;
 
     public Signal(int length) {
         this.data = new Data[length];

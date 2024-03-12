@@ -3,8 +3,8 @@ package com.example.zad1.Base;
 import java.io.Serializable;
 
 public class Data implements Serializable {
-    private final double x;
-    private final double y;
+    private double x;
+    private double y;
 
     public Data(double x, double y) {
         this.x = x;
