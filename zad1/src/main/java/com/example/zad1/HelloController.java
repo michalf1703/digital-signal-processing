@@ -1,5 +1,7 @@
 package com.example.zad1;
 
+import com.example.zad1.Signals.Signal;
+import com.example.zad1.Signals.SinusoidalSignal;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -44,6 +46,19 @@ public class HelloController {
     private Text wariancja;
     @FXML
     private Button zapiszWykres;
+    @FXML
+    private Text skutecznaWynik;
+
+    @FXML
+    private Text sredniaBezwWynik;
+
+    @FXML
+    private Text wariancjaWynik;
+
+    @FXML
+    private Text wartoscSredniaWynik;
+    @FXML
+    private Text mocSredniaWynik;
 
     private String[] opcje = {"szum o rozkładzie jednostajnym", "szum gaussowski", "sygnał sinusoidalny",
             "sygnał sinusoidalny wyprostowany jednopołówkowo", "sygnał sinusoidalny wyprostowany dwupołówkowo",
@@ -181,6 +196,58 @@ public class HelloController {
                 prawdopodobienstwoF.setDisable(false);
             }
         }
+    }
+    public void computeSignals() {
+        String signal = rodzajSygnalu.getValue();
+        if (signal != null) {
+            Double amplitude = null;
+            Double rangeStart = null;
+            Double rangeLength = null;
+            Double term = null;
+            Double fulfillment = null;
+            Double jumpMoment = null;
+            Double probability = null;
+            Double sampleRate = null;
+            
+            try {
+                Signal s = null;
+                amplitude = Double.parseDouble(amplitudaF.getText());
+                rangeStart = Double.parseDouble(poczatkowyF.getText());
+                rangeLength = Double.parseDouble(czasTrwaniaF.getText());
+                if (signal.equals("sygnał sinusoidalny") || signal.equals("sygnał sinusoidalny wyprostowany jednopołówkowo") || signal.equals("sygnał sinusoidalny wyprostowany dwupołówkowo") || signal.equals("sygnał prostokątny") || signal.equals("sygnał prostokątny symetryczny") || signal.equals("sygnał trójkątny")) {
+                    term = Double.parseDouble(okresPodstawowyF.getText());
+                    s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term);
+                }
+                if (signal.equals("sygnał prostokątny") || signal.equals("sygnał prostokątny symetryczny") || signal.equals("sygnał trójkątny")) {
+                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                }
+                if (signal.equals("skok jednostkowy")) {
+                    jumpMoment = Double.parseDouble(czasSkokuF.getText());
+                }
+                if (signal.equals("impuls jednostkowy") || signal.equals("szum impulsowy")) {
+                    sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
+                }
+                if (signal.equals("impuls jednostkowy")) {
+                    jumpMoment = Double.parseDouble(czasSkokuF.getText());
+                }
+                if (signal.equals("szum impulsowy")) {
+                    probability = Double.parseDouble(prawdopodobienstwoF.getText());
+                }
+                calculateSignal(s);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void calculateSignal(Signal signal) {
+        //signal.generate();
+        skutecznaWynik.setText("" + signal.rmsValue());
+        sredniaBezwWynik.setText("" + signal.absMeanValue());
+        mocSredniaWynik.setText("" + signal.meanPowerValue());
+        wartoscSredniaWynik.setText("" + signal.meanValue());
+        wariancjaWynik.setText("" + signal.varianceValue());
+
     }
 
 }
