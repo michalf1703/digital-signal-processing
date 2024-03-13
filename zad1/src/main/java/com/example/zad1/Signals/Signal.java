@@ -2,6 +2,8 @@ package com.example.zad1.Signals;
 
 import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
+import javafx.scene.chart.LineChart;
+import javafx.scene.control.TabPane;
 
 import java.io.Serializable;
 import java.util.ArrayList;

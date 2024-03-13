@@ -1,69 +1,33 @@
 package com.example.zad1;
 
 import com.example.zad1.Base.Data;
+import com.example.zad1.Base.Range;
 import com.example.zad1.Signals.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.chart.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class HelloController {
     @FXML
-    private Label welcomeText;
+    private ChoiceBox<String> rodzajSygnalu,wybierzOperacje, przedzialHistogramu;
     @FXML
-    private ChoiceBox<String> rodzajSygnalu;
-    @FXML
-    private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, okresF;
-    @FXML
-    private TextField czasSkokuF;
-    @FXML
-    private TextField czestoscProbkowaniaF;
-    @FXML
-    private TextField numerProbkiSkokuF;
-    @FXML
-    private TextField prawdopodobienstwoF;
+    private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, okresF, czasSkokuF, czestoscProbkowaniaF,numerProbkiSkokuF,prawdopodobienstwoF;
+
     private boolean isChartGenerated = false;
-    @FXML
-    private ChoiceBox<String> wybierzOperacje;
-    @FXML
-    private ChoiceBox<String> przedzialHistogramu;
-    @FXML
-    private Button wczytajWykres;
-    @FXML
-    private Text skutecznaSygnalu;
 
     @FXML
-    private Text sredniaBezwzglednaSygnalu;
-    @FXML
-    private Text mocSredniaSygnalu;
+    private Button wczytajWykres,zapiszWykres;
 
     @FXML
-    private Text sredniaSygnalu;
+    private Text skutecznaWynik,sredniaBezwWynik,wariancjaWynik,wartoscSredniaWynik,mocSredniaWynik;
 
-    @FXML
-    private Text wariancja;
-    @FXML
-    private Button zapiszWykres;
-    @FXML
-    private Text skutecznaWynik;
 
-    @FXML
-    private Text sredniaBezwWynik;
-
-    @FXML
-    private Text wariancjaWynik;
-
-    @FXML
-    private Text wartoscSredniaWynik;
-    @FXML
-    private Text mocSredniaWynik;
 
     private String[] opcje = {"szum o rozkładzie jednostajnym", "szum gaussowski", "sygnał sinusoidalny",
             "sygnał sinusoidalny wyprostowany jednopołówkowo", "sygnał sinusoidalny wyprostowany dwupołówkowo",
@@ -89,7 +53,6 @@ public class HelloController {
         return isChartGenerated;
     }
 
-    // Metoda ustawiająca flagę informującą o wygenerowaniu wykresu
     private void setChartGenerated(boolean generated) {
         this.isChartGenerated = generated;
     }
@@ -212,57 +175,49 @@ public class HelloController {
     public void computeSignals() {
         String signal = rodzajSygnalu.getValue();
         if (signal != null) {
-            Double amplitude = null;
-            Double rangeStart = null;
-            Double rangeLength = null;
-            Double term = null;
-            Double fulfillment = null;
             Double jumpMoment = null;
-            Double probability = null;
-            Double sampleRate = null;
-            
             try {
                 Signal s = null;
-                amplitude = Double.parseDouble(amplitudaF.getText());
-                rangeStart = Double.parseDouble(poczatkowyF.getText());
-                rangeLength = Double.parseDouble(czasTrwaniaF.getText());
+                double amplitude = Double.parseDouble(amplitudaF.getText());
+                double rangeStart = Double.parseDouble(poczatkowyF.getText());
+                double rangeLength = Double.parseDouble(czasTrwaniaF.getText());
 
                 if (signal.equals("szum o rozkładzie jednostajnym")) {
                     s = new UniformNoise(rangeStart, rangeLength, amplitude);
                 }
                 if (signal.equals("sygnał sinusoidalny")) {
-                    term = Double.parseDouble(okresPodstawowyF.getText());
+                    double term = Double.parseDouble(okresPodstawowyF.getText());
                     s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term);
                 }
                 if (signal.equals("sygnał prostokątny")) {
-                    term = Double.parseDouble(okresPodstawowyF.getText());
-                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    double term = Double.parseDouble(okresPodstawowyF.getText());
+                    double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
                     s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
                 }
                 if (signal.equals("szum gaussowski")) {
                     s = new GaussianNoise(rangeStart, rangeLength, amplitude);
                 }
                 if (signal.equals("sygnał sinusoidalny wyprostowany jednopołówkowo")) {
-                    term = Double.parseDouble(okresPodstawowyF.getText());
-                    s = new HalfwaveRectifiedSinusoidalSignal(amplitude,rangeStart, rangeLength, term);
+                    double term = Double.parseDouble(okresPodstawowyF.getText());
+                    s = new HalfwaveRectifiedSinusoidalSignal(rangeStart, rangeLength, amplitude,term);
                 }
                 if (signal.equals("sygnał sinusoidalny wyprostowany dwupołówkowo")) {
-                    term = Double.parseDouble(okresPodstawowyF.getText());
-                    s = new FullwaveRectifiedSinusoidalSignal(amplitude,rangeStart, rangeLength, term);
+                    double term = Double.parseDouble(okresPodstawowyF.getText());
+                    s = new FullwaveRectifiedSinusoidalSignal(rangeStart, rangeLength,amplitude, term);
                 }
                 if (signal.equals("sygnał prostokątny")) {
-                    term = Double.parseDouble(okresPodstawowyF.getText());
-                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    double term = Double.parseDouble(okresPodstawowyF.getText());
+                    double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
                     s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
                 }
                 if (signal.equals("sygnał prostokątny symetryczny")) {
-                    term = Double.parseDouble(okresPodstawowyF.getText());
-                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
-                    s = new SymmetricRectangularSignal(amplitude,rangeStart, rangeLength, term, fulfillment);
+                    double term = Double.parseDouble(okresPodstawowyF.getText());
+                    double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    s = new SymmetricRectangularSignal(rangeStart, rangeLength,amplitude, term, fulfillment);
                 }
                 if (signal.equals("sygnał trójkątny")) {
-                    term = Double.parseDouble(okresPodstawowyF.getText());
-                    fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
+                    double term = Double.parseDouble(okresPodstawowyF.getText());
+                    double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
                     s = new TriangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
                 }
                 if (signal.equals("skok jednostkowy")) {
@@ -271,12 +226,12 @@ public class HelloController {
                 }
                 if (signal.equals("impuls jednostkowy")) {
                     jumpMoment = Double.parseDouble(czasSkokuF.getText());
-                    sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
+                    double sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
                     s = new UnitImpulse(rangeStart, rangeLength,sampleRate, amplitude, jumpMoment.intValue());
                 }
                 if (signal.equals("szum impulsowy")) {
-                    probability = Double.parseDouble(prawdopodobienstwoF.getText());
-                    sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
+                    double probability = Double.parseDouble(prawdopodobienstwoF.getText());
+                    double sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
                     s = new ImpulseNoise(rangeStart, rangeLength, sampleRate, amplitude, probability);
                 }
                 calculateSignal(s);
@@ -285,6 +240,7 @@ public class HelloController {
             }
         }
     }
+
 
     public void calculateSignal(Signal signal) {
         signal.generate();
@@ -296,31 +252,48 @@ public class HelloController {
 
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Time");
-        yAxis.setLabel("Value");
+        xAxis.setLabel("Czas");
+        yAxis.setLabel("Wartość");
 
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle("Generated Signal");
+        String title = rodzajSygnalu.getValue();
+        lineChart.setTitle(title);
 
         XYChart.Series series = new XYChart.Series();
         int pointCount = 0;
         for (Data data : signal.getData()) {
-            if (pointCount >= 100) {
+            if (pointCount >= 1500) {
                 break;
             }
             series.getData().add(new XYChart.Data(data.getX(), data.getY()));
             System.out.println("X: " + data.getX() + ", Y: " + data.getY());
             pointCount++;
         }
-
-        Scene scene  = new Scene(lineChart, 800, 600);
         lineChart.getData().add(series);
-        lineChart.setStyle("-fx-chart-markers-visible: false;");
+        lineChart.setAnimated(false);
+        lineChart.setCreateSymbols(false);
+        lineChart.setAnimated(false);
+
+        List<Range> histogram = signal.generateHistogram(10);
+        CategoryAxis barXAxis = new CategoryAxis();
+        NumberAxis barYAxis = new NumberAxis();
+        BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
+        barChart.setTitle("Histogram");
+        XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+        for (Range range : histogram) {
+            barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
+        }
+        barChart.getData().add(barSeries);
+
+        VBox vbox = new VBox(lineChart, barChart); // Umieszczenie obu wykresów w jednym kontenerze
+
+        Scene scene  = new Scene(vbox, 800, 600);
 
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
     }
+
 
 
 
