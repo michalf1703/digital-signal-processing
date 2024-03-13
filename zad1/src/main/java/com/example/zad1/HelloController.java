@@ -4,6 +4,7 @@ import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
 import com.example.zad1.Signals.*;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HelloController {
@@ -225,9 +227,10 @@ public class HelloController {
                     s = new UnitStep(rangeStart, rangeLength, amplitude, jumpMoment);
                 }
                 if (signal.equals("impuls jednostkowy")) {
-                    jumpMoment = Double.parseDouble(czasSkokuF.getText());
+
+                    int jumpSampleNumber = Integer.parseInt(numerProbkiSkokuF.getText());
                     double sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
-                    s = new UnitImpulse(rangeStart, rangeLength,sampleRate, amplitude, jumpMoment.intValue());
+                    s = new UnitImpulse(rangeStart, rangeLength,sampleRate, amplitude, jumpSampleNumber);
                 }
                 if (signal.equals("szum impulsowy")) {
                     double probability = Double.parseDouble(prawdopodobienstwoF.getText());
@@ -254,27 +257,43 @@ public class HelloController {
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Czas");
         yAxis.setLabel("Wartość");
+        String przedzial = przedzialHistogramu.getValue();
+        int przedzialInt = Integer.parseInt(przedzial);
 
-        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        Parent chart;
         String title = rodzajSygnalu.getValue();
-        lineChart.setTitle(title);
 
-        XYChart.Series series = new XYChart.Series();
-        int pointCount = 0;
-        for (Data data : signal.getData()) {
-            if (pointCount >= 1500) {
-                break;
+        if (title == "szum impulsowy" || title == "impuls jednostkowy") {
+            ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+            scatterChart.setTitle(title);
+
+            XYChart.Series series = new XYChart.Series();
+            List<Data> selectedData = selectDataPoints(signal.getData(), 1000);
+            for (Data data : selectedData) {
+                series.getData().add(new XYChart.Data(data.getX(), data.getY()));
             }
-            series.getData().add(new XYChart.Data(data.getX(), data.getY()));
-            System.out.println("X: " + data.getX() + ", Y: " + data.getY());
-            pointCount++;
-        }
-        lineChart.getData().add(series);
-        lineChart.setAnimated(false);
-        lineChart.setCreateSymbols(false);
-        lineChart.setAnimated(false);
+            scatterChart.getData().add(series);
+            scatterChart.setAnimated(false);
+            scatterChart.setLegendVisible(false);
 
-        List<Range> histogram = signal.generateHistogram(10);
+            chart = scatterChart;
+        } else {
+            LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+            lineChart.setTitle(title);
+
+            XYChart.Series series = new XYChart.Series();
+            List<Data> selectedData = selectDataPoints(signal.getData(), 1000);
+            for (Data data : selectedData) {
+                series.getData().add(new XYChart.Data(data.getX(), data.getY()));
+            }
+            lineChart.getData().add(series);
+            lineChart.setAnimated(false);
+            lineChart.setCreateSymbols(false);
+
+            chart = lineChart;
+        }
+
+        List<Range> histogram = signal.generateHistogram(przedzialInt);
         CategoryAxis barXAxis = new CategoryAxis();
         NumberAxis barYAxis = new NumberAxis();
         BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
@@ -285,13 +304,23 @@ public class HelloController {
         }
         barChart.getData().add(barSeries);
 
-        VBox vbox = new VBox(lineChart, barChart); // Umieszczenie obu wykresów w jednym kontenerze
+        VBox vbox = new VBox(chart, barChart);
 
-        Scene scene  = new Scene(vbox, 800, 600);
+        Scene scene = new Scene(vbox, 800, 600);
 
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    private List<Data> selectDataPoints(List<Data> allData, int maxPoints) {
+        List<Data> selectedData = new ArrayList<>();
+        int step = Math.max(1, allData.size() / maxPoints);
+        for (int i = 0; i < allData.size(); i += step) {
+            selectedData.add(allData.get(i));
+        }
+        return selectedData;
     }
 
 
