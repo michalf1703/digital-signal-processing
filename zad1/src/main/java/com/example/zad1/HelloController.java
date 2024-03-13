@@ -1,12 +1,18 @@
 package com.example.zad1;
 
+import com.example.zad1.Base.Data;
 import com.example.zad1.Signals.*;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class HelloController {
     @FXML
@@ -23,7 +29,7 @@ public class HelloController {
     private TextField numerProbkiSkokuF;
     @FXML
     private TextField prawdopodobienstwoF;
-
+    private boolean isChartGenerated = false;
     @FXML
     private ChoiceBox<String> wybierzOperacje;
     @FXML
@@ -79,7 +85,14 @@ public class HelloController {
     }
 
 
+    private boolean isChartGenerated() {
+        return isChartGenerated;
+    }
 
+    // Metoda ustawiająca flagę informującą o wygenerowaniu wykresu
+    private void setChartGenerated(boolean generated) {
+        this.isChartGenerated = generated;
+    }
     void checkSignal() {
         String signal = rodzajSygnalu.getValue();
         if (signal != null) {
@@ -281,6 +294,34 @@ public class HelloController {
         wartoscSredniaWynik.setText("" + signal.meanValue());
         wariancjaWynik.setText("" + signal.varianceValue());
 
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Time");
+        yAxis.setLabel("Value");
+
+        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setTitle("Generated Signal");
+
+        XYChart.Series series = new XYChart.Series();
+        int pointCount = 0;
+        for (Data data : signal.getData()) {
+            if (pointCount >= 100) {
+                break;
+            }
+            series.getData().add(new XYChart.Data(data.getX(), data.getY()));
+            System.out.println("X: " + data.getX() + ", Y: " + data.getY());
+            pointCount++;
+        }
+
+        Scene scene  = new Scene(lineChart, 800, 600);
+        lineChart.getData().add(series);
+        lineChart.setStyle("-fx-chart-markers-visible: false;");
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
+
+
 
 }
