@@ -1,7 +1,18 @@
 package com.example.zad1.Signals;
 
-public class FullwaveRectifiedSinusoidalSignal extends SinusoidalSignal {
-    public FullwaveRectifiedSinusoidalSignal(double amplitude, double startTime, double duration, double period) {
-        super(amplitude, startTime, duration, period);
+public class FullwaveRectifiedSinusoidalSignal extends ContinuousSignal {
+    private final double amplitude;
+    private final double term;
+
+    public FullwaveRectifiedSinusoidalSignal(double rangeStart, double rangeLength,
+                                            double amplitude, double term) {
+        super(rangeStart, rangeLength);
+        this.amplitude = amplitude;
+        this.term = term;
+    }
+
+    @Override
+    protected double value(double t) {
+        return amplitude * Math.abs(Math.sin((2.0 * Math.PI / term) * (t - rangeStart)));
     }
 }
