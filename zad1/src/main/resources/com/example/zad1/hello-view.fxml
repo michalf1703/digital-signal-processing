@@ -26,7 +26,6 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
             <Text layoutX="11.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amplituda" />
             <Text layoutX="10.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Czas początkowy" />
             <Text layoutX="10.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Czas trwania sygnału" />
@@ -37,12 +36,12 @@
             <TextField fx:id="okresPodstawowyF" layoutX="171.0" layoutY="162.0" />
             <TextField fx:id="czasTrwaniaF" layoutX="172.0" layoutY="192.0" />
             <TextField fx:id="wspolczynnikWypelnieniaF" layoutX="172.0" layoutY="222.0" />
-            <Text layoutX="38.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz operacje">
+            <Text layoutX="42.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz operacje">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="wybierzOperacje" layoutX="16.0" layoutY="295.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="wybierzOperacje" layoutX="20.0" layoutY="424.0" prefWidth="150.0" />
             <AreaChart layoutX="429.0" layoutY="54.0" prefHeight="266.0" prefWidth="347.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
@@ -59,31 +58,38 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <Button fx:id="generujWykresy" layoutX="551.0" layoutY="308.0" mnemonicParsing="false" text="Generuj wykresy" />
-            <Button fx:id="wczytajWykres" layoutX="197.0" layoutY="555.0" mnemonicParsing="false" text="Wczytaj wykres" />
-            <Button fx:id="zapiszWykres" layoutX="304.0" layoutY="555.0" mnemonicParsing="false" text="Zapisz wykres" />
+            <Button fx:id="generujWykresy" layoutX="551.0" layoutY="308.0" mnemonicParsing="false" onAction="#computeSignals" text="Generuj wykresy" />
+            <Button fx:id="wczytajWykres" layoutX="349.0" layoutY="604.0" mnemonicParsing="false" text="Wczytaj wykres" />
+            <Button fx:id="zapiszWykres" layoutX="456.0" layoutY="604.0" mnemonicParsing="false" text="Zapisz wykres" />
             <Text layoutX="561.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Przedział histogramu">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
             <ChoiceBox fx:id="przedzialHistogramu" layoutX="551.0" layoutY="28.0" prefWidth="150.0" />
-            <Text layoutX="58.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyniki">
+            <Text layoutX="58.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyniki">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Text layoutX="14.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wartość średnia sygnału:" />
-            <Text layoutX="161.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text fx:id="sredniaSygnalu" layoutX="155.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   " />
-            <Text layoutX="15.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wartość średnia bezwzględna sygnału:" wrappingWidth="210.493745803833" />
-            <Text fx:id="sredniaBezwzglednaSygnalu" layoutX="223.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   " />
-            <Text layoutX="14.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wartość skuteczna sygnału: " wrappingWidth="154.27578735351562" />
-            <Text fx:id="skutecznaSygnalu" layoutX="169.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   " />
-            <Text layoutX="16.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wariancja sygnału:" />
-            <Text fx:id="wariancja" layoutX="121.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   " />
-            <Text layoutX="16.0" layoutY="496.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Moc średnia sygnału: " />
-            <Text fx:id="mocSredniaSygnalu" layoutX="135.0" layoutY="496.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  " />
+            <Text layoutX="14.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wartość średnia sygnału:" />
+            <Text layoutX="15.0" layoutY="537.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wartość średnia bezwzględna sygnału:" wrappingWidth="210.493745803833" />
+            <Text layoutX="14.0" layoutY="561.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wartość skuteczna sygnału: " wrappingWidth="154.27578735351562" />
+            <Text layoutX="16.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wariancja sygnału:" />
+            <Text layoutX="16.0" layoutY="614.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Moc średnia sygnału: " />
+            <Text layoutX="9.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Czas skoku" />
+            <TextField fx:id="czasSkokuF" layoutX="172.0" layoutY="251.0" />
+            <Text layoutX="10.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Częstość próbkowania" wrappingWidth="163.78363037109375" />
+            <TextField fx:id="czestoscProbkowaniaF" layoutX="172.0" layoutY="279.0" />
+            <Text layoutX="10.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer próbki skoku" wrappingWidth="163.78363037109375" />
+            <TextField fx:id="numerProbkiSkokuF" layoutX="172.0" layoutY="308.0" />
+            <Text layoutX="10.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prawdopodobieństwo" wrappingWidth="163.78363037109375" />
+            <TextField fx:id="prawdopodobienstwoF" layoutX="172.0" layoutY="341.0" />
+            <Text fx:id="wartoscSredniaWynik" layoutX="157.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+            <Text fx:id="sredniaBezwWynik" layoutX="226.0" layoutY="537.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+            <Text fx:id="skutecznaWynik" layoutX="169.0" layoutY="561.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+            <Text fx:id="wariancjaWynik" layoutX="120.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+            <Text fx:id="mocSredniaWynik" layoutX="137.0" layoutY="614.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
          </children></AnchorPane>
   </content>
 </TitledPane>
