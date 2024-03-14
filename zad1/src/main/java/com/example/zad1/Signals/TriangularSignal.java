@@ -23,4 +23,9 @@ public class TriangularSignal extends ContinuousSignal {
             return (1 - (termPosition - fulfillment) / (1 - fulfillment)) * amplitude;
         }
     }
+
+    @Override
+    public String getName() {
+        return "sygnał trójkątny";
+    }
 }

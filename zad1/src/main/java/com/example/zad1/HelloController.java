@@ -46,7 +46,6 @@ public class HelloController {
     private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie"};
     private String[] opcjePrzedzial = {"5", "10", "15", "20"};
     private Integer tabIndex =1;
-    private Object StageController = new Object();
     private Window stage;
 
     @FXML
@@ -187,7 +186,7 @@ public class HelloController {
     public void computeSignals() {
         String signal = rodzajSygnalu.getValue();
         if (signal != null) {
-            Double jumpMoment = null;
+
             try {
                 Signal s = null;
                 double amplitude = Double.parseDouble(amplitudaF.getText());
@@ -233,7 +232,7 @@ public class HelloController {
                     s = new TriangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
                 }
                 if (signal.equals("skok jednostkowy")) {
-                    jumpMoment = Double.parseDouble(czasSkokuF.getText());
+                    double jumpMoment = Double.parseDouble(czasSkokuF.getText());
                     s = new UnitStep(rangeStart, rangeLength, amplitude, jumpMoment);
                 }
                 if (signal.equals("impuls jednostkowy")) {
@@ -259,7 +258,6 @@ public class HelloController {
         }
     }
     public void saveChart() {
-
         try {
             if (signals.get(tabIndex) != null) {
                 signalFileReader = new FileReader<>(new FileChooser()
@@ -316,11 +314,11 @@ public class HelloController {
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Czas");
         yAxis.setLabel("Wartość");
-        String przedzial = przedzialHistogramu.getValue();
-        int przedzialInt = Integer.parseInt(przedzial);
+        String przedzial = przedzialHistogramu.getValue(); //konflikt
+        int przedzialInt = Integer.parseInt(przedzial); //konflikt
 
         Parent chart;
-        String title = rodzajSygnalu.getValue();
+        String title = signal.getName();
 
         if (title == "szum impulsowy" || title == "impuls jednostkowy") {
             ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
