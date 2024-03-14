@@ -26,7 +26,6 @@ public class HelloController {
     @FXML
     private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, czasSkokuF, czestoscProbkowaniaF,numerProbkiSkokuF,prawdopodobienstwoF;
 
-    private boolean isChartGenerated = false;
     private Map<Integer, Signal> signals = new HashMap<>();
     private FileReader<Signal> signalFileReader;
 
@@ -187,7 +186,7 @@ public class HelloController {
                 }
                 if (signal.equals("sygnał sinusoidalny")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
-                    s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term,sampleRate);
+                    s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term, sampleRate);
                 }
                 if (signal.equals("sygnał prostokątny")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
@@ -283,88 +282,7 @@ public class HelloController {
         }
     }
 
-    public void calculateSignal(Signal signal) {
-        if (przedzialHistogramu.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Błąd");
-            alert.setHeaderText(null);
-            alert.setContentText("Nie został wybrany przedział histogramu.");
-            alert.showAndWait();
-            return;
-        }
 
-        signal.generate();
-        skutecznaWynik.setText("" + signal.rmsValue());
-        sredniaBezwWynik.setText("" + signal.absMeanValue());
-        mocSredniaWynik.setText("" + signal.meanPowerValue());
-        wartoscSredniaWynik.setText("" + signal.meanValue());
-        wariancjaWynik.setText("" + signal.varianceValue());
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Czas");
-        yAxis.setLabel("Wartość");
-        String przedzial = przedzialHistogramu.getValue();
-        int przedzialInt = Integer.parseInt(przedzial);
-
-        Parent chart;
-        String title = signal.getName();
-
-        if (title.equals("szum impulsowy") || title.equals("impuls jednostkowy")) {
-            ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
-            scatterChart.setTitle(title);
-
-            XYChart.Series series = new XYChart.Series();
-            List<Data> selectedData = selectDataPoints(signal.getData(), 1000);
-            for (Data data : selectedData) {
-                series.getData().add(new XYChart.Data(data.getX(), data.getY()));
-            }
-            scatterChart.getData().add(series);
-            scatterChart.setAnimated(false);
-            scatterChart.setLegendVisible(false);
-
-            chart = scatterChart;
-        } else {
-            LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-            lineChart.setTitle(title);
-
-            XYChart.Series series = new XYChart.Series();
-            List<Data> selectedData = selectDataPoints(signal.getData(), 1000);
-            for (Data data : selectedData) {
-                series.getData().add(new XYChart.Data(data.getX(), data.getY()));
-            }
-            lineChart.getData().add(series);
-            lineChart.setAnimated(false);
-            lineChart.setCreateSymbols(false);
-
-            chart = lineChart;
-        }
-        List<Range> histogram = signal.generateHistogram(przedzialInt);
-        CategoryAxis barXAxis = new CategoryAxis();
-        NumberAxis barYAxis = new NumberAxis();
-        BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
-        barChart.setTitle("Histogram");
-        XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
-        for (Range range : histogram) {
-            barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
-        }
-        barChart.getData().add(barSeries);
-        VBox vbox = new VBox(chart, barChart);
-        Scene scene = new Scene(vbox, 800, 600);
-        signals.put(tabIndex, signal);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
-    private List<Data> selectDataPoints(List<Data> allData, int maxPoints) {
-        List<Data> selectedData = new ArrayList<>();
-        int step = Math.max(1, allData.size() / maxPoints);
-        for (int i = 0; i < allData.size(); i += step) {
-            selectedData.add(allData.get(i));
-        }
-        return selectedData;
-    }
 
 public void loadSignalForOperation()
     {
@@ -406,37 +324,110 @@ public void performOperations(){
     }
 }
 
-private void calculateOperationResult(Signal result) {
-    if (przedzialHistogramu.getValue() == null) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Błąd");
-        alert.setHeaderText(null);
-        alert.setContentText("Nie został wybrany przedział histogramu.");
-        alert.showAndWait();
-        return;
+    public void calculateSignal(Signal signal) {
+        if (przedzialHistogramu.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd");
+            alert.setHeaderText(null);
+            alert.setContentText("Nie został wybrany przedział histogramu.");
+            alert.showAndWait();
+            return;
+        }
+
+        signal.generate();
+        skutecznaWynik.setText("" + signal.rmsValue());
+        sredniaBezwWynik.setText("" + signal.absMeanValue());
+        mocSredniaWynik.setText("" + signal.meanPowerValue());
+        wartoscSredniaWynik.setText("" + signal.meanValue());
+        wariancjaWynik.setText("" + signal.varianceValue());
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Czas");
+        yAxis.setLabel("Wartość");
+        String przedzial = przedzialHistogramu.getValue();
+        int przedzialInt = Integer.parseInt(przedzial);
+
+        Parent chart;
+        String title = signal.getName();
+
+        if (title.equals("szum impulsowy") || title.equals("impuls jednostkowy")) {
+            ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+            scatterChart.setTitle(title);
+
+            XYChart.Series series = new XYChart.Series();
+            List<Data> data = signal.getData();
+            for (Data point : data) {
+                series.getData().add(new XYChart.Data(point.getX(), point.getY()));
+            }
+            scatterChart.getData().add(series);
+            scatterChart.setAnimated(false);
+            scatterChart.setLegendVisible(false);
+
+            chart = scatterChart;
+        } else {
+            LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+            lineChart.setTitle(title);
+
+            XYChart.Series series = new XYChart.Series();
+            List<Data> data = signal.getData();
+            for (Data point : data) {
+                series.getData().add(new XYChart.Data(point.getX(), point.getY()));
+            }
+            lineChart.getData().add(series);
+            lineChart.setAnimated(false);
+            lineChart.setCreateSymbols(false);
+
+            chart = lineChart;
+        }
+        List<Range> histogram = signal.generateHistogram(przedzialInt);
+        CategoryAxis barXAxis = new CategoryAxis();
+        NumberAxis barYAxis = new NumberAxis();
+        BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
+        barChart.setTitle("Histogram");
+        XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+        for (Range range : histogram) {
+            barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
+        }
+        barChart.getData().add(barSeries);
+        VBox vbox = new VBox(chart, barChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        signals.put(tabIndex, signal);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
-    result.generate();
-    skutecznaWynik.setText("" + result.rmsValue());
-    sredniaBezwWynik.setText("" + result.absMeanValue());
-    mocSredniaWynik.setText("" + result.meanPowerValue());
-    wartoscSredniaWynik.setText("" + result.meanValue());
-    wariancjaWynik.setText("" + result.varianceValue());
-    NumberAxis xAxis = new NumberAxis();
-    NumberAxis yAxis = new NumberAxis();
-    xAxis.setLabel("Czas");
-    yAxis.setLabel("Wartość");
-    String przedzial = przedzialHistogramu.getValue();
-    int przedzialInt = Integer.parseInt(przedzial);
-    String title = "wykresy po operacji";
-    Parent chart;
+    public void calculateOperationResult(Signal result) {
+        if (przedzialHistogramu.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd");
+            alert.setHeaderText(null);
+            alert.setContentText("Nie został wybrany przedział histogramu.");
+            alert.showAndWait();
+            return;
+        }
+
+        result.generate();
+        skutecznaWynik.setText("" + result.rmsValue());
+        sredniaBezwWynik.setText("" + result.absMeanValue());
+        mocSredniaWynik.setText("" + result.meanPowerValue());
+        wartoscSredniaWynik.setText("" + result.meanValue());
+        wariancjaWynik.setText("" + result.varianceValue());
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Czas");
+        yAxis.setLabel("Wartość");
+        String przedzial = przedzialHistogramu.getValue();
+        int przedzialInt = Integer.parseInt(przedzial);
+        String title = "wykresy po operacji";
+        Parent chart;
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle(title);
 
         XYChart.Series series = new XYChart.Series();
-        List<Data> selectedData = selectDataPoints(result.getData(), 1000);
-        for (Data data : selectedData) {
-            series.getData().add(new XYChart.Data(data.getX(), data.getY()));
+        List<Data> data = result.getData();
+        for (Data point : data) {
+            series.getData().add(new XYChart.Data(point.getX(), point.getY()));
         }
         lineChart.getData().add(series);
         lineChart.setAnimated(false);
@@ -444,23 +435,23 @@ private void calculateOperationResult(Signal result) {
 
         chart = lineChart;
 
-    List<Range> histogram = result.generateHistogram(przedzialInt);
-    CategoryAxis barXAxis = new CategoryAxis();
-    NumberAxis barYAxis = new NumberAxis();
-    BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
-    barChart.setTitle("Histogram");
-    XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
-    for (Range range : histogram) {
-        barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
+        List<Range> histogram = result.generateHistogram(przedzialInt);
+        CategoryAxis barXAxis = new CategoryAxis();
+        NumberAxis barYAxis = new NumberAxis();
+        BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
+        barChart.setTitle("Histogram");
+        XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+        for (Range range : histogram) {
+            barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
+        }
+        barChart.getData().add(barSeries);
+        VBox vbox = new VBox(chart, barChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        signals.put(tabIndex, result);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
-    barChart.getData().add(barSeries);
-    VBox vbox = new VBox(chart, barChart);
-    Scene scene = new Scene(vbox, 800, 600);
-    signals.put(tabIndex, result);
-    Stage stage = new Stage();
-    stage.setScene(scene);
-    stage.show();
 
-}
 
 }
