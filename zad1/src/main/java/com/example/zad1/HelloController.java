@@ -24,14 +24,11 @@ public class HelloController {
     @FXML
     private ChoiceBox<String> rodzajSygnalu,wybierzOperacje, przedzialHistogramu;
     @FXML
-    private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, okresF, czasSkokuF, czestoscProbkowaniaF,numerProbkiSkokuF,prawdopodobienstwoF;
+    private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, czasSkokuF, czestoscProbkowaniaF,numerProbkiSkokuF,prawdopodobienstwoF;
 
     private boolean isChartGenerated = false;
     private Map<Integer, Signal> signals = new HashMap<>();
     private FileReader<Signal> signalFileReader;
-
-    @FXML
-    private Button wczytajWykres,zapiszWykres;
 
     @FXML
     private Text skutecznaWynik,sredniaBezwWynik,wariancjaWynik,wartoscSredniaWynik,mocSredniaWynik;
@@ -59,14 +56,6 @@ public class HelloController {
         checkSignal();
     }
 
-
-    private boolean isChartGenerated() {
-        return isChartGenerated;
-    }
-
-    private void setChartGenerated(boolean generated) {
-        this.isChartGenerated = generated;
-    }
     void checkSignal() {
         String signal = rodzajSygnalu.getValue();
         if (signal != null) {
@@ -186,7 +175,6 @@ public class HelloController {
     public void computeSignals() {
         String signal = rodzajSygnalu.getValue();
         if (signal != null) {
-
             try {
                 Signal s = null;
                 double amplitude = Double.parseDouble(amplitudaF.getText());
@@ -253,7 +241,6 @@ public class HelloController {
                 alert.setHeaderText(null);
                 alert.setContentText("Błędne dane. Upewnij się, że wszystkie pola zawierają poprawne wartości liczbowe.");
                 alert.showAndWait();
-
             }
         }
     }
@@ -263,7 +250,6 @@ public class HelloController {
                 signalFileReader = new FileReader<>(new FileChooser()
                         .showSaveDialog(stage)
                         .getName());
-
                 signalFileReader.write(signals.get(tabIndex));
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -282,16 +268,12 @@ public class HelloController {
         }
     }
     public void loadChart() {
-
         try {
             signalFileReader = new FileReader<>(new FileChooser()
                     .showSaveDialog(stage)
                     .getName());
-
             signals.put(tabIndex, signalFileReader.read());
             calculateSignal(signals.get(tabIndex));
-
-
         } catch (NullPointerException | FileOperationException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -309,7 +291,6 @@ public class HelloController {
         mocSredniaWynik.setText("" + signal.meanPowerValue());
         wartoscSredniaWynik.setText("" + signal.meanValue());
         wariancjaWynik.setText("" + signal.varianceValue());
-
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Czas");
@@ -349,7 +330,6 @@ public class HelloController {
 
             chart = lineChart;
         }
-
         List<Range> histogram = signal.generateHistogram(przedzialInt);
         CategoryAxis barXAxis = new CategoryAxis();
         NumberAxis barYAxis = new NumberAxis();
@@ -360,17 +340,13 @@ public class HelloController {
             barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
         }
         barChart.getData().add(barSeries);
-
         VBox vbox = new VBox(chart, barChart);
-
         Scene scene = new Scene(vbox, 800, 600);
         signals.put(tabIndex, signal);
-
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
     }
-
 
     private List<Data> selectDataPoints(List<Data> allData, int maxPoints) {
         List<Data> selectedData = new ArrayList<>();
