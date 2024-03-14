@@ -4,16 +4,19 @@ public class SinusoidalSignal extends ContinuousSignal {
 
     private final double amplitude;
     private final double term;
+    private final double sampleRate;
 
-    public SinusoidalSignal(double rangeStart, double rangeLength, double amplitude, double term) {
-        super(rangeStart, rangeLength);
+    public SinusoidalSignal(double rangeStart, double rangeLength, double amplitude, double term, double sampleRate) {
+        super(rangeStart, rangeLength,sampleRate);
         this.amplitude = amplitude;
         this.term = term;
+        this.sampleRate = sampleRate;
     }
 
     @Override
     protected double value(double t) {
-        return amplitude * Math.sin((2.0 * Math.PI / term) * (t - rangeStart));
+        // Uwzględnienie częstotliwości próbkowania w obliczeniach
+        return amplitude * Math.sin((2.0 * Math.PI / term) * (t - rangeStart) * sampleRate);
     }
 
     @Override
@@ -21,4 +24,3 @@ public class SinusoidalSignal extends ContinuousSignal {
         return "sygnał sinusoidalny";
     }
 }
-

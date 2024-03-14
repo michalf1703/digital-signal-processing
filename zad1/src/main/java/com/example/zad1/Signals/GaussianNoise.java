@@ -7,8 +7,8 @@ public class GaussianNoise extends ContinuousSignal {
     private final double amplitude;
     private final Random rand;
 
-    public GaussianNoise(double rangeStart, double rangeLength, double amplitude) {
-        super(rangeStart, rangeLength);
+    public GaussianNoise(double rangeStart, double rangeLength, double amplitude, double sampleRate) {
+        super(rangeStart, rangeLength, sampleRate);
         this.amplitude = amplitude;
         this.rand = new Random();
     }

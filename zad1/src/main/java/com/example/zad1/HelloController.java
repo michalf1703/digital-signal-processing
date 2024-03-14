@@ -66,7 +66,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(true);
                 wspolczynnikWypelnieniaF.setDisable(true);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("szum gaussowski")) {
@@ -76,7 +76,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(true);
                 wspolczynnikWypelnieniaF.setDisable(true);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("sygnał sinusoidalny")) {
@@ -86,7 +86,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(false);
                 wspolczynnikWypelnieniaF.setDisable(true);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("sygnał sinusoidalny wyprostowany jednopołówkowo")) {
@@ -96,7 +96,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(false);
                 wspolczynnikWypelnieniaF.setDisable(true);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("sygnał sinusoidalny wyprostowany dwupołówkowo")) {
@@ -106,7 +106,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(false);
                 wspolczynnikWypelnieniaF.setDisable(true);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("sygnał prostokątny")) {
@@ -116,7 +116,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(false);
                 wspolczynnikWypelnieniaF.setDisable(false);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("sygnał prostokątny symetryczny")) {
@@ -126,7 +126,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(false);
                 wspolczynnikWypelnieniaF.setDisable(false);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("sygnał trójkątny")) {
@@ -136,7 +136,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(false);
                 wspolczynnikWypelnieniaF.setDisable(false);
                 czasSkokuF.setDisable(true);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("skok jednostkowy")) {
@@ -146,7 +146,7 @@ public class HelloController {
                 okresPodstawowyF.setDisable(true);
                 wspolczynnikWypelnieniaF.setDisable(true);
                 czasSkokuF.setDisable(false);
-                czestoscProbkowaniaF.setDisable(true);
+                czestoscProbkowaniaF.setDisable(false);
                 numerProbkiSkokuF.setDisable(true);
                 prawdopodobienstwoF.setDisable(true);
             } else if (signal.equals("impuls jednostkowy")) {
@@ -180,58 +180,57 @@ public class HelloController {
                 double amplitude = Double.parseDouble(amplitudaF.getText());
                 double rangeStart = Double.parseDouble(poczatkowyF.getText());
                 double rangeLength = Double.parseDouble(czasTrwaniaF.getText());
+                double sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
 
                 if (signal.equals("szum o rozkładzie jednostajnym")) {
-                    s = new UniformNoise(rangeStart, rangeLength, amplitude);
+                    s = new UniformNoise(rangeStart, rangeLength, amplitude, sampleRate);
                 }
                 if (signal.equals("sygnał sinusoidalny")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
-                    s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term);
+                    s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term,sampleRate);
                 }
                 if (signal.equals("sygnał prostokątny")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
                     double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
-                    s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
+                    s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment, sampleRate);
                 }
                 if (signal.equals("szum gaussowski")) {
-                    s = new GaussianNoise(rangeStart, rangeLength, amplitude);
+                    s = new GaussianNoise(rangeStart, rangeLength, amplitude,sampleRate);
                 }
                 if (signal.equals("sygnał sinusoidalny wyprostowany jednopołówkowo")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
-                    s = new HalfwaveRectifiedSinusoidalSignal(rangeStart, rangeLength, amplitude,term);
+                    s = new HalfwaveRectifiedSinusoidalSignal(rangeStart, rangeLength, amplitude,term, sampleRate);
                 }
                 if (signal.equals("sygnał sinusoidalny wyprostowany dwupołówkowo")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
-                    s = new FullwaveRectifiedSinusoidalSignal(rangeStart, rangeLength,amplitude, term);
+                    s = new FullwaveRectifiedSinusoidalSignal(rangeStart, rangeLength,amplitude, term, sampleRate);
                 }
                 if (signal.equals("sygnał prostokątny")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
                     double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
-                    s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
+                    s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment, sampleRate);
                 }
                 if (signal.equals("sygnał prostokątny symetryczny")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
                     double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
-                    s = new SymmetricRectangularSignal(rangeStart, rangeLength,amplitude, term, fulfillment);
+                    s = new SymmetricRectangularSignal(rangeStart, rangeLength,amplitude, term, fulfillment, sampleRate);
                 }
                 if (signal.equals("sygnał trójkątny")) {
                     double term = Double.parseDouble(okresPodstawowyF.getText());
                     double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
-                    s = new TriangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment);
+                    s = new TriangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment, sampleRate);
                 }
                 if (signal.equals("skok jednostkowy")) {
                     double jumpMoment = Double.parseDouble(czasSkokuF.getText());
-                    s = new UnitStep(rangeStart, rangeLength, amplitude, jumpMoment);
+                    s = new UnitStep(rangeStart, rangeLength, amplitude, jumpMoment, sampleRate);
                 }
                 if (signal.equals("impuls jednostkowy")) {
 
                     int jumpSampleNumber = Integer.parseInt(numerProbkiSkokuF.getText());
-                    double sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
                     s = new UnitImpulse(rangeStart, rangeLength,sampleRate, amplitude, jumpSampleNumber);
                 }
                 if (signal.equals("szum impulsowy")) {
                     double probability = Double.parseDouble(prawdopodobienstwoF.getText());
-                    double sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
                     s = new ImpulseNoise(rangeStart, rangeLength, sampleRate, amplitude, probability);
                 }
                 calculateSignal(s);

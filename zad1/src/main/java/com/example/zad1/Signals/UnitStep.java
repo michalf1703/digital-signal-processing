@@ -5,8 +5,8 @@ public class UnitStep extends ContinuousSignal{
     private final double jumpPosition;
 
     public UnitStep(double rangeStart, double rangeLength, double amplitude,
-                          double jumpPosition) {
-        super(rangeStart, rangeLength);
+                          double jumpPosition, double sampleRate) {
+        super(rangeStart, rangeLength, sampleRate);
         this.amplitude = amplitude;
         this.jumpPosition = jumpPosition;
     }

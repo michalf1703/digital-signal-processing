@@ -59,7 +59,7 @@
             <Text layoutX="379.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Moc średnia sygnału: " />
             <Text layoutX="9.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Czas skoku" />
             <TextField fx:id="czasSkokuF" layoutX="172.0" layoutY="251.0" />
-            <Text layoutX="10.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Częstość próbkowania" wrappingWidth="163.78363037109375" />
+            <Text layoutX="10.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Częstotliwość próbkowania" wrappingWidth="163.78363037109375" />
             <TextField fx:id="czestoscProbkowaniaF" layoutX="172.0" layoutY="279.0" />
             <Text layoutX="10.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer próbki skoku" wrappingWidth="163.78363037109375" />
             <TextField fx:id="numerProbkiSkokuF" layoutX="172.0" layoutY="308.0" />
