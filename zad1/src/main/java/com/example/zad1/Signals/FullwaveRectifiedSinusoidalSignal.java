@@ -5,8 +5,8 @@ public class FullwaveRectifiedSinusoidalSignal extends ContinuousSignal {
     private final double term;
 
     public FullwaveRectifiedSinusoidalSignal(double rangeStart, double rangeLength,
-                                            double amplitude, double term) {
-        super(rangeStart, rangeLength);
+                                            double amplitude, double term, double sampleRate) {
+        super(rangeStart, rangeLength,sampleRate);
         this.amplitude = amplitude;
         this.term = term;
     }

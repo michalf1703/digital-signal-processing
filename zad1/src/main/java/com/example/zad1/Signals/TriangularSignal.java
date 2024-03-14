@@ -7,8 +7,8 @@ public class TriangularSignal extends ContinuousSignal {
     private final double fulfillment;
 
     public TriangularSignal(double rangeStart, double rangeLength,
-                            double amplitude, double term, double fulfillment) {
-        super(rangeStart, rangeLength);
+                            double amplitude, double term, double fulfillment, double sampleRate) {
+        super(rangeStart, rangeLength, sampleRate);
         this.amplitude = amplitude;
         this.term = term;
         this.fulfillment = fulfillment;
