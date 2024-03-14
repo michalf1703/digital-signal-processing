@@ -78,4 +78,5 @@ public abstract class Signal implements Serializable {
     }
 
     public abstract void generate();
+    public abstract String getName();
 }

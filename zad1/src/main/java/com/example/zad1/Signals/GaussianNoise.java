@@ -17,4 +17,9 @@ public class GaussianNoise extends ContinuousSignal {
     protected double value(double t) {
         return (rand.nextGaussian() * 2.0 - 1.0) * amplitude;
     }
+
+    @Override
+    public String getName() {
+        return "szum gaussowski";
+    }
 }

@@ -22,4 +22,9 @@ public class SymmetricRectangularSignal extends ContinuousSignal {
             return -amplitude;
         }
     }
+
+    @Override
+    public String getName() {
+        return "sygnał prostokątny symetryczny";
+    }
 }

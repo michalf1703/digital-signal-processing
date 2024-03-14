@@ -21,4 +21,9 @@ public class UnitStep extends ContinuousSignal{
             return 0.0;
         }
     }
+
+    @Override
+    public String getName() {
+        return "skok jednostkowy";
+    }
 }

@@ -39,8 +39,8 @@
             </Text>
             <ChoiceBox fx:id="wybierzOperacje" layoutX="366.0" layoutY="295.0" prefWidth="150.0" />
             <Button fx:id="generujWykresy" layoutX="376.0" layoutY="37.0" mnemonicParsing="false" onAction="#computeSignals" text="Generuj wykresy" />
-            <Button fx:id="wczytajWykres" layoutX="486.0" layoutY="37.0" mnemonicParsing="false" text="Wczytaj wykres" />
-            <Button fx:id="zapiszWykres" layoutX="592.0" layoutY="37.0" mnemonicParsing="false" text="Zapisz wykres" />
+            <Button fx:id="wczytajWykres" layoutX="486.0" layoutY="37.0" mnemonicParsing="false" onAction="#loadChart" text="Wczytaj wykres" />
+            <Button fx:id="zapiszWykres" layoutX="592.0" layoutY="37.0" mnemonicParsing="false" onAction="#saveChart" text="Zapisz wykres" />
             <Text layoutX="204.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Przedział histogramu">
                <font>
                   <Font name="System Bold" size="13.0" />

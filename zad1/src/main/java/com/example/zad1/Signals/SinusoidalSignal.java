@@ -15,5 +15,10 @@ public class SinusoidalSignal extends ContinuousSignal {
     protected double value(double t) {
         return amplitude * Math.sin((2.0 * Math.PI / term) * (t - rangeStart));
     }
+
+    @Override
+    public String getName() {
+        return "sygnał sinusoidalny";
+    }
 }
 
