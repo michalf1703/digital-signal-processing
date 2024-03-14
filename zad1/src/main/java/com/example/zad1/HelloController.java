@@ -285,6 +285,15 @@ public class HelloController {
     }
 
     public void calculateSignal(Signal signal) {
+        if (przedzialHistogramu.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd");
+            alert.setHeaderText(null);
+            alert.setContentText("Nie został wybrany przedział histogramu.");
+            alert.showAndWait();
+            return;
+        }
+
         signal.generate();
         skutecznaWynik.setText("" + signal.rmsValue());
         sredniaBezwWynik.setText("" + signal.absMeanValue());
@@ -295,13 +304,13 @@ public class HelloController {
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Czas");
         yAxis.setLabel("Wartość");
-        String przedzial = przedzialHistogramu.getValue(); //konflikt
-        int przedzialInt = Integer.parseInt(przedzial); //konflikt
+        String przedzial = przedzialHistogramu.getValue();
+        int przedzialInt = Integer.parseInt(przedzial);
 
         Parent chart;
         String title = signal.getName();
 
-        if (title == "szum impulsowy" || title == "impuls jednostkowy") {
+        if (title.equals("szum impulsowy") || title.equals("impuls jednostkowy")) {
             ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
             scatterChart.setTitle(title);
 
@@ -348,6 +357,7 @@ public class HelloController {
         stage.show();
     }
 
+
     private List<Data> selectDataPoints(List<Data> allData, int maxPoints) {
         List<Data> selectedData = new ArrayList<>();
         int step = Math.max(1, allData.size() / maxPoints);
@@ -357,7 +367,101 @@ public class HelloController {
         return selectedData;
     }
 
+public void loadSignalForOperation()
+    {
+        try {
+            signalFileReader = new FileReader<>(new FileChooser()
+                    .showSaveDialog(stage)
+                    .getName());
+            signals.put(tabIndex, signalFileReader.read());
+        } catch (NullPointerException | FileOperationException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd");
+            alert.setHeaderText(null);
+            alert.setContentText("Sie nie załadowalo.");
+            alert.showAndWait();
+        }
+        tabIndex++;
+    }
 
+public void performOperations(){
+    String operation = wybierzOperacje.getValue();
+    if (operation != null) {
+            Signal s1 = signals.get(1);
+            Signal s2 = signals.get(2);
+            Signal result = null;
+            if (operation.equals("dodawanie")) {
+                result = new OperationSignal(s1, s2, (a, b) -> a + b);
+            }
+            if (operation.equals("odejmowanie")) {
+                result = new OperationSignal(s1, s2, (a, b) -> a - b);
+            }
+            if (operation.equals("mnożenie")) {
+                result = new OperationSignal(s1, s2, (a, b) -> a * b);
+            }
+            if (operation.equals("dzielenie")) {
+                result = new OperationSignal(s1, s2, (a, b) -> a / b);
+            }
+            calculateOperationResult(result);
+    }
+}
 
+private void calculateOperationResult(Signal result) {
+    if (przedzialHistogramu.getValue() == null) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText(null);
+        alert.setContentText("Nie został wybrany przedział histogramu.");
+        alert.showAndWait();
+        return;
+    }
+
+    result.generate();
+    skutecznaWynik.setText("" + result.rmsValue());
+    sredniaBezwWynik.setText("" + result.absMeanValue());
+    mocSredniaWynik.setText("" + result.meanPowerValue());
+    wartoscSredniaWynik.setText("" + result.meanValue());
+    wariancjaWynik.setText("" + result.varianceValue());
+    NumberAxis xAxis = new NumberAxis();
+    NumberAxis yAxis = new NumberAxis();
+    xAxis.setLabel("Czas");
+    yAxis.setLabel("Wartość");
+    String przedzial = przedzialHistogramu.getValue();
+    int przedzialInt = Integer.parseInt(przedzial);
+    String title = "wykresy po operacji";
+    Parent chart;
+        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setTitle(title);
+
+        XYChart.Series series = new XYChart.Series();
+        List<Data> selectedData = selectDataPoints(result.getData(), 1000);
+        for (Data data : selectedData) {
+            series.getData().add(new XYChart.Data(data.getX(), data.getY()));
+        }
+        lineChart.getData().add(series);
+        lineChart.setAnimated(false);
+        lineChart.setCreateSymbols(false);
+
+        chart = lineChart;
+
+    List<Range> histogram = result.generateHistogram(przedzialInt);
+    CategoryAxis barXAxis = new CategoryAxis();
+    NumberAxis barYAxis = new NumberAxis();
+    BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
+    barChart.setTitle("Histogram");
+    XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+    for (Range range : histogram) {
+        barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
+    }
+    barChart.getData().add(barSeries);
+    VBox vbox = new VBox(chart, barChart);
+    Scene scene = new Scene(vbox, 800, 600);
+    signals.put(tabIndex, result);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.show();
+
+}
 
 }
