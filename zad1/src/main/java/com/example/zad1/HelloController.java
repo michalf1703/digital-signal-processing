@@ -10,10 +10,15 @@ import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HelloController {
     @FXML
@@ -22,6 +27,8 @@ public class HelloController {
     private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, okresF, czasSkokuF, czestoscProbkowaniaF,numerProbkiSkokuF,prawdopodobienstwoF;
 
     private boolean isChartGenerated = false;
+    private Map<Integer, Signal> signals = new HashMap<>();
+    private FileReader<Signal> signalFileReader;
 
     @FXML
     private Button wczytajWykres,zapiszWykres;
@@ -38,6 +45,9 @@ public class HelloController {
 
     private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie"};
     private String[] opcjePrzedzial = {"5", "10", "15", "20"};
+    private Integer tabIndex =1;
+    private Object StageController = new Object();
+    private Window stage;
 
     @FXML
     protected void initialize() {
@@ -239,11 +249,60 @@ public class HelloController {
                 }
                 calculateSignal(s);
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Błąd");
+                alert.setHeaderText(null);
+                alert.setContentText("Błędne dane. Upewnij się, że wszystkie pola zawierają poprawne wartości liczbowe.");
+                alert.showAndWait();
+
             }
         }
     }
+    public void saveChart() {
 
+        try {
+            if (signals.get(tabIndex) != null) {
+                signalFileReader = new FileReader<>(new FileChooser()
+                        .showSaveDialog(stage)
+                        .getName());
+
+                signalFileReader.write(signals.get(tabIndex));
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Błąd");
+                alert.setHeaderText(null);
+                alert.setContentText("Sie nie zapisalo.");
+                alert.showAndWait();
+            }
+        } catch (NullPointerException | FileOperationException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd");
+            alert.setHeaderText(null);
+            alert.setContentText("Sie nie zapisalo.");
+            alert.showAndWait();
+        }
+    }
+    public void loadChart() {
+
+        try {
+            signalFileReader = new FileReader<>(new FileChooser()
+                    .showSaveDialog(stage)
+                    .getName());
+
+            signals.put(tabIndex, signalFileReader.read());
+            calculateSignal(signals.get(tabIndex));
+
+
+        } catch (NullPointerException | FileOperationException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd");
+            alert.setHeaderText(null);
+            alert.setContentText("Sie nie załadowalo.");
+            alert.showAndWait();
+        }
+    }
 
     public void calculateSignal(Signal signal) {
         signal.generate();
@@ -307,6 +366,7 @@ public class HelloController {
         VBox vbox = new VBox(chart, barChart);
 
         Scene scene = new Scene(vbox, 800, 600);
+        signals.put(tabIndex, signal);
 
         Stage stage = new Stage();
         stage.setScene(scene);
