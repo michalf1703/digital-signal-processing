@@ -16,7 +16,11 @@ public class RectangularSignal extends ContinuousSignal {
 
     @Override
     protected double value(double t) {
-        if (((t - rangeStart) / term) - Math.floor((t - rangeStart) / term) < fulfillment) {
+        double k = Math.floor((t - rangeStart) / term);
+        double startTime = k * term + rangeStart;
+        double endTime = startTime + fulfillment * term;
+
+        if (t >= startTime && t <= endTime) {
             return amplitude;
         } else {
             return 0.0;

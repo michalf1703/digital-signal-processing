@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
@@ -357,14 +359,19 @@ public void performOperations(){
             XYChart.Series series = new XYChart.Series();
             List<Data> data = signal.getData();
             for (Data point : data) {
-                series.getData().add(new XYChart.Data(point.getX(), point.getY()));
+                XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
+                Circle circle = new Circle(3);
+                circle.setFill(Color.ORANGE);
+                dataPoint.setNode(circle);
+                series.getData().add(dataPoint);
             }
             scatterChart.getData().add(series);
             scatterChart.setAnimated(false);
             scatterChart.setLegendVisible(false);
 
             chart = scatterChart;
-        } else {
+        }
+else {
             LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
             lineChart.setTitle(title);
 
