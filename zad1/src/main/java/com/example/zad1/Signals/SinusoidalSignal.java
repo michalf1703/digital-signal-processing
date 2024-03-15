@@ -15,7 +15,6 @@ public class SinusoidalSignal extends ContinuousSignal {
 
     @Override
     protected double value(double t) {
-        // Uwzględnienie częstotliwości próbkowania w obliczeniach
         return amplitude * Math.sin((2.0 * Math.PI / term) * (t - rangeStart) * sampleRate);
     }
 
