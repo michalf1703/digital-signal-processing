@@ -23,6 +23,6 @@ public class UnitImpulse extends DiscreteSignal {
 
     @Override
     public String getName() {
-        return "sygnał jednostkowy";
+        return "impuls jednostkowy";
     }
 }

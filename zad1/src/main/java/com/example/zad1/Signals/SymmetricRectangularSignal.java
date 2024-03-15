@@ -16,13 +16,16 @@ public class SymmetricRectangularSignal extends ContinuousSignal {
 
     @Override
     protected double value(double t) {
-        if (((t - rangeStart) / term) - Math.floor((t - rangeStart) / term) < fulfillment) {
+        double periodOffset = (t - rangeStart) / term;
+        double k = Math.floor(periodOffset);
+        double kTPlusT1 = k * term + rangeStart;
+
+        if (t >= kTPlusT1 && t <= kTPlusT1 + fulfillment) {
             return amplitude;
         } else {
             return -amplitude;
         }
     }
-
     @Override
     public String getName() {
         return "sygnał prostokątny symetryczny";
