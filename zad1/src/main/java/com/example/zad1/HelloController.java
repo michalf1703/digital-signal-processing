@@ -305,6 +305,14 @@ public void loadSignalForOperation()
     }
 
 public void performOperations(){
+    if (!haveSameSampleRate()) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText(null);
+        alert.setContentText("Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+        alert.showAndWait();
+        return;
+    }
     String operation = wybierzOperacje.getValue();
     if (operation != null) {
             Signal s1 = signals.get(1);
@@ -459,6 +467,20 @@ else {
         stage.setScene(scene);
         stage.show();
     }
+    private boolean haveSameSampleRate() {
+        if (signals.size() < 2) {
+            return true; // Jeśli jest tylko jeden sygnał, to zawsze mają tę samą częstotliwość próbkowania
+        }
+
+        double sampleRate = signals.get(1).getSampleRate(); // Pobierz częstotliwość próbkowania pierwszego sygnału
+        for (Signal signal : signals.values()) {
+            if (signal.getSampleRate() != sampleRate) {
+                return false; // Jeśli znaleziono sygnał z inną częstotliwością próbkowania, zwróć false
+            }
+        }
+        return true; // Jeśli wszystkie sygnały mają tę samą częstotliwość próbkowania, zwróć true
+    }
+
 
 
 }

@@ -27,6 +27,10 @@ public class SymmetricRectangularSignal extends ContinuousSignal {
         }
     }
     @Override
+    public double getSampleRate() {
+        return this.sampleRate;
+    }
+    @Override
     public String getName() {
         return "sygnał prostokątny symetryczny";
     }

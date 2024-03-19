@@ -28,6 +28,12 @@ public class GaussianNoise extends ContinuousSignal {
         double gaussianValue = u * multiplier;
         return mean + standardDeviation * gaussianValue;
     }
+
+    @Override
+    public double getSampleRate() {
+        return this.sampleRate;
+    }
+
     @Override
     public String getName() {
         return "szum gaussowski";

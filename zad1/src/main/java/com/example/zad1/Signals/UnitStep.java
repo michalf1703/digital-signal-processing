@@ -21,7 +21,10 @@ public class UnitStep extends ContinuousSignal{
             return 0.0;
         }
     }
-
+    @Override
+    public double getSampleRate() {
+        return this.sampleRate;
+    }
     @Override
     public String getName() {
         return "skok jednostkowy";
