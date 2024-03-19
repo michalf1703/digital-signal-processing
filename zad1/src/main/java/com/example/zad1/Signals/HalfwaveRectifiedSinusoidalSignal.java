@@ -17,7 +17,10 @@ public class HalfwaveRectifiedSinusoidalSignal extends ContinuousSignal {
                 * (Math.sin((2.0 * Math.PI / term) * (t - rangeStart))
                 + Math.abs(Math.sin((2.0 * Math.PI / term) * (t - rangeStart))));
     }
-
+    @Override
+    public double getSampleRate() {
+        return this.sampleRate;
+    }
     @Override
     public String getName() {
         return "sygnał sinusoidalny wyprostowany jednopołówkowo";

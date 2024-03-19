@@ -17,7 +17,7 @@ public abstract class Signal implements Serializable {
     public Signal(int length) {
         this.data = new Data[length];
     }
-
+    public abstract double getSampleRate();
 
     public List<Data> getData() {
         return Arrays.asList(data);

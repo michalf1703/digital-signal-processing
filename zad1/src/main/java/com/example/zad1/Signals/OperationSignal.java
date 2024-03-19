@@ -7,6 +7,7 @@ public class OperationSignal extends Signal {
     private Signal s1;
     private Signal s2;
     private Operation operation;
+    private double sampleRate = 0;
 
     public OperationSignal(Signal s1, Signal s2, Operation operation) {
         super(s1.getData().size());
@@ -18,6 +19,10 @@ public class OperationSignal extends Signal {
         this.s1 = s1;
         this.s2 = s2;
         this.operation = operation;
+    }
+    @Override
+    public double getSampleRate() {
+        return this.sampleRate;
     }
 
     @Override
