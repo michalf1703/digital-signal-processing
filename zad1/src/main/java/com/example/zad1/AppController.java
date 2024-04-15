@@ -2,8 +2,6 @@ package com.example.zad1;
 
 import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
-import com.example.zad1.FileOperationException;
-import com.example.zad1.FileReader;
 import com.example.zad1.Signals.*;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,10 +15,10 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
+import javax.swing.JOptionPane;
 import java.util.*;
 
-public class HelloController {
+public class AppController {
     @FXML
     private ChoiceBox<String> rodzajSygnalu, wybierzOperacje, przedzialHistogramu;
     @FXML
@@ -30,6 +28,11 @@ public class HelloController {
 
     private Map<Integer, Signal> signals = new HashMap<>();
     private FileReader<Signal> signalFileReader;
+    @FXML
+    private Text poprawnyOdczyt1;
+
+    @FXML
+    private Text poprawnyOdczyt2;
 
     private String[] opcje = {"szum o rozkładzie jednostajnym", "szum gaussowski", "sygnał sinusoidalny",
             "sygnał sinusoidalny wyprostowany jednopołówkowo", "sygnał sinusoidalny wyprostowany dwupołówkowo",
@@ -204,9 +207,10 @@ public class HelloController {
                     .showOpenDialog(stage)
                     .getName());
             signals.put(tabIndex, signalFileReader.read());
+            JOptionPane.showMessageDialog(null, "Wczytywanie sygnału się powiodło. Sukces!", "Sukces!", JOptionPane.INFORMATION_MESSAGE);
         } catch (NullPointerException | FileOperationException e) {
             e.printStackTrace();
-            showAlert("Błąd", null, "Wczytywanie sygnału się nie powiodło.");
+            showAlert("Błąd!", null, "Wczytywanie sygnału się nie powiodło.");
         }
         tabIndex++;
     }
