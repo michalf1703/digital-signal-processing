@@ -2,20 +2,18 @@ package com.example.zad1.Signals;
 
 import com.example.zad1.Base.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OperationSignal extends Signal {
 
     private Signal s1;
     private Signal s2;
     private Operation operation;
-    private double sampleRate = 0;
+    private double sampleRate = 0.0;
 
     public OperationSignal(Signal s1, Signal s2, Operation operation) {
-        super(s1.getData().size());
-
-        if (s1.getData().size() != s2.getData().size()) {
-            throw new NotSameLengthException();
-        }
-
+        super(s1.getRangeStart(), s1.getRangeLength(), s1.getSampleRate());
         this.s1 = s1;
         this.s2 = s2;
         this.operation = operation;
@@ -26,15 +24,16 @@ public class OperationSignal extends Signal {
     }
 
     @Override
-    public void generate() {
-        s1.generate();
-        s2.generate();
+    public List<Data> generateDiscreteRepresentation() {
+        List<Data> data1 = s1.generateDiscreteRepresentation();
+        List<Data> data2 = s2.generateDiscreteRepresentation();
+        List<Data> resultData = new ArrayList<>();
 
-        for (int i = 0; i < data.length; i++) {
-            data[i] = new Data(s1.getData().get(i).getX(),
-                    operation.operation(s1.getData().get(i).getY(),
-                            s2.getData().get(i).getY()));
+        for (int i = 0; i < data1.size(); i++) {
+            resultData
+                    .add(new Data(data1.get(i).getX(), operation.operation(data1.get(i).getY(), data2.get(i).getY())));
         }
+        return resultData;
     }
 
     @Override
@@ -42,6 +41,6 @@ public class OperationSignal extends Signal {
         return null;
     }
 
-    public class NotSameLengthException extends RuntimeException {
+    public static class NotSameLengthException extends RuntimeException {
     }
 }

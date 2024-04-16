@@ -12,7 +12,7 @@ public class HalfwaveRectifiedSinusoidalSignal extends ContinuousSignal {
     }
 
     @Override
-    protected double value(double t) {
+    public double value(double t) {
         return 0.5 * amplitude
                 * (Math.sin((2.0 * Math.PI / term) * (t - rangeStart))
                 + Math.abs(Math.sin((2.0 * Math.PI / term) * (t - rangeStart))));

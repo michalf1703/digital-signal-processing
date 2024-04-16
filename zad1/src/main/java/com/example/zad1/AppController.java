@@ -28,16 +28,16 @@ public class AppController {
     @FXML
     private Text bladSrednioResult,czasTransformacjiResult,efektywnaLiczbaBitowResult,maksymalnaRoznicaResult, stosunekSygnalSzumResult, szczytowyStosunekSygnalSzumResult;
     @FXML
-    private ChoiceBox<?> wybierzMetodeRekonstrukcjaChoiceBox;
+    private ChoiceBox<String> wybierzMetodeRekonstrukcjaChoiceBox;
 
     @FXML
-    private ChoiceBox<?> wybierzMetodeKwantyChoiceBox;
+    private ChoiceBox<String> wybierzMetodeKwantyChoiceBox;
     @FXML
     private TextField liczbaPoziomowKwantField;
     @FXML
     private TextField parametrFunkcjiSincField;
     @FXML
-    private ChoiceBox<?> wybierzOperacjeJednoChoiceBox;
+    private ChoiceBox<String> wybierzOperacjeJednoChoiceBox;
     @FXML
     private Button generujPorownanieBotton;
 
@@ -55,6 +55,9 @@ public class AppController {
             "impuls jednostkowy", "szum impulsowy"};
 
     private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie"};
+    private String[] opcjeJedno = {"próbkowanie", "kwantyzacja", "rekonstrukcja sygnału"};
+    private String[] opcjeKwantyzacja = {"kwantyzacja równomierna z obcięciem", "kwantyzacja równomierna z zaokrągleniem"};
+    private String [] opcjeRekonstrukcja = {"ekstrapolacja zerowego rzędu", "interpolacja pierwszego rzędu", "rekonstrukcja metodą sinc"};
     private String[] opcjePrzedzial = {"5", "10", "15", "20"};
     private Integer tabIndex = 1;
     private Window stage;
@@ -63,6 +66,9 @@ public class AppController {
     protected void initialize() {
         rodzajSygnalu.getItems().addAll(opcje);
         wybierzOperacje.getItems().addAll(opcjeOperacje);
+        wybierzOperacjeJednoChoiceBox.getItems().addAll(opcjeJedno);
+        wybierzMetodeKwantyChoiceBox.getItems().addAll(opcjeKwantyzacja);
+        wybierzMetodeRekonstrukcjaChoiceBox.getItems().addAll(opcjeRekonstrukcja);
         przedzialHistogramu.getItems().addAll(opcjePrzedzial);
         rodzajSygnalu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             checkSignal();
@@ -263,13 +269,12 @@ public class AppController {
             showAlert("Błąd", null, "Nie został wybrany przedział histogramu.");
             return;
         }
-
-        signal.generate();
-        skutecznaWynik.setText("" + signal.rmsValue());
-        sredniaBezwWynik.setText("" + signal.absMeanValue());
-        mocSredniaWynik.setText("" + signal.meanPowerValue());
-        wartoscSredniaWynik.setText("" + signal.meanValue());
-        wariancjaWynik.setText("" + signal.varianceValue());
+        List<Data> data = signal.generateDiscreteRepresentation();
+        skutecznaWynik.setText("" + signal.rmsValue(data));
+        sredniaBezwWynik.setText("" + signal.absMeanValue(data));
+        mocSredniaWynik.setText("" + signal.meanPowerValue(data));
+        wartoscSredniaWynik.setText("" + signal.meanValue(data));
+        wariancjaWynik.setText("" + signal.varianceValue(data));
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Czas");
@@ -285,8 +290,8 @@ public class AppController {
             scatterChart.setTitle(title);
 
             XYChart.Series series = new XYChart.Series();
-            List<Data> data = signal.getData();
-            for (Data point : data) {
+            List<Data> data2 = signal.getData();
+            for (Data point : data2) {
                 XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
                 Circle circle = new Circle(3);
                 circle.setFill(Color.ORANGE);
@@ -303,8 +308,8 @@ public class AppController {
             lineChart.setTitle(title);
 
             XYChart.Series series = new XYChart.Series();
-            List<Data> data = signal.getData();
-            for (Data point : data) {
+            List<Data> data3 = signal.getData();
+            for (Data point : data3) {
                 series.getData().add(new XYChart.Data(point.getX(), point.getY()));
             }
             lineChart.getData().add(series);
@@ -313,7 +318,7 @@ public class AppController {
 
             chart = lineChart;
         }
-        List<Range> histogram = signal.generateHistogram(przedzialInt);
+        List<Range> histogram = signal.generateHistogram(przedzialInt, data);
         CategoryAxis barXAxis = new CategoryAxis();
         NumberAxis barYAxis = new NumberAxis();
         BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
@@ -337,12 +342,12 @@ public class AppController {
             return;
         }
 
-        result.generate();
-        skutecznaWynik.setText("" + result.rmsValue());
-        sredniaBezwWynik.setText("" + result.absMeanValue());
-        mocSredniaWynik.setText("" + result.meanPowerValue());
-        wartoscSredniaWynik.setText("" + result.meanValue());
-        wariancjaWynik.setText("" + result.varianceValue());
+        List<Data> data = result.generateDiscreteRepresentation();
+        skutecznaWynik.setText("" + result.rmsValue(data));
+        sredniaBezwWynik.setText("" + result.absMeanValue(data));
+        mocSredniaWynik.setText("" + result.meanPowerValue(data));
+        wartoscSredniaWynik.setText("" + result.meanValue(data));
+        wariancjaWynik.setText("" + result.varianceValue(data));
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Czas");
@@ -355,8 +360,8 @@ public class AppController {
         lineChart.setTitle(title);
 
         XYChart.Series series = new XYChart.Series();
-        List<Data> data = result.getData();
-        for (Data point : data) {
+        List<Data> data2 = result.getData();
+        for (Data point : data2) {
             series.getData().add(new XYChart.Data(point.getX(), point.getY()));
         }
         lineChart.getData().add(series);
@@ -365,7 +370,7 @@ public class AppController {
 
         chart = lineChart;
 
-        List<Range> histogram = result.generateHistogram(przedzialInt);
+        List<Range> histogram = result.generateHistogram(przedzialInt, data);
         CategoryAxis barXAxis = new CategoryAxis();
         NumberAxis barYAxis = new NumberAxis();
         BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);

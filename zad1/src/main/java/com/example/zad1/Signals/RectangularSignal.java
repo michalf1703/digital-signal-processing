@@ -15,7 +15,7 @@ public class RectangularSignal extends ContinuousSignal {
     }
 
     @Override
-    protected double value(double t) {
+    public double value(double t) {
         double k = Math.floor((t - rangeStart) / term);
         double startTime = k * term + rangeStart;
         double endTime = startTime + fulfillment * term;

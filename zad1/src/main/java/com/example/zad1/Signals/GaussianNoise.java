@@ -15,7 +15,7 @@ public class GaussianNoise extends ContinuousSignal {
     }
 
     @Override
-    protected double value(double t) {
+    public double value(double t) {
         double u, v, s;
         do {
             u = 2.0 * rand.nextDouble() - 1.0;

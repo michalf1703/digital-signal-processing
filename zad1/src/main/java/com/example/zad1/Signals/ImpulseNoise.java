@@ -10,14 +10,14 @@ public class ImpulseNoise extends DiscreteSignal {
 
     public ImpulseNoise(double rangeStart, double rangeLength, double sampleRate,
                         double amplitude, double probability) {
-        super(rangeStart, rangeLength, sampleRate);
+        super(rangeStart, rangeLength, sampleRate, null);
         this.amplitude = amplitude;
         this.probability = probability;
         this.rand = new Random();
     }
 
     @Override
-    protected double value(double t) {
+    public double value(int t) {
         if (rand.nextDouble() < probability) {
             return amplitude;
         } else {

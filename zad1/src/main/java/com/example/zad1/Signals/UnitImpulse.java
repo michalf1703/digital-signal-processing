@@ -6,15 +6,14 @@ public class UnitImpulse extends DiscreteSignal {
 
     public UnitImpulse(double rangeStart, double rangeLength, double sampleRate,
                              double amplitude, int jumpSampleNumber) {
-        super(rangeStart, rangeLength, sampleRate);
+        super(rangeStart, rangeLength, sampleRate, null);
         this.amplitude = amplitude;
         this.jumpSampleNumber = jumpSampleNumber;
     }
 
     @Override
-    protected double value(double t) {
-        double step = rangeLength / (data.length - 1);
-        if (t == jumpSampleNumber * step) {
+    public double value(int i) {
+        if (i == jumpSampleNumber) {
             return amplitude;
         } else {
             return 0.0;
