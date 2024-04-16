@@ -25,6 +25,21 @@ public class AppController {
     private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, czasSkokuF, czestoscProbkowaniaF, numerProbkiSkokuF, prawdopodobienstwoF;
     @FXML
     private Text skutecznaWynik, sredniaBezwWynik, wariancjaWynik, wartoscSredniaWynik, mocSredniaWynik;
+    @FXML
+    private Text bladSrednioResult,czasTransformacjiResult,efektywnaLiczbaBitowResult,maksymalnaRoznicaResult, stosunekSygnalSzumResult, szczytowyStosunekSygnalSzumResult;
+    @FXML
+    private ChoiceBox<?> wybierzMetodeRekonstrukcjaChoiceBox;
+
+    @FXML
+    private ChoiceBox<?> wybierzMetodeKwantyChoiceBox;
+    @FXML
+    private TextField liczbaPoziomowKwantField;
+    @FXML
+    private TextField parametrFunkcjiSincField;
+    @FXML
+    private ChoiceBox<?> wybierzOperacjeJednoChoiceBox;
+    @FXML
+    private Button generujPorownanieBotton;
 
     private Map<Integer, Signal> signals = new HashMap<>();
     private FileReader<Signal> signalFileReader;

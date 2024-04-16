@@ -32,7 +32,7 @@
             <TextField fx:id="czasTrwaniaF" layoutX="171.0" layoutY="162.0" />
             <TextField fx:id="okresPodstawowyF" layoutX="172.0" layoutY="192.0" />
             <TextField fx:id="wspolczynnikWypelnieniaF" layoutX="172.0" layoutY="222.0" />
-            <Text layoutX="383.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz operacje">
+            <Text layoutX="339.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz operacje dwuargumentową">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -70,11 +70,46 @@
             <Text fx:id="skutecznaWynik" layoutX="532.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="wariancjaWynik" layoutX="483.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="mocSredniaWynik" layoutX="500.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Button fx:id="wczytajSygnal1" layoutX="333.0" layoutY="333.0" mnemonicParsing="false" onAction="#loadSignalForOperation" text="Wczytaj sygnał I" />
-            <Button fx:id="wczytajSygnal2" layoutX="450.0" layoutY="333.0" mnemonicParsing="false" onAction="#loadSignalForOperation" text="Wczytaj sygnał II" />
-            <Button fx:id="wykonajOperacje" layoutX="386.0" layoutY="362.0" mnemonicParsing="false" onAction="#performOperations" text="Wykonaj operacje" />
+            <Button fx:id="wczytajSygnal1" layoutX="288.0" layoutY="382.0" mnemonicParsing="false" onAction="#loadSignalForOperation" text="Wczytaj sygnał I" />
+            <Button fx:id="wczytajSygnal2" layoutX="402.0" layoutY="382.0" mnemonicParsing="false" onAction="#loadSignalForOperation" text="Wczytaj sygnał II" />
+            <Button fx:id="wykonajOperacje" layoutX="381.0" layoutY="328.0" mnemonicParsing="false" onAction="#performOperations" text="Wykonaj operacje" />
             <Text fx:id="poprawnyOdczyt1" layoutX="367.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="poprawnyOdczyt2" layoutX="487.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text layoutX="36.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz operacje jednoargumentową">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="wybierzOperacjeJednoChoiceBox" layoutX="55.0" layoutY="403.0" prefWidth="150.0" />
+            <Text layoutX="43.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz metodę - kwantyzacja">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="wybierzMetodeKwantyChoiceBox" layoutX="55.0" layoutY="464.0" prefWidth="150.0" />
+            <Text layoutX="14.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczba poziomów kwantyzacji" />
+            <TextField fx:id="liczbaPoziomowKwantField" layoutX="181.0" layoutY="553.0" />
+            <Text layoutX="12.0" layoutY="600.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametr funkcji sinc" />
+            <Text layoutX="27.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz metodę - rekonstrukcja sygnału">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="wybierzMetodeRekonstrukcjaChoiceBox" layoutX="55.0" layoutY="522.0" prefWidth="150.0" />
+            <TextField fx:id="parametrFunkcjiSincField" layoutX="181.0" layoutY="582.0" />
+            <Button fx:id="generujPorownanieBotton" layoutX="340.0" layoutY="427.0" mnemonicParsing="false" text="Generuj porównanie" />
+            <Text layoutX="351.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Błąd średniokwadratowy:" />
+            <Text layoutX="350.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stosunek sygnał-szum:" />
+            <Text layoutX="352.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Szczytowy stosunek sygnał-szum:" />
+            <Text layoutX="351.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maksymalna różnica:" />
+            <Text layoutX="349.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Efektywna liczba bitów:" />
+            <Text layoutX="353.0" layoutY="609.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Czas transformacji:" />
+            <Text fx:id="bladSrednioResult" layoutX="496.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="stosunekSygnalSzumResult" layoutX="481.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="szczytowyStosunekSygnalSzumResult" layoutX="535.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="maksymalnaRoznicaResult" layoutX="470.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="efektywnaLiczbaBitowResult" layoutX="481.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="czasTransformacjiResult" layoutX="460.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children></AnchorPane>
   </content>
 </TitledPane>

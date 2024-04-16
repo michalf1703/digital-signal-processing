@@ -11,7 +11,7 @@ public class StartApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 720, 430);
+        Scene scene = new Scene(fxmlLoader.load(), 720, 680);
         stage.setTitle("Cyfrowe przetwarzanie cygnałów-zad1");
         stage.setScene(scene);
         stage.show();
