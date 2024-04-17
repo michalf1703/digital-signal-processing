@@ -97,7 +97,7 @@
             </Text>
             <ChoiceBox fx:id="wybierzMetodeRekonstrukcjaChoiceBox" layoutX="55.0" layoutY="522.0" prefWidth="150.0" />
             <TextField fx:id="parametrFunkcjiSincField" layoutX="181.0" layoutY="582.0" />
-            <Button fx:id="generujPorownanieBotton" layoutX="340.0" layoutY="427.0" mnemonicParsing="false" text="Generuj porównanie" />
+            <Button fx:id="generujPorownanieBotton" layoutX="340.0" layoutY="427.0" mnemonicParsing="false" onAction="#makeComparison" text="Generuj porównanie" />
             <Text layoutX="351.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Błąd średniokwadratowy:" />
             <Text layoutX="350.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stosunek sygnał-szum:" />
             <Text layoutX="352.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Szczytowy stosunek sygnał-szum:" />
@@ -110,6 +110,9 @@
             <Text fx:id="maksymalnaRoznicaResult" layoutX="470.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="efektywnaLiczbaBitowResult" layoutX="481.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="czasTransformacjiResult" layoutX="460.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text layoutX="12.0" layoutY="628.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczba próbek" />
+            <TextField fx:id="liczbaProbekField" layoutX="182.0" layoutY="611.0" />
+            <Button fx:id="generuj2" layoutX="95.0" layoutY="637.0" mnemonicParsing="false" onAction="#performOneOperation" text="Generuj" />
          </children></AnchorPane>
   </content>
 </TitledPane>

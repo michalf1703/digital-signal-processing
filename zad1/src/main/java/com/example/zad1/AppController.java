@@ -29,6 +29,8 @@ public class AppController {
     private Text bladSrednioResult,czasTransformacjiResult,efektywnaLiczbaBitowResult,maksymalnaRoznicaResult, stosunekSygnalSzumResult, szczytowyStosunekSygnalSzumResult;
     @FXML
     private ChoiceBox<String> wybierzMetodeRekonstrukcjaChoiceBox;
+    @FXML
+    private Button generuj2;
 
     @FXML
     private ChoiceBox<String> wybierzMetodeKwantyChoiceBox;
@@ -44,7 +46,11 @@ public class AppController {
     private Map<Integer, Signal> signals = new HashMap<>();
     private FileReader<Signal> signalFileReader;
     @FXML
+    private TextField liczbaProbekField;
+    @FXML
     private Text poprawnyOdczyt1;
+    ADC adc = new ADC();
+    DAC dac = new DAC();
 
     @FXML
     private Text poprawnyOdczyt2;
@@ -74,6 +80,27 @@ public class AppController {
             checkSignal();
         });
         checkSignal();
+        wybierzOperacjeJednoChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("próbkowanie".equals(newValue)) {
+                wybierzMetodeRekonstrukcjaChoiceBox.setDisable(true);
+                wybierzMetodeKwantyChoiceBox.setDisable(true);
+                parametrFunkcjiSincField.setDisable(true);
+                liczbaPoziomowKwantField.setDisable(true);
+                liczbaProbekField.setDisable(false);
+            } else if ("kwantyzacja".equals(newValue)) {
+                wybierzMetodeRekonstrukcjaChoiceBox.setDisable(true);
+                wybierzMetodeKwantyChoiceBox.setDisable(false);
+                parametrFunkcjiSincField.setDisable(true);
+                liczbaPoziomowKwantField.setDisable(false);
+                liczbaProbekField.setDisable(true);
+            } else if ("rekonstrukcja sygnału".equals(newValue)) {
+                wybierzMetodeRekonstrukcjaChoiceBox.setDisable(false);
+                wybierzMetodeKwantyChoiceBox.setDisable(true);
+                parametrFunkcjiSincField.setDisable(false);
+                liczbaPoziomowKwantField.setDisable(true);
+                liczbaProbekField.setDisable(true);
+            }
+        });
     }
 
     void checkSignal() {
@@ -107,6 +134,50 @@ public class AppController {
                     setupFields(true, true, true, true, true, true, true, true,false);
             }
         }
+    }
+
+    public void performOneOperation() {
+        String operation = wybierzOperacjeJednoChoiceBox.getValue();
+        Signal result = null;
+        if (operation != null) {
+            Signal s1 = signals.get(1);
+            switch (operation) {
+                case "próbkowanie":
+                    int numberOfSamples = Integer.parseInt(liczbaProbekField.getText());
+                    result = adc.sampling((ContinuousSignal) s1, numberOfSamples);
+                    probowanie(result);
+                    break;
+                case "kwantyzacja":
+                    int numberOfLevels = Integer.parseInt(liczbaPoziomowKwantField.getText());
+                    String quantizationMethod = wybierzMetodeKwantyChoiceBox.getValue();
+                    switch (quantizationMethod) {
+                        case "kwantyzacja równomierna z obcięciem":
+                            result = adc.truncatingQuantization((DiscreteSignal) s1, numberOfLevels);
+                            break;
+                        case "kwantyzacja równomierna z zaokrągleniem":
+                            result = adc.roundingQuantization((DiscreteSignal) s1, numberOfLevels);
+                            break;
+                    }
+                    break;
+                case "rekonstrukcja sygnału":
+                    String reconstructionMethod = wybierzMetodeRekonstrukcjaChoiceBox.getValue();
+                    switch (reconstructionMethod) {
+                        case "ekstrapolacja zerowego rzędu":
+                            result = dac.zeroOrderHold((DiscreteSignal) s1);
+                            break;
+                        case "interpolacja pierwszego rzędu":
+                            result = dac.firstOrderHold((DiscreteSignal) s1);
+                            break;
+                        case "rekonstrukcja metodą sinc":
+                            int sincParameter = Integer.parseInt(parametrFunkcjiSincField.getText());
+                            result = dac.sincBasic((DiscreteSignal) s1, sincParameter);
+                            break;
+                    }
+                    break;
+            }
+
+        }
+
     }
 
     private void setupFields(boolean amplituda, boolean czasTrwania, boolean okresPodstawowy, boolean poczatkowy, boolean wspolczynnikWypelnienia, boolean czasSkoku, boolean czestoscProbkowania, boolean numerProbkiSkoku, boolean prawdopodobienstwo){
@@ -262,6 +333,86 @@ public class AppController {
             }
             calculateOperationResult(result);
         }
+    }
+    public void makeComparison() {
+        Signal s1 = signals.get(1);
+        Signal s2 = signals.get(2);
+        List<Data> firstSignalData = s1.generateDiscreteRepresentation();
+        List<Data> secondSignalData = s2.generateDiscreteRepresentation();
+        try {
+            double meanSquaredError = Signal.meanSquaredError(secondSignalData, firstSignalData);
+            double signalToNoiseRatio = Signal.signalToNoiseRatio(secondSignalData,
+                    firstSignalData);
+            double peakSignalToNoiseRatio = Signal.peakSignalToNoiseRatio(secondSignalData,
+                    firstSignalData);
+            double maximumDifference = Signal.maximumDifference(secondSignalData, firstSignalData);
+            double effectiveNumberOfBits = Signal.effectiveNumberOfBits(secondSignalData,
+                    firstSignalData);
+
+            bladSrednioResult.setText(String.valueOf(meanSquaredError));
+            stosunekSygnalSzumResult.setText(String.valueOf(signalToNoiseRatio));
+            szczytowyStosunekSygnalSzumResult.setText(String.valueOf(peakSignalToNoiseRatio));
+            maksymalnaRoznicaResult.setText(String.valueOf(maximumDifference));
+            efektywnaLiczbaBitowResult.setText(String.valueOf(effectiveNumberOfBits));
+
+
+        } catch (OperationSignal.NotSameLengthException e) {
+            showAlert("Błąd", null, "Błędnie dobrane wykresy!.");
+        }
+    }
+
+    public void probowanie(Signal signal){
+        if (przedzialHistogramu.getValue() == null) {
+            showAlert("Błąd", null, "Nie został wybrany przedział histogramu.");
+            return;
+        }
+        List<Data> data = signal.generateDiscreteRepresentation();
+        skutecznaWynik.setText("" + signal.rmsValue(data));
+        sredniaBezwWynik.setText("" + signal.absMeanValue(data));
+        mocSredniaWynik.setText("" + signal.meanPowerValue(data));
+        wartoscSredniaWynik.setText("" + signal.meanValue(data));
+        wariancjaWynik.setText("" + signal.varianceValue(data));
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Czas");
+        yAxis.setLabel("Wartość");
+        String przedzial = przedzialHistogramu.getValue();
+        int przedzialInt = Integer.parseInt(przedzial);
+
+        Parent chart;
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.setTitle("wykres po próbkowaniu");
+
+        XYChart.Series series = new XYChart.Series();
+        List<Data> data2 = signal.getData();
+        for (Data point : data2) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
+            Circle circle = new Circle(3);
+            circle.setFill(Color.ORANGE);
+            dataPoint.setNode(circle);
+            series.getData().add(dataPoint);
+        }
+        scatterChart.getData().add(series);
+        scatterChart.setAnimated(false);
+        scatterChart.setLegendVisible(false);
+
+        chart = scatterChart;
+        List<Range> histogram = signal.generateHistogram(przedzialInt, data);
+        CategoryAxis barXAxis = new CategoryAxis();
+        NumberAxis barYAxis = new NumberAxis();
+        BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
+        barChart.setTitle("Histogram");
+        XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+        for (Range range : histogram) {
+            barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
+        }
+        barChart.getData().add(barSeries);
+        VBox vbox = new VBox(chart, barChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        signals.put(tabIndex, signal);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void calculateSignal(Signal signal) {
