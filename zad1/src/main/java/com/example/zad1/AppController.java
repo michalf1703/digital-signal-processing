@@ -4,6 +4,7 @@ import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
 import com.example.zad1.Signals.*;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
@@ -98,7 +99,7 @@ public class AppController {
                 wybierzMetodeKwantyChoiceBox.setDisable(true);
                 parametrFunkcjiSincField.setDisable(false);
                 liczbaPoziomowKwantField.setDisable(true);
-                liczbaProbekField.setDisable(true);
+                liczbaProbekField.setDisable(false);
             }
         });
     }
@@ -138,9 +139,7 @@ public class AppController {
 
     public void performOneOperation() {
         String operation = wybierzOperacjeJednoChoiceBox.getValue();
-        //Signal result = null;
         int numberOfSamples = Integer.parseInt(liczbaProbekField.getText());
-        int SaveNumberOfSamples = 0;
         if (operation != null) {
             Signal s1 = signals.get(1);
             switch (operation) {
@@ -172,14 +171,20 @@ public class AppController {
                     String reconstructionMethod = wybierzMetodeRekonstrukcjaChoiceBox.getValue();
                     switch (reconstructionMethod) {
                         case "ekstrapolacja zerowego rzędu":
-                            //result = dac.zeroOrderHold((DiscreteSignal) s1);
+                            DiscreteSignal result6 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
+                            ContinuousSignal result7 = dac.zeroOrderHold(result6);
+                            rekonstrukcja(result6, s1, result7);
                             break;
                         case "interpolacja pierwszego rzędu":
-                            //result = dac.firstOrderHold((DiscreteSignal) s1);
+                            DiscreteSignal result8 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
+                            ContinuousSignal result9 = dac.firstOrderHold(result8);
+                            rekonstrukcja(result8, s1, result9);
                             break;
                         case "rekonstrukcja metodą sinc":
                             int sincParameter = Integer.parseInt(parametrFunkcjiSincField.getText());
-                            //result = dac.sincBasic((DiscreteSignal) s1, sincParameter);
+                            DiscreteSignal result10 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
+                            ContinuousSignal result11 = dac.sincBasic(result10, sincParameter);
+                            rekonstrukcja(result10, s1, result11);
                             break;
                     }
                     break;
@@ -379,14 +384,10 @@ public class AppController {
             szczytowyStosunekSygnalSzumResult.setText(String.valueOf(peakSignalToNoiseRatio));
             maksymalnaRoznicaResult.setText(String.valueOf(maximumDifference));
             efektywnaLiczbaBitowResult.setText(String.valueOf(effectiveNumberOfBits));
-            
+
     }
 
     public void probowanie(Signal signal) {
-        if (przedzialHistogramu.getValue() == null) {
-            showAlert("Błąd", null, "Nie został wybrany przedział histogramu.");
-            return;
-        }
         List<Data> data = signal.generateDiscreteRepresentation();
         skutecznaWynik.setText("" + signal.rmsValue(data));
         sredniaBezwWynik.setText("" + signal.absMeanValue(data));
@@ -429,6 +430,67 @@ public class AppController {
         }
         barChart.getData().add(barSeries);
         VBox vbox = new VBox(chart, barChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        signals.put(tabIndex, signal);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void rekonstrukcja(Signal signal, Signal signal2, Signal signal3) {
+        List<Data> data = signal.generateDiscreteRepresentation();
+        skutecznaWynik.setText("" + signal.rmsValue(data));
+        sredniaBezwWynik.setText("" + signal.absMeanValue(data));
+        mocSredniaWynik.setText("" + signal.meanPowerValue(data));
+        wartoscSredniaWynik.setText("" + signal.meanValue(data));
+        wariancjaWynik.setText("" + signal.varianceValue(data));
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Czas");
+        yAxis.setLabel("Wartość");
+
+        XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
+        series1.setName("s1 - orginalny spróbkowany sygnał");
+        List<Data> data1 = signal.getData();
+        for (Data point : data1) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
+            Circle circle = new Circle(3);
+            circle.setFill(Color.ORANGE);
+            dataPoint.setNode(circle);
+            series1.getData().add(dataPoint);
+        }
+
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.getData().add(series1);
+        scatterChart.setAnimated(false);
+        scatterChart.setLegendVisible(true);
+
+        NumberAxis xAxis2 = new NumberAxis();
+        NumberAxis yAxis2 = new NumberAxis();
+        xAxis2.setLabel("Czas");
+        yAxis2.setLabel("Wartość");
+
+        XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
+        series2.setName("s2 - orginalny sygnał");
+        List<Data> data2 = signal2.getData();
+        for (Data point : data2) {
+            series2.getData().add(new XYChart.Data<>(point.getX(), point.getY()));
+        }
+
+        XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
+        series3.setName("s3 - rekonstrukcja sygnału");
+        List<Data> data3 = signal3.getData();
+        for (Data point : data3) {
+            series3.getData().add(new XYChart.Data<>(point.getX(), point.getY()));
+        }
+
+        LineChart<Number, Number> lineChart = new LineChart<>(xAxis2, yAxis2);
+        lineChart.getData().addAll(series2, series3);
+        lineChart.setAnimated(false);
+        lineChart.setCreateSymbols(false);
+        lineChart.setLegendVisible(true);
+
+        VBox vbox = new VBox(scatterChart, lineChart);
         Scene scene = new Scene(vbox, 800, 600);
         signals.put(tabIndex, signal);
         Stage stage = new Stage();
