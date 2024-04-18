@@ -5,13 +5,15 @@ import com.example.zad1.Signals.DiscreteSignal;
 import com.example.zad1.SignalsTask2.QuantizedSignalRounded;
 import com.example.zad1.SignalsTask2.QuantizedSignalTruncated;
 
-public class ADC {
+import java.io.Serializable;
+
+public class ADC implements Serializable {
 
     public DiscreteSignal sampling(ContinuousSignal signal, double sampleRate) {
         return new DiscreteSignal(signal.getRangeStart(), signal.getRangeLength(), sampleRate, signal) {
             @Override
             public String getName() {
-                return null;
+                return "szum impulsowy";
             }
         };
     }
