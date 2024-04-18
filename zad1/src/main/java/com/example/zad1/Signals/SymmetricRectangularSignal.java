@@ -15,7 +15,7 @@ public class SymmetricRectangularSignal extends ContinuousSignal {
     }
 
     @Override
-    protected double value(double t) {
+    public double value(double t) {
         double periodOffset = (t - rangeStart) / term;
         double k = Math.floor(periodOffset);
         double kTPlusT1 = k * term + rangeStart;

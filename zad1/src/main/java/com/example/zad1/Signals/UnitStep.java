@@ -12,7 +12,7 @@ public class UnitStep extends ContinuousSignal{
     }
 
     @Override
-    protected double value(double t) {
+    public double value(double t) {
         if (t > jumpPosition) {
             return amplitude;
         } else if (t == jumpPosition) {

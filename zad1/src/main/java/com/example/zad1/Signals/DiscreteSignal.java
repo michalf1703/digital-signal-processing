@@ -4,28 +4,49 @@ package com.example.zad1.Signals;
 
 import com.example.zad1.Base.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class DiscreteSignal extends Signal {
 
-    protected final double rangeStart;
-    protected final double rangeLength;
-    protected final double sampleRate;
+    public final double sampleRate;
+    private final int numberOfSamples;
+    private final double step;
+    private ContinuousSignal continuousSignal;
 
-    public DiscreteSignal(double rangeStart, double rangeLength, double sampleRate) {
-        super((int) (rangeLength * sampleRate));
-        this.rangeStart = rangeStart;
-        this.rangeLength = rangeLength;
+    public DiscreteSignal(double rangeStart, double rangeLength, double sampleRate, ContinuousSignal continuousSignal) {
+        super(rangeStart, rangeLength,sampleRate);
         this.sampleRate = sampleRate;
+        this.numberOfSamples = (int) (rangeLength * sampleRate);
+        this.step = 1.0 / sampleRate;
+        this.continuousSignal = continuousSignal;
     }
 
-    abstract protected double value(double t);
+
+    public double getSampleRate() {
+        return sampleRate;
+    }
+
+    public int getNumberOfSamples() {
+        return numberOfSamples;
+    }
+
+    public double value(int i) {
+        return continuousSignal.value(argument(i));
+    }
+
+    public double argument(int i) {
+        return i * step + getRangeStart();
+    }
 
     @Override
-    public void generate() {
-        double step = rangeLength / (data.length - 1);
-        for (int i = 0; i < data.length; i++) {
-            double x = i * step + rangeStart;
-            double y = value(x);
-            data[i] = new Data(x, y);
+    public List<Data> generateDiscreteRepresentation() {
+        List<Data> data = new ArrayList<>();
+        for (int i = 0; i < numberOfSamples; i++) {
+            data.add(new Data(argument(i), value(i)));
         }
+        return data;
     }
+
+    public abstract String getName();
 }
