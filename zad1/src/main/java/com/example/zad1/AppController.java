@@ -139,7 +139,7 @@ public class AppController {
 
     public void performOneOperation() {
         String operation = wybierzOperacjeJednoChoiceBox.getValue();
-        int numberOfSamples = Integer.parseInt(liczbaProbekField.getText());
+        double numberOfSamples = Double.parseDouble(liczbaProbekField.getText());
         if (operation != null) {
             Signal s1 = signals.get(1);
             switch (operation) {
@@ -185,6 +185,7 @@ public class AppController {
                             DiscreteSignal result10 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
                             ContinuousSignal result11 = dac.sincBasic(result10, sincParameter);
                             rekonstrukcja(result10, s1, result11);
+                            saveChartProbka(result11);
                             break;
                     }
                     break;
