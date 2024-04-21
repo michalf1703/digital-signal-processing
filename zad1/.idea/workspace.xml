@@ -6,13 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SINUS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TROJKAT" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sinus-kwantyzacja" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sinus-probka" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rekonstrukcja-eks1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sygnal-sinus" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +121,10 @@
       <workItem from="1713438839697" duration="7704000" />
       <workItem from="1713537533418" duration="2291000" />
       <workItem from="1713540465612" duration="2499000" />
-      <workItem from="1713610670158" duration="9232000" />
+      <workItem from="1713610670158" duration="17777000" />
+      <workItem from="1713662878366" duration="7000" />
+      <workItem from="1713695524283" duration="5770000" />
+      <workItem from="1713716829841" duration="10086000" />
     </task>
     <servers />
   </component>

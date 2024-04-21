@@ -144,7 +144,6 @@ public class AppController {
             Signal s1 = signals.get(1);
             switch (operation) {
                 case "próbkowanie":
-
                     DiscreteSignal result = adc.sampling((ContinuousSignal) s1, numberOfSamples);
                     probowanie(result);
                     saveChartProbka(result);
@@ -174,11 +173,13 @@ public class AppController {
                             DiscreteSignal result6 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
                             ContinuousSignal result7 = dac.zeroOrderHold(result6);
                             rekonstrukcja(result6, s1, result7);
+                            saveChartProbka(result7);
                             break;
                         case "interpolacja pierwszego rzędu":
                             DiscreteSignal result8 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
                             ContinuousSignal result9 = dac.firstOrderHold(result8);
                             rekonstrukcja(result8, s1, result9);
+                            saveChartProbka(result9);
                             break;
                         case "rekonstrukcja metodą sinc":
                             int sincParameter = Integer.parseInt(parametrFunkcjiSincField.getText());
@@ -297,19 +298,15 @@ public class AppController {
 
     public void saveChartProbka(Signal signal) {
         try {
-            if (signals.get(tabIndex) != null) {
                 signalFileReader = new FileReader<>(new FileChooser()
                         .showSaveDialog(stage)
                         .getName());
                 signalFileReader.write(signal);
-            } else {
-                showAlert("Błąd", null, "Nie zapisano sygnału.");
             }
-        } catch (NullPointerException | FileOperationException e) {
+         catch (NullPointerException | FileOperationException e) {
             e.printStackTrace();
             showAlert("Błąd", null, "Nie zapisano sygnału.");
-        }
-    }
+        }}
 
 
     public void loadChart() {
@@ -499,58 +496,53 @@ public class AppController {
         stage.show();
     }
     public void kwantyzacja(Signal signal, Signal signal2) {
-        if (przedzialHistogramu.getValue() == null) {
-            showAlert("Błąd", null, "Nie został wybrany przedział histogramu.");
-            return;
-        }
-        List<Data> data = signal.generateDiscreteRepresentation();
-        skutecznaWynik.setText("" + signal.rmsValue(data));
-        sredniaBezwWynik.setText("" + signal.absMeanValue(data));
-        mocSredniaWynik.setText("" + signal.meanPowerValue(data));
-        wartoscSredniaWynik.setText("" + signal.meanValue(data));
-        wariancjaWynik.setText("" + signal.varianceValue(data));
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Czas");
-        yAxis.setLabel("Wartość");
-        String przedzial = przedzialHistogramu.getValue();
-        int przedzialInt = Integer.parseInt(przedzial);
-
-        Parent chart;
-        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
-        scatterChart.setTitle("wykres po próbkowaniu");
-
-        XYChart.Series series1 = new XYChart.Series();
-        List<Data> data1 = signal.getData();
-        for (Data point : data1) {
-            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
-            Circle circle = new Circle(3);
-            circle.setFill(Color.ORANGE);
-            dataPoint.setNode(circle);
-            series1.getData().add(dataPoint);
-        }
-        scatterChart.getData().add(series1);
-
-        XYChart.Series series2 = new XYChart.Series();
+        List<Data> data1 = signal.generateDiscreteRepresentation();
         List<Data> data2 = signal2.getData();
-        for (Data point : data2) {
-            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
-            Circle circle = new Circle(3);
-            circle.setFill(Color.BLUE);
-            dataPoint.setNode(circle);
-            series2.getData().add(dataPoint);
+
+        NumberAxis xAxis1 = new NumberAxis();
+        NumberAxis yAxis1 = new NumberAxis();
+        xAxis1.setLabel("Czas");
+        yAxis1.setLabel("Wartość");
+
+        ScatterChart<Number, Number> scatterChart1 = new ScatterChart<>(xAxis1, yAxis1);
+        scatterChart1.setTitle("Oryginalny spróbkowany sygnał");
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Oryginalny spróbkowany sygnał");
+        for (Data point : data1) {
+            series1.getData().add(new XYChart.Data<>(point.getX(), point.getY()));
         }
-        scatterChart.getData().add(series2);
-        scatterChart.setAnimated(false);
-        scatterChart.setLegendVisible(false);
-        chart = scatterChart;
-        VBox vbox = new VBox(chart);
+        scatterChart1.getData().add(series1);
+
+        NumberAxis xAxis2 = new NumberAxis();
+        NumberAxis yAxis2 = new NumberAxis();
+        xAxis2.setLabel("Czas");
+        yAxis2.setLabel("Wartość");
+
+        LineChart<Number, Number> lineChart2 = new LineChart<>(xAxis2, yAxis2);
+        lineChart2.setTitle("Sygnał po kwantyzacji");
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Sygnał po kwantyzacji");
+
+        double previousY = 0;
+        for (Data point : data2) {
+            double currentY = point.getY();
+            double currentX = point.getX();
+            series2.getData().add(new XYChart.Data<>(currentX, previousY));
+            series2.getData().add(new XYChart.Data<>(currentX, currentY));
+            previousY = currentY;
+        }
+        lineChart2.getData().add(series2);
+        lineChart2.setCreateSymbols(false);
+
+        VBox vbox = new VBox(scatterChart1, lineChart2);
+        vbox.setSpacing(10);
+
         Scene scene = new Scene(vbox, 800, 600);
-        signals.put(tabIndex, signal);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
     }
+
 
     public void calculateSignal(Signal signal) {
         if (przedzialHistogramu.getValue() == null) {
