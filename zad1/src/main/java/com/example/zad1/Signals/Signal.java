@@ -1,11 +1,8 @@
 package com.example.zad1.Signals;
-
 import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 public abstract class Signal implements Serializable {
@@ -35,14 +32,6 @@ public abstract class Signal implements Serializable {
         return rangeLength;
     }
 
-    /**
-     * This method returns discrete representation of
-     * signal (every kind of signal, also continuous one),
-     * this representation can be used to render chart,
-     * compute some signal params and compare signals
-     *
-     * @return list of data (2D-point) objects representing this signal in discrete way
-     */
     public abstract List<Data> generateDiscreteRepresentation();
 
     /* compute histogram */
@@ -101,19 +90,21 @@ public abstract class Signal implements Serializable {
         return sum / discreteRepresentation.size();
     }
 
-    /* compute differences */
 
     public static double meanSquaredError(List<Data> result, List<Data> origin) {
-        if (result.size() != origin.size()) {
-            throw new OperationSignal.NotSameLengthException();
+        if (result.size() < origin.size()) {
+            int sizeDifference = origin.size() - result.size();
+            Data lastDataPoint = result.get(result.size() - 1);
+            for (int i = 0; i < sizeDifference; i++) {
+                result.add(new Data(lastDataPoint.getX(), lastDataPoint.getY()));
+            }
         }
-
         double sum = 0.0;
-        for (int i = 0; i < result.size(); i++) {
+        for (int i = 0; i < origin.size(); i++) {
             sum += Math.pow(result.get(i).getY() - origin.get(i).getY(), 2.0);
         }
 
-        return sum / result.size();
+        return sum / origin.size();
     }
 
     public static double signalToNoiseRatio(List<Data> result, List<Data> origin) {

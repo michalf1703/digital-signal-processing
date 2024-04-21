@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sprawdz1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sprawdz2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/ADC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/ADC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rekonstrukcja-eks1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/StartApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/StartApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sygnal-sinus" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +41,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hp/Desktop/zad2-sygnaly/CPS-master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hp/Documents/GitHub/eVote&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
@@ -118,7 +118,13 @@
       <workItem from="1713356164177" duration="603000" />
       <workItem from="1713360529448" duration="5365000" />
       <workItem from="1713389067272" duration="7207000" />
-      <workItem from="1713438839697" duration="2905000" />
+      <workItem from="1713438839697" duration="7704000" />
+      <workItem from="1713537533418" duration="2291000" />
+      <workItem from="1713540465612" duration="2499000" />
+      <workItem from="1713610670158" duration="17777000" />
+      <workItem from="1713662878366" duration="7000" />
+      <workItem from="1713695524283" duration="5770000" />
+      <workItem from="1713716829841" duration="10086000" />
     </task>
     <servers />
   </component>
