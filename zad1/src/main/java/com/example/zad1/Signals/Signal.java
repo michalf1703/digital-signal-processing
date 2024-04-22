@@ -92,63 +92,119 @@ public abstract class Signal implements Serializable {
 
 
     public static double meanSquaredError(List<Data> result, List<Data> origin) {
-        if (result.size() < origin.size()) {
-            int sizeDifference = origin.size() - result.size();
-            Data lastDataPoint = result.get(result.size() - 1);
-            for (int i = 0; i < sizeDifference; i++) {
-                result.add(new Data(lastDataPoint.getX(), lastDataPoint.getY()));
-            }
-        }
-        double sum = 0.0;
-        for (int i = 0; i < origin.size(); i++) {
-            sum += Math.pow(result.get(i).getY() - origin.get(i).getY(), 2.0);
+        int minLength = Math.min(result.size(), origin.size());
+
+        double sumSquaredDifferences = 0.0;
+        for (int i = 0; i < minLength; i++) {
+            double difference = result.get(i).getY() - origin.get(i).getY();
+            sumSquaredDifferences += difference * difference;
         }
 
-        return sum / origin.size();
+        if (result.size() < origin.size()) {
+            for (int i = minLength; i < origin.size(); i++) {
+                double difference = -origin.get(i).getY();
+                sumSquaredDifferences += difference * difference;
+            }
+        }
+        else if (result.size() > origin.size()) {
+            for (int i = minLength; i < result.size(); i++) {
+                double difference = result.get(i).getY();
+                sumSquaredDifferences += difference * difference;
+            }
+        }
+
+        double mse = sumSquaredDifferences / origin.size();
+
+        return mse;
     }
 
     public static double signalToNoiseRatio(List<Data> result, List<Data> origin) {
-        if (result.size() != origin.size()) {
-            throw new OperationSignal.NotSameLengthException();
-        }
+        int minLength = Math.min(result.size(), origin.size());
 
         double resultSquaredSum = 0.0;
         double diffSquaredSum = 0.0;
-        for (int i = 0; i < result.size(); i++) {
-            resultSquaredSum += Math.pow(result.get(i).getY(), 2.0);
-            diffSquaredSum += Math.pow(result.get(i).getY() - origin.get(i).getY(), 2.0);
+        for (int i = 0; i < minLength; i++) {
+            double resultY = result.get(i).getY();
+            double originY = origin.get(i).getY();
+            resultSquaredSum += resultY * resultY;
+            diffSquaredSum += Math.pow(resultY - originY, 2.0);
         }
 
-        return 10.0 * Math.log10(resultSquaredSum / diffSquaredSum);
+        if (result.size() < origin.size()) {
+            for (int i = minLength; i < origin.size(); i++) {
+                double originY = origin.get(i).getY();
+                diffSquaredSum += originY * originY;
+            }
+        }
+        else if (result.size() > origin.size()) {
+            for (int i = minLength; i < result.size(); i++) {
+                double resultY = result.get(i).getY();
+                resultSquaredSum += resultY * resultY;
+            }
+        }
+
+        double snr = 10.0 * Math.log10(resultSquaredSum / diffSquaredSum);
+
+        return snr;
     }
 
     public static double peakSignalToNoiseRatio(List<Data> result, List<Data> origin) {
-        if (result.size() != origin.size()) {
-            throw new OperationSignal.NotSameLengthException();
-        }
+        int minLength = Math.min(result.size(), origin.size());
 
         double resultMax = Double.MIN_VALUE;
         double diffSquaredSum = 0.0;
-        for (int i = 0; i < result.size(); i++) {
-            if (result.get(i).getY() > resultMax) {
-                resultMax = result.get(i).getY();
+        for (int i = 0; i < minLength; i++) {
+            double resultY = result.get(i).getY();
+            double originY = origin.get(i).getY();
+
+            if (resultY > resultMax) {
+                resultMax = resultY;
             }
-            diffSquaredSum += Math.pow(result.get(i).getY() - origin.get(i).getY(), 2.0);
+
+            diffSquaredSum += Math.pow(resultY - originY, 2.0);
         }
 
-        return 10.0 * Math.log10(resultMax / (diffSquaredSum / result.size()));
+        if (result.size() < origin.size()) {
+            for (int i = minLength; i < origin.size(); i++) {
+                double originY = origin.get(i).getY();
+                diffSquaredSum += originY * originY;
+            }
+        }
+
+        else if (result.size() > origin.size()) {
+            for (int i = minLength; i < result.size(); i++) {
+                double resultY = result.get(i).getY();
+                resultMax = Math.max(resultMax, resultY);
+            }
+        }
+
+        double psnr = 10.0 * Math.log10(resultMax * resultMax / (diffSquaredSum / result.size()));
+
+        return psnr;
     }
 
     public static double maximumDifference(List<Data> result, List<Data> origin) {
-        if (result.size() != origin.size()) {
-            throw new OperationSignal.NotSameLengthException();
-        }
+        int minLength = Math.min(result.size(), origin.size());
 
         double maxDiff = Double.MIN_VALUE;
-        for (int i = 0; i < result.size(); i++) {
+
+        for (int i = 0; i < minLength; i++) {
             double diff = Math.abs(result.get(i).getY() - origin.get(i).getY());
             if (diff > maxDiff) {
                 maxDiff = diff;
+            }
+        }
+
+        if (result.size() > origin.size()) {
+            for (int i = minLength; i < result.size(); i++) {
+                double diff = Math.abs(result.get(i).getY());
+                maxDiff = Math.max(maxDiff, diff);
+            }
+        }
+        else if (result.size() < origin.size()) {
+            for (int i = minLength; i < origin.size(); i++) {
+                double diff = Math.abs(origin.get(i).getY());
+                maxDiff = Math.max(maxDiff, diff);
             }
         }
 

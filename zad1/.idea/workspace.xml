@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rekonstrukcja-eks1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sygnal-sinus" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +121,9 @@
       <workItem from="1713610670158" duration="17777000" />
       <workItem from="1713662878366" duration="7000" />
       <workItem from="1713695524283" duration="5770000" />
-      <workItem from="1713716829841" duration="10086000" />
+      <workItem from="1713716829841" duration="10256000" />
+      <workItem from="1713730249835" duration="7304000" />
+      <workItem from="1713768017899" duration="1827000" />
     </task>
     <servers />
   </component>
