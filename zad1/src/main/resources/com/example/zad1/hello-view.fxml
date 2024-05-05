@@ -10,7 +10,7 @@
 
 <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zad1.AppController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="593.0" prefWidth="901.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="727.0" prefWidth="1054.0">
          <children>
             <Text layoutX="49.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rodzaj sygnału">
                <font>
@@ -111,7 +111,9 @@
             <Text fx:id="czasTransformacjiResult" layoutX="460.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text layoutX="12.0" layoutY="628.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Częstotliwość próbkowania" />
             <TextField fx:id="liczbaProbekField" layoutX="182.0" layoutY="611.0" />
-            <Button fx:id="generuj2" layoutX="95.0" layoutY="637.0" mnemonicParsing="false" onAction="#performOneOperation" text="Generuj" />
+            <Button fx:id="generuj2" layoutX="349.0" layoutY="624.0" mnemonicParsing="false" onAction="#performOneOperation" text="Generuj" />
+            <Text layoutX="14.0" layoutY="659.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczba sąsiednich próbek " />
+            <TextField fx:id="sasiadProbki" layoutX="181.0" layoutY="642.0" />
          </children></AnchorPane>
   </content>
 </TitledPane>

@@ -4,7 +4,6 @@ import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
 import com.example.zad1.Signals.*;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
@@ -27,11 +26,13 @@ public class AppController {
     @FXML
     private Text skutecznaWynik, sredniaBezwWynik, wariancjaWynik, wartoscSredniaWynik, mocSredniaWynik;
     @FXML
-    private Text bladSrednioResult,czasTransformacjiResult,efektywnaLiczbaBitowResult,maksymalnaRoznicaResult, stosunekSygnalSzumResult, szczytowyStosunekSygnalSzumResult;
+    private Text bladSrednioResult,efektywnaLiczbaBitowResult,maksymalnaRoznicaResult, stosunekSygnalSzumResult, szczytowyStosunekSygnalSzumResult;
     @FXML
     private ChoiceBox<String> wybierzMetodeRekonstrukcjaChoiceBox;
     @FXML
     private Button generuj2;
+    @FXML
+    private TextField sasiadProbki;
 
     @FXML
     private ChoiceBox<String> wybierzMetodeKwantyChoiceBox;
@@ -183,8 +184,9 @@ public class AppController {
                             break;
                         case "rekonstrukcja metodą sinc":
                             int sincParameter = Integer.parseInt(parametrFunkcjiSincField.getText());
+                            int neighbourSamples = Integer.parseInt(sasiadProbki.getText());
                             DiscreteSignal result10 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
-                            ContinuousSignal result11 = dac.sincBasic(result10, sincParameter);
+                            ContinuousSignal result11 = dac.sincBasic(result10, sincParameter, neighbourSamples);
                             rekonstrukcja(result10, s1, result11);
                             saveChartProbka(result11);
                             break;
