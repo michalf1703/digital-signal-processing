@@ -16,7 +16,7 @@ public class DAC {
         return new ReconstructedSignalFirstOrderHold(signal);
     }
 
-    public ContinuousSignal sincBasic(DiscreteSignal signal, int N,int T) {
-        return new ReconstructedSignalSincBasic(signal, N, T);
+    public ContinuousSignal sincBasic(DiscreteSignal signal, int N) {
+        return new ReconstructedSignalSincBasic(signal, N);
     }
 }

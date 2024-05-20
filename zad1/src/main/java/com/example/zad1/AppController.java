@@ -38,8 +38,7 @@ public class AppController {
     private ChoiceBox<String> wybierzMetodeKwantyChoiceBox;
     @FXML
     private TextField liczbaPoziomowKwantField;
-    @FXML
-    private TextField parametrFunkcjiSincField;
+
     @FXML
     private ChoiceBox<String> wybierzOperacjeJednoChoiceBox;
     @FXML
@@ -86,19 +85,16 @@ public class AppController {
             if ("próbkowanie".equals(newValue)) {
                 wybierzMetodeRekonstrukcjaChoiceBox.setDisable(true);
                 wybierzMetodeKwantyChoiceBox.setDisable(true);
-                parametrFunkcjiSincField.setDisable(true);
                 liczbaPoziomowKwantField.setDisable(true);
                 liczbaProbekField.setDisable(false);
             } else if ("kwantyzacja".equals(newValue)) {
                 wybierzMetodeRekonstrukcjaChoiceBox.setDisable(true);
                 wybierzMetodeKwantyChoiceBox.setDisable(false);
-                parametrFunkcjiSincField.setDisable(true);
                 liczbaPoziomowKwantField.setDisable(false);
                 liczbaProbekField.setDisable(false);
             } else if ("rekonstrukcja sygnału".equals(newValue)) {
                 wybierzMetodeRekonstrukcjaChoiceBox.setDisable(false);
                 wybierzMetodeKwantyChoiceBox.setDisable(true);
-                parametrFunkcjiSincField.setDisable(false);
                 liczbaPoziomowKwantField.setDisable(true);
                 liczbaProbekField.setDisable(false);
             }
@@ -183,10 +179,9 @@ public class AppController {
                             saveChartProbka(result9);
                             break;
                         case "rekonstrukcja metodą sinc":
-                            int sincParameter = Integer.parseInt(parametrFunkcjiSincField.getText());
                             int neighbourSamples = Integer.parseInt(sasiadProbki.getText());
                             DiscreteSignal result10 = adc.sampling((ContinuousSignal) s1, numberOfSamples);
-                            ContinuousSignal result11 = dac.sincBasic(result10, sincParameter, neighbourSamples);
+                            ContinuousSignal result11 = dac.sincBasic(result10, neighbourSamples);
                             rekonstrukcja(result10, s1, result11);
                             saveChartProbka(result11);
                             break;

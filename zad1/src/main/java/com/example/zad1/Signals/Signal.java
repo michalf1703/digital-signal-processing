@@ -34,7 +34,6 @@ public abstract class Signal implements Serializable {
 
     public abstract List<Data> generateDiscreteRepresentation();
 
-    /* compute histogram */
 
     public static List<Range> generateHistogram(int numberOfRanges, List<Data> discreteRepresentation) {
         final double min = discreteRepresentation.stream().mapToDouble(data -> data.getY()).min().getAsDouble();
@@ -51,7 +50,6 @@ public abstract class Signal implements Serializable {
         return ranges;
     }
 
-    /* compute params */
 
     public static double meanValue(List<Data> discreteRepresentation) {
         double sum = 0;

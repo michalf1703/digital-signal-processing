@@ -6,13 +6,11 @@ import com.example.zad1.Signals.DiscreteSignal;
 public class ReconstructedSignalSincBasic extends ContinuousSignal {
 
     private final DiscreteSignal sourceSignal;
-    private final int N;
     private final int neighbourSamples;
 
-    public ReconstructedSignalSincBasic(DiscreteSignal sourceSignal, int N, int neighbourSamples) {
+    public ReconstructedSignalSincBasic(DiscreteSignal sourceSignal, int neighbourSamples) {
         super(sourceSignal.getRangeStart(), sourceSignal.getRangeLength(), sourceSignal.getSampleRate());
         this.sourceSignal = sourceSignal;
-        this.N = N;
         this.neighbourSamples = neighbourSamples;
     }
 
@@ -22,13 +20,17 @@ public class ReconstructedSignalSincBasic extends ContinuousSignal {
         int index = (int) Math.floor((t - getRangeStart()) / getRangeLength() * sourceSignal.getNumberOfSamples());
         int firstSample = Math.max(0, index - neighbourSamples / 2);
         int lastSample = Math.min(sourceSignal.getNumberOfSamples(), firstSample + neighbourSamples);
-
         final double step = getRangeLength() / sourceSignal.getNumberOfSamples();
         double sum = 0.0;
+        System.out.println("Czas: " + t);
+        System.out.println("Pierwsza próbka: " + firstSample);
+        System.out.println("Index:" + index);
+        System.out.println("Ostatnia próbka: " + lastSample);
         for (int i = firstSample; i < lastSample; i++) {
             sum += sourceSignal.value(i) * sinc(t / step - i);
-        }
 
+        }
+        System.out.println("sum:" + sum);
         return sum;
     }
 
