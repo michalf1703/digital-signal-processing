@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rekonstrukcja-eks1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EKSPERIMENTOO" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/DAC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/DAC.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sygnal-sinus" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,15 +37,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hp/Documents/GitHub/eVote&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hp/Desktop/cpsy/CPS-master",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.StartApplication">
     <configuration name="LineChartSample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.zad1.Charts.LineChartSample" />
@@ -124,7 +125,18 @@
       <workItem from="1713610670158" duration="17777000" />
       <workItem from="1713662878366" duration="7000" />
       <workItem from="1713695524283" duration="5770000" />
-      <workItem from="1713716829841" duration="10086000" />
+      <workItem from="1713716829841" duration="10256000" />
+      <workItem from="1713730249835" duration="7304000" />
+      <workItem from="1713768017899" duration="1827000" />
+      <workItem from="1713816571100" duration="53000" />
+      <workItem from="1714914751890" duration="6359000" />
+      <workItem from="1714978933170" duration="3451000" />
+      <workItem from="1714998322370" duration="7000" />
+      <workItem from="1715566030948" duration="3753000" />
+      <workItem from="1715582057899" duration="5330000" />
+      <workItem from="1715625933116" duration="122000" />
+      <workItem from="1715863358093" duration="418000" />
+      <workItem from="1716246289008" duration="1630000" />
     </task>
     <servers />
   </component>

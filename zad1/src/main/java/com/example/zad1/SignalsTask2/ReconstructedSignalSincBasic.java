@@ -1,50 +1,36 @@
 package com.example.zad1.SignalsTask2;
 
-
 import com.example.zad1.Signals.ContinuousSignal;
 import com.example.zad1.Signals.DiscreteSignal;
 
 public class ReconstructedSignalSincBasic extends ContinuousSignal {
 
     private final DiscreteSignal sourceSignal;
-    private final int N;
+    private final int neighbourSamples;
 
-    public ReconstructedSignalSincBasic(DiscreteSignal sourceSignal, int N) {
+    public ReconstructedSignalSincBasic(DiscreteSignal sourceSignal, int neighbourSamples) {
         super(sourceSignal.getRangeStart(), sourceSignal.getRangeLength(), sourceSignal.getSampleRate());
         this.sourceSignal = sourceSignal;
-        this.N = N;
+        this.neighbourSamples = neighbourSamples;
     }
 
     @Override
     public double value(double t) {
 
-        /* find nearest sample */
         int index = (int) Math.floor((t - getRangeStart()) / getRangeLength() * sourceSignal.getNumberOfSamples());
-
-        /* find range of N (or less) samples */
-        int firstSample = index - N / 2;
-        int lastSample = firstSample + N;
-        if (firstSample < 0) {
-            lastSample = lastSample - firstSample;
-            firstSample = 0;
-            if (lastSample > sourceSignal.getNumberOfSamples()) {
-                lastSample = sourceSignal.getNumberOfSamples();
-            }
-        } else if (lastSample > sourceSignal.getNumberOfSamples()) {
-            firstSample = firstSample - (lastSample - sourceSignal.getNumberOfSamples());
-            lastSample = sourceSignal.getNumberOfSamples();
-            if (firstSample < 0) {
-                firstSample = 0;
-            }
-        }
-
-        /* calculate value */
+        int firstSample = Math.max(0, index - neighbourSamples / 2);
+        int lastSample = Math.min(sourceSignal.getNumberOfSamples(), firstSample + neighbourSamples);
         final double step = getRangeLength() / sourceSignal.getNumberOfSamples();
         double sum = 0.0;
+        System.out.println("Czas: " + t);
+        System.out.println("Pierwsza próbka: " + firstSample);
+        System.out.println("Index:" + index);
+        System.out.println("Ostatnia próbka: " + lastSample);
         for (int i = firstSample; i < lastSample; i++) {
             sum += sourceSignal.value(i) * sinc(t / step - i);
-        }
 
+        }
+        System.out.println("sum:" + sum);
         return sum;
     }
 
