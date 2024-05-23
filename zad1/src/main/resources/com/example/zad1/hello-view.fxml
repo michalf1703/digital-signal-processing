@@ -112,10 +112,10 @@
             <Button fx:id="generuj2" layoutX="349.0" layoutY="624.0" mnemonicParsing="false" onAction="#performOneOperation" text="Generuj" />
             <Text layoutX="12.0" layoutY="628.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczba sąsiednich próbek " />
             <TextField fx:id="sasiadProbki" layoutX="181.0" layoutY="619.0" />
-            <TextField fx:id="rzadFiltra" layoutX="452.0" layoutY="133.0" />
+            <TextField fx:id="rzadFiltraF" layoutX="452.0" layoutY="133.0" />
             <Text layoutX="333.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rząd filtra" />
             <Text layoutX="326.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Częstotliwość odcięcia" />
-            <TextField fx:id="czestotliwoscOdciencia" layoutX="453.0" layoutY="166.0" />
+            <TextField fx:id="czestotliwoscOdcienciaF" layoutX="453.0" layoutY="166.0" />
             <Text layoutX="406.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz typ okna">
                <font>
                   <Font name="System Bold" size="13.0" />

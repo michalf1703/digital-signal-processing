@@ -117,33 +117,18 @@ public abstract class Signal implements Serializable {
     }
 
     public static double signalToNoiseRatio(List<Data> result, List<Data> origin) {
-        int minLength = Math.min(result.size(), origin.size());
+        if (result.size() != origin.size()) {
+            throw new OperationSignal.NotSameLengthException();
+        }
 
         double resultSquaredSum = 0.0;
         double diffSquaredSum = 0.0;
-        for (int i = 0; i < minLength; i++) {
-            double resultY = result.get(i).getY();
-            double originY = origin.get(i).getY();
-            resultSquaredSum += resultY * resultY;
-            diffSquaredSum += Math.pow(resultY - originY, 2.0);
+        for (int i = 0; i < result.size(); i++) {
+            resultSquaredSum += Math.pow(result.get(i).getY(), 2.0);
+            diffSquaredSum += Math.pow(result.get(i).getY() - origin.get(i).getY(), 2.0);
         }
 
-        if (result.size() < origin.size()) {
-            for (int i = minLength; i < origin.size(); i++) {
-                double originY = origin.get(i).getY();
-                diffSquaredSum += originY * originY;
-            }
-        }
-        else if (result.size() > origin.size()) {
-            for (int i = minLength; i < result.size(); i++) {
-                double resultY = result.get(i).getY();
-                resultSquaredSum += resultY * resultY;
-            }
-        }
-
-        double snr = 10.0 * Math.log10(resultSquaredSum / diffSquaredSum);
-
-        return snr;
+        return 10.0 * Math.log10(resultSquaredSum / diffSquaredSum);
     }
 
     public static double peakSignalToNoiseRatio(List<Data> result, List<Data> origin) {
