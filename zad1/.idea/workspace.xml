@@ -7,11 +7,9 @@
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/BandPassFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/BandPassFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/HighPassFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/HighPassFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/LowPassFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/LowPassFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +151,7 @@
       <workItem from="1715863358093" duration="418000" />
       <workItem from="1716246289008" duration="2509000" />
       <workItem from="1716414936706" duration="9014000" />
-      <workItem from="1716467140133" duration="6276000" />
+      <workItem from="1716467140133" duration="10411000" />
     </task>
     <servers />
   </component>
@@ -170,20 +168,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/LowPassFilter.java</url>
-          <line>45</line>
-          <properties class="com.example.zad1.SignalsTask3.LowPassFilter" method="main">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

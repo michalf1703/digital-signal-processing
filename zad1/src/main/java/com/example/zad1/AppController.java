@@ -3,6 +3,8 @@ package com.example.zad1;
 import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
 import com.example.zad1.Signals.*;
+import com.example.zad1.SignalsTask3.BandPassFilter;
+import com.example.zad1.SignalsTask3.HighPassFilter;
 import com.example.zad1.SignalsTask3.LowPassFilter;
 import com.example.zad1.window.Blackman;
 import com.example.zad1.window.Hamming;
@@ -334,15 +336,111 @@ public class AppController {
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
                             }
+                            if ("Okno Hamminga".equals(windowType)) {
+                                LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowH);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                            }
+                            if ("Okno Hanninga".equals(windowType)) {
+                                LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowHann);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                            }
+                            if ("Okno Blackmana".equals(windowType)) {
+                                LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowB);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                            }
 
                         } else {
                             throw new NullPointerException();
                         }
                         break;
+                    case "filtr górnoprzepustowy":
+                        if (typOkna.getValue() != null) {
+                            String windowType = typOkna.getValue();
+                            if ("Okno Prostokątne".equals(windowType)) {
+                                Rectangular window = new Rectangular();
+                                int filterOrder1 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency1 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                HighPassFilter filter = new HighPassFilter(filterOrder1,cuttingFrequency1, sampleRate , window);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                            }
+                            if ("Okno Hamminga".equals(windowType)) {
+                                int filterOrder2 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency2 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                Hamming windowH1 = new Hamming(filterOrder2);
+                                HighPassFilter filter = new HighPassFilter(filterOrder2,cuttingFrequency2, sampleRate , windowH1);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                            }
+                            if ("Okno Hanninga".equals(windowType)) {
+                                int filterOrder3 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency3 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                Hanning windowHann1 = new Hanning(filterOrder3);
+                                HighPassFilter filter = new HighPassFilter(filterOrder3,cuttingFrequency3, sampleRate , windowHann1);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                            }
+                            if ("Okno Blackmana".equals(windowType)) {
+                                int filterOrder4 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency4 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                Blackman windowB1 = new Blackman(filterOrder4);
+                                HighPassFilter filter = new HighPassFilter(filterOrder4,cuttingFrequency4, sampleRate , windowB1);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                            }
+
+                        } else {
+                            throw new NullPointerException();
+                        }
+                        break;
+                        case "filtr pasmowy":
+                            if (typOkna.getValue() != null) {
+                                String windowType = typOkna.getValue();
+                                if ("Okno Prostokątne".equals(windowType)) {
+                                    Rectangular window = new Rectangular();
+                                    int filterOrder1 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency1 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    BandPassFilter filter = new BandPassFilter(filterOrder1,cuttingFrequency1, sampleRate , window);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                }
+                                if ("Okno Hamminga".equals(windowType)) {
+                                    int filterOrder2 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency2 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    Hamming windowH1 = new Hamming(filterOrder2);
+                                    BandPassFilter filter = new BandPassFilter(filterOrder2,cuttingFrequency2, sampleRate , windowH1);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                }
+                                if ("Okno Hanninga".equals(windowType)) {
+                                    int filterOrder3 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency3 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    Hanning windowHann1 = new Hanning(filterOrder3);
+                                    BandPassFilter filter = new BandPassFilter(filterOrder3,cuttingFrequency3, sampleRate , windowHann1);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                }
+                                if ("Okno Blackmana".equals(windowType)) {
+                                    int filterOrder4 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency4 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    Blackman windowB1 = new Blackman(filterOrder4);
+                                    BandPassFilter filter = new BandPassFilter(filterOrder4,cuttingFrequency4, sampleRate , windowB1);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                }
+
+                            } else {
+                                throw new NullPointerException();
+                            }
+                            break;
+
 
                 }
 
-                //calculateSignal(s);
+               // calculateSignal(s);
             } catch (NumberFormatException e) {
                 showAlert("Błąd", "Błędne dane", "Upewnij się, że wszystkie pola zawierają poprawne wartości liczbowe.");
             }

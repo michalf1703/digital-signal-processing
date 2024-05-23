@@ -43,18 +43,4 @@ public class LowPassFilter {
         return response;
     }
 
-    public static void main(String[] args) {
-        // Example usage
-        int M = 25;
-        double fo = 10.0; // Cut-off frequency
-        double sampleRate = 80.0; // Sample rate
-        Window window = new Hamming(M); // Assuming you have a RectangularWindow class
-
-        LowPassFilter filter = new LowPassFilter(M, fo, sampleRate, window);
-        double[] impulseResponse = filter.getImpulseResponse();
-
-        for (double coef : impulseResponse) {
-            System.out.println(coef);
-        }
-    }
 }
