@@ -6,7 +6,7 @@ public class UnitImpulse extends DiscreteSignal {
 
     public UnitImpulse(double rangeStart, double rangeLength, double sampleRate,
                              double amplitude, int jumpSampleNumber) {
-        super(rangeStart, rangeLength, sampleRate, null);
+        super(rangeStart, rangeLength, sampleRate);
         this.amplitude = amplitude;
         this.jumpSampleNumber = jumpSampleNumber;
     }

@@ -12,14 +12,12 @@ public abstract class DiscreteSignal extends Signal {
     public final double sampleRate;
     private final int numberOfSamples;
     private final double step;
-    private ContinuousSignal continuousSignal;
 
-    public DiscreteSignal(double rangeStart, double rangeLength, double sampleRate, ContinuousSignal continuousSignal) {
+    public DiscreteSignal(double rangeStart, double rangeLength, double sampleRate) {
         super(rangeStart, rangeLength,sampleRate);
         this.sampleRate = sampleRate;
         this.numberOfSamples = (int) (rangeLength * sampleRate);
         this.step = 1.0 / sampleRate;
-        this.continuousSignal = continuousSignal;
     }
 
 
@@ -32,9 +30,7 @@ public abstract class DiscreteSignal extends Signal {
         return numberOfSamples;
     }
 
-    public double value(int i) {
-        return continuousSignal.value(argument(i));
-    }
+    public abstract double value(int i);
 
     public double argument(int i) {
         return i * step + getRangeStart();

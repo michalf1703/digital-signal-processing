@@ -49,22 +49,29 @@ public class AppController {
     @FXML
     private TextField liczbaProbekField;
     @FXML
+    private TextField czestotliwoscOdciencia;
+    @FXML
+    private TextField rzadFiltra;
+    @FXML
     private Text poprawnyOdczyt1;
     ADC adc = new ADC();
     DAC dac = new DAC();
 
     @FXML
     private Text poprawnyOdczyt2;
+    @FXML
+    private ChoiceBox<String> typOkna;
 
     private String[] opcje = {"szum o rozkładzie jednostajnym", "szum gaussowski", "sygnał sinusoidalny",
             "sygnał sinusoidalny wyprostowany jednopołówkowo", "sygnał sinusoidalny wyprostowany dwupołówkowo",
             "sygnał prostokątny", "sygnał prostokątny symetryczny", "sygnał trójkątny", "skok jednostkowy",
-            "impuls jednostkowy", "szum impulsowy"};
+            "impuls jednostkowy", "szum impulsowy", "filtr dolnoprzepustowy", "filtr górnoprzepustowy", "filtr pasmowy"};
 
-    private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie"};
+    private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie", "splot", "korelacja"};
     private String[] opcjeJedno = {"próbkowanie", "kwantyzacja", "rekonstrukcja sygnału"};
     private String[] opcjeKwantyzacja = {"kwantyzacja równomierna z obcięciem", "kwantyzacja równomierna z zaokrągleniem"};
     private String [] opcjeRekonstrukcja = {"ekstrapolacja zerowego rzędu", "interpolacja pierwszego rzędu", "rekonstrukcja metodą sinc"};
+    private String [] opcjeOkno = {"Okno Prostokątne", "Okno Hamminga", "Okno Hanninga", "Okno Blackmana"};
     private String[] opcjePrzedzial = {"5", "10", "15", "20"};
     private Integer tabIndex = 1;
     private Window stage;
@@ -77,6 +84,7 @@ public class AppController {
         wybierzMetodeKwantyChoiceBox.getItems().addAll(opcjeKwantyzacja);
         wybierzMetodeRekonstrukcjaChoiceBox.getItems().addAll(opcjeRekonstrukcja);
         przedzialHistogramu.getItems().addAll(opcjePrzedzial);
+        typOkna.getItems().addAll(opcjeOkno);
         rodzajSygnalu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             checkSignal();
         });
