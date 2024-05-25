@@ -3,15 +3,14 @@ package com.example.zad1;
 import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
 import com.example.zad1.Signals.*;
-import com.example.zad1.SignalsTask3.BandPassFilter;
-import com.example.zad1.SignalsTask3.HighPassFilter;
-import com.example.zad1.SignalsTask3.LowPassFilter;
+import com.example.zad1.SignalsTask3.*;
 import com.example.zad1.window.Blackman;
 import com.example.zad1.window.Hamming;
 import com.example.zad1.window.Hanning;
 import com.example.zad1.window.Rectangular;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,6 +33,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.nio.file.DirectoryStream;
 import java.util.*;
 import java.util.List;
 
@@ -75,6 +75,8 @@ public class AppController {
 
     @FXML
     private Text poprawnyOdczyt2;
+    @FXML
+    private Button wczytajFiltr;
     @FXML
     private ChoiceBox<String> typOkna;
 
@@ -335,6 +337,8 @@ public class AppController {
                                 LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , window);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
                             }
                             if ("Okno Hamminga".equals(windowType)) {
                                 LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowH);
@@ -440,13 +444,37 @@ public class AppController {
 
                 }
 
-               // calculateSignal(s);
+                calculateSignal(s);
             } catch (NumberFormatException e) {
                 showAlert("Błąd", "Błędne dane", "Upewnij się, że wszystkie pola zawierają poprawne wartości liczbowe.");
             }
         }
     }
+    public void displayConvolutionSignal(ConvolutionSignal signal) {
+        double[] impulseResponse = signal.getImpulseResponse();
 
+        // Create scatter chart
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.setTitle("Convolution Signal");
+
+        // Create series and add data
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        for (int i = 0; i < impulseResponse.length; i++) {
+            series.getData().add(new XYChart.Data<>(i, impulseResponse[i]));
+        }
+
+        // Add series to chart
+        scatterChart.getData().add(series);
+
+        // Display chart in a new window
+        VBox vbox = new VBox(scatterChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -497,6 +525,7 @@ public class AppController {
         }
     }
 
+
     public void loadSignalForOperation() {
         try {
             signalFileReader = new FileReader<>(new FileChooser()
@@ -534,9 +563,19 @@ public class AppController {
                 case "dzielenie":
                     result = new OperationSignal(s1, s2, (a, b) -> a / b);
                     break;
+                    case "splot":
+                        result = new ConvolutionSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
+                        displayConvolutionSignal((ConvolutionSignal) result);
+                        break;
             }
-            calculateOperationResult(result);
+           // probowanie(result);
+            //calculateSignal(result);
         }
+    }
+
+    public void representSignal(Signal signal) {
+        List<Data> data = signal.generateDiscreteRepresentation();
+
     }
     public void makeComparison() {
         Signal s1 = signals.get(1);
@@ -782,7 +821,7 @@ public class AppController {
         Parent chart;
         String title = signal.getName();
 
-        if (title.equals("szum impulsowy") || title.equals("impuls jednostkowy") || title.equals("filtr dolnoprzepustowy") || title.equals("filtr górnoprzepustowy") || title.equals("filtr pasmowy")) {
+        if (title.equals("szum impulsowy") || title.equals("impuls jednostkowy")) {
             ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
             scatterChart.setTitle(title);
 
@@ -898,5 +937,12 @@ public class AppController {
             }
         }
         return true;
+    }
+
+    @FXML
+    void onWczytajFiltr() {
+
+
+
     }
 }

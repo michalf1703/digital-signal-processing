@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 public abstract class Signal implements Serializable {
 
-    public final double rangeStart;
+    public double rangeStart;
     private final double rangeLength;
     public final double sampleRate;
 

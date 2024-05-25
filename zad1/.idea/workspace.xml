@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/ConvolutionSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sinus" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/BandPassFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/BandPassFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/HighPassFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/HighPassFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/ImpulseNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/ImpulseNoise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/UnitImpulse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/UnitImpulse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/CorrelationSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/CorrelationSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/LowPassFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/LowPassFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Rectangular.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Rectangular.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +158,9 @@
       <workItem from="1715863358093" duration="418000" />
       <workItem from="1716246289008" duration="2509000" />
       <workItem from="1716414936706" duration="9014000" />
-      <workItem from="1716467140133" duration="10411000" />
+      <workItem from="1716467140133" duration="14262000" />
+      <workItem from="1716589043742" duration="2004000" />
+      <workItem from="1716631794513" duration="14653000" />
     </task>
     <servers />
   </component>

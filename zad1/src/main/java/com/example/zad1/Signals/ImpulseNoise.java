@@ -28,6 +28,9 @@ public class ImpulseNoise extends DiscreteSignal {
     public double getSampleRate() {
         return this.sampleRate;
     }
+
+
+
     @Override
     public String getName() {
         return "szum impulsowy";

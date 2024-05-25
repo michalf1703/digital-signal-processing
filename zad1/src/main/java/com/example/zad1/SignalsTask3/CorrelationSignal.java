@@ -15,6 +15,8 @@ public class CorrelationSignal extends DiscreteSignal{
         this.x = x;
     }
 
+
+
     @Override
     public double value(int i) {
         i = i - (x.getNumberOfSamples() - 1);

@@ -23,6 +23,9 @@ public class UnitImpulse extends DiscreteSignal {
     public double getSampleRate() {
         return this.sampleRate;
     }
+
+
+
     @Override
     public String getName() {
         return "impuls jednostkowy";
