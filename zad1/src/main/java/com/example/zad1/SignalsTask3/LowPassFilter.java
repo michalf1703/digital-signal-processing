@@ -34,6 +34,11 @@ public class LowPassFilter extends DiscreteSignal {
         return result * window.w(n);
     }
 
+    @Override
+    public int getNumberOfSamples() {
+        return M;
+    }
+
     public String getName() {
         return "filtr dolnoprzepustowy";
     }
@@ -43,6 +48,7 @@ public class LowPassFilter extends DiscreteSignal {
         for (int n = 0; n < M; n++) {
             response[n] = value(n);
         }
+        System.out.println("Number of samples: " + getNumberOfSamples());
         return response;
     }
 

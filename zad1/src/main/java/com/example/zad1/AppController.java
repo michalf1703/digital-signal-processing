@@ -541,10 +541,6 @@ public class AppController {
     }
 
     public void performOperations() {
-        if (!haveSameSampleRate()) {
-            showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
-            return;
-        }
         String operation = wybierzOperacje.getValue();
         if (operation != null) {
             Signal s1 = signals.get(1);
@@ -552,15 +548,31 @@ public class AppController {
             Signal result = null;
             switch (operation) {
                 case "dodawanie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a + b);
                     break;
                 case "odejmowanie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a - b);
                     break;
                 case "mnożenie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a * b);
                     break;
                 case "dzielenie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a / b);
                     break;
                     case "splot":
@@ -568,8 +580,7 @@ public class AppController {
                         displayConvolutionSignal((ConvolutionSignal) result);
                         break;
             }
-           // probowanie(result);
-            //calculateSignal(result);
+            calculateSignal(result);
         }
     }
 

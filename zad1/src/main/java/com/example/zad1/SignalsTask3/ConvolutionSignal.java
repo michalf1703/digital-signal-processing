@@ -25,7 +25,8 @@ public class ConvolutionSignal extends DiscreteSignal {
         for (int k = startK; k < endK; k++) {
             sum += h.value(k) * x.value(i - k);
         }
-        System.out.println("Liczba probek: " + getNumberOfSamples());
+        System.out.println("Liczba probek1: " + h.getNumberOfSamples());
+        System.out.println("Liczba probek2: " + x.getNumberOfSamples());
         return sum;
     }
 

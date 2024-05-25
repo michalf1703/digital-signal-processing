@@ -21,7 +21,6 @@ public abstract class DiscreteSignal extends Signal {
     }
 
 
-
     public double getSampleRate() {
         return sampleRate;
     }
