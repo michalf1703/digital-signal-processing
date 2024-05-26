@@ -123,6 +123,7 @@
             </Text>
             <ChoiceBox fx:id="typOkna" layoutX="379.0" layoutY="90.0" prefWidth="150.0" />
             <Button fx:id="wczytajFiltr" layoutX="467.0" layoutY="221.0" mnemonicParsing="false" onAction="#onWczytajFiltr" text="Wczytaj filtr" />
+            <Button fx:id="panelSymulacji" layoutX="535.0" layoutY="332.0" mnemonicParsing="false" onAction="#przejdzDoPaneluSymulacji" text="Przejdź do panelu symluacji" />
          </children></AnchorPane>
   </content>
 </TitledPane>

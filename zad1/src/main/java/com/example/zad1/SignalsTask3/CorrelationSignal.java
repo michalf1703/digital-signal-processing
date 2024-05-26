@@ -26,11 +26,23 @@ public class CorrelationSignal extends DiscreteSignal{
         for (int k = startK; k < endK; k++) {
             sum += h.value(k) * x.value(k - i);
         }
+       // System.out.println("Liczba probek1: " + h.getNumberOfSamples());
+        //System.out.println("Liczba probek2: " + x.getNumberOfSamples());
         return sum;
     }
 
     @Override
     public String getName() {
         return "CorrelationSignal";
+    }
+
+    public double[] getCorrelationResponse() {
+        int M = h.getNumberOfSamples() + x.getNumberOfSamples();
+        double[] response = new double[M];
+        for (int n = 0; n < M; n++) {
+            response[n] = value(n);
+        }
+
+        return response;
     }
 }

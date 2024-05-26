@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
@@ -25,15 +27,9 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
-import java.awt.*;
-import java.nio.file.DirectoryStream;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -92,7 +88,7 @@ public class AppController {
     private String [] opcjeOkno = {"Okno Prostokątne", "Okno Hamminga", "Okno Hanninga", "Okno Blackmana"};
     private String[] opcjePrzedzial = {"5", "10", "15", "20"};
     private Integer tabIndex = 1;
-    private Window stage;
+    private Window stage = new Stage();
 
     @FXML
     protected void initialize() {
@@ -475,6 +471,32 @@ public class AppController {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void displayCorrelationSignal(CorrelationSignal signal) {
+        double[] correlationResponse = signal.getCorrelationResponse();
+
+        // Create scatter chart
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.setTitle("Correlation Signal");
+
+        // Create series and add data
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        for (int i = 0; i < correlationResponse.length; i++) {
+            series.getData().add(new XYChart.Data<>(i, correlationResponse[i]));
+        }
+
+        // Add series to chart
+        scatterChart.getData().add(series);
+
+        // Display chart in a new window
+        VBox vbox = new VBox(scatterChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -578,6 +600,10 @@ public class AppController {
                     case "splot":
                         result = new ConvolutionSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
                         displayConvolutionSignal((ConvolutionSignal) result);
+                        break;
+                    case "korelacja":
+                        result = new CorrelationSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
+                        displayCorrelationSignal((CorrelationSignal) result);
                         break;
             }
             calculateSignal(result);
@@ -953,7 +979,21 @@ public class AppController {
     @FXML
     void onWczytajFiltr() {
 
+    }
 
+    @FXML
+    void przejdzDoPaneluSymulacji(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("simulation_panel.fxml"));
+            Parent root = loader.load();
 
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

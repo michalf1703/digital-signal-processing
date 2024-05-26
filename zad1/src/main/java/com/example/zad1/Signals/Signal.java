@@ -23,6 +23,9 @@ public abstract class Signal implements Serializable {
         this.rangeLength = rangeLength;
         this.sampleRate = sampleRate;
     }
+    public void setRangeStart(double rangeStart) {
+        this.rangeStart = rangeStart;
+    }
 
     public double getRangeStart() {
         return rangeStart;
