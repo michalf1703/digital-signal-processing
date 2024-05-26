@@ -606,7 +606,7 @@ public class AppController {
                         displayCorrelationSignal((CorrelationSignal) result);
                         break;
             }
-            calculateSignal(result);
+            calculateOperationResult(result);
         }
     }
 

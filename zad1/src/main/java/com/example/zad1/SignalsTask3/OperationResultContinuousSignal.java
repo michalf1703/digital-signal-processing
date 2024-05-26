@@ -4,7 +4,9 @@ import com.example.zad1.Signals.ContinuousSignal;
 import com.example.zad1.Signals.Operation;
 import com.example.zad1.Signals.OperationSignal;
 
-public class OperationResultContinuousSignal extends ContinuousSignal {
+import java.io.Serializable;
+
+public class OperationResultContinuousSignal extends ContinuousSignal implements Serializable {
 
     private final ContinuousSignal s1;
     private final ContinuousSignal s2;

@@ -5,19 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/OperationResultContinuousSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/helpers/ChartRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/helpers/DouglasPeuckerAlg.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/simulation_panel.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/CorrelationAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/DistanceCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/RadarSimulator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalSampler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/FileOperationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/FileOperationException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/CorrelationSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/CorrelationSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/OperationResultContinuousSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/OperationResultContinuousSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +52,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "create.test.in.the.same.root": "true",
     "last_opened_file_path": "C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/resources/com/example/zad1",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
@@ -89,6 +92,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RadarSimulator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.zad1.RadarSimulator" />
+      <module name="zad1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.zad1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StartApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.zad1.StartApplication" />
       <module name="zad1" />
@@ -105,6 +121,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StartApplication" />
+        <item itemvalue="Application.RadarSimulator" />
         <item itemvalue="Application.LowPassFilter" />
         <item itemvalue="Application.LineChartSample" />
       </list>
@@ -171,6 +188,7 @@
       <workItem from="1716467140133" duration="14262000" />
       <workItem from="1716589043742" duration="2004000" />
       <workItem from="1716631794513" duration="20033000" />
+      <workItem from="1716725980979" duration="11241000" />
     </task>
     <servers />
   </component>

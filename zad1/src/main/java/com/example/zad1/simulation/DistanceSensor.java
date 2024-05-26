@@ -1,10 +1,12 @@
 package com.example.zad1.simulation;
 
+
 import com.example.zad1.Signals.*;
 import com.example.zad1.SignalsTask3.CorrelationSignal;
 import com.example.zad1.SignalsTask3.OperationResultContinuousSignal;
 
 public class DistanceSensor {
+
     private final double probeSignalTerm;
     private final double sampleRate;
     private final int bufferLength;
@@ -27,10 +29,9 @@ public class DistanceSensor {
     }
 
     public final ContinuousSignal generateProbeSignal() {
-        return new OperationResultContinuousSignal(
-                new SinusoidalSignal(0.0, 0.0, 1.0, probeSignalTerm, sampleRate),
-                new RectangularSignal(0.0, 0.0, 0.6, probeSignalTerm / 6 * 2, 0.3, sampleRate),
-                (a, b) -> a + b);
+        /* always return new independent copy of probe signal */
+        return new SinusoidalSignal(0.0, probeSignalTerm, 1.0, probeSignalTerm,sampleRate);
+
     }
 
     public DiscreteSignal getDiscreteProbeSignal() {
@@ -50,12 +51,14 @@ public class DistanceSensor {
     }
 
     public void update(ContinuousSignal feedbackSignal, double timestamp) {
+        /* fill buffers */
         double rangeStart = timestamp - bufferLength / sampleRate;
         this.discreteProbeSignal = new ContinuousBasedDiscreteSignal(rangeStart, bufferLength,
                 sampleRate, generateProbeSignal());
         this.discreteFeedbackSignal = new ContinuousBasedDiscreteSignal(rangeStart, bufferLength,
                 sampleRate, feedbackSignal);
 
+        /* check if it's time for distance calculation */
         if (timestamp - lastCalculationTimestamp >= reportTerm) {
             lastCalculationTimestamp = timestamp;
             calculateDistance();
@@ -63,23 +66,20 @@ public class DistanceSensor {
     }
 
     private void calculateDistance() {
+        /* correlation */
         this.correlationSignal = new CorrelationSignal(discreteFeedbackSignal, discreteProbeSignal);
 
-        int indexOfFirstMax = 0;
-        for (int i = 1; i < correlationSignal.getNumberOfSamples(); i++) {
+        /* find max */
+        int indexOfFirstMax = correlationSignal.getNumberOfSamples() / 2;
+        for (int i = indexOfFirstMax + 1; i < correlationSignal.getNumberOfSamples(); i++) {
             if (correlationSignal.value(i) > correlationSignal.value(indexOfFirstMax)) {
                 indexOfFirstMax = i;
             }
         }
 
-        double delay = Math.abs(indexOfFirstMax - correlationSignal.getNumberOfSamples() / 2)
+        /* calculate distance */
+        double delay = (indexOfFirstMax - correlationSignal.getNumberOfSamples() / 2)
                 / sampleRate;
-        this.distance = delay * 343 / 2.0;
-
-        System.out.println("indexOfFirstMax: " + indexOfFirstMax);
-        System.out.println("numberOfSamples: " + correlationSignal.getNumberOfSamples());
-        System.out.println("sampleRate: " + sampleRate);
-        System.out.println("delay: " + delay);
-        System.out.println("Distance: " + distance);
+        this.distance = delay * signalVelocity / 2.0;
     }
 }

@@ -2,10 +2,11 @@ package com.example.zad1.Signals;
 
 import com.example.zad1.Base.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OperationSignal extends Signal {
+public class OperationSignal extends Signal implements Serializable {
 
     private Signal s1;
     private Signal s2;

@@ -8,18 +8,17 @@ public class Environment {
     private final double signalVelocity;
     private final double itemVelocity;
     private final DistanceSensor distanceSensor;
-    private final int liczbaPomiarow;
 
     private double itemDistance;
     private double timestamp = 0.0;
 
     public Environment(double timeStep, double signalVelocity, double itemVelocity,
-                       DistanceSensor distanceSensor, int liczbaPomiarow) {
+                       DistanceSensor distanceSensor, double startItemDistance) {
         this.timeStep = timeStep;
         this.signalVelocity = signalVelocity;
         this.itemVelocity = itemVelocity;
         this.distanceSensor = distanceSensor;
-        this.liczbaPomiarow = liczbaPomiarow;
+        this.itemDistance = startItemDistance;
     }
 
     public double getTimeStep() {
@@ -47,23 +46,19 @@ public class Environment {
     }
 
     public void step() {
+        /* update timestamp */
         timestamp += timeStep;
+
+        /* update item position */
         itemDistance += itemVelocity * timeStep;
 
-        System.out.println("timestamp: " + timestamp);
-        System.out.println("itemDistance: " + itemDistance);
-
+        /* retrieve feedback signal from probeSignal */
         double delay = itemDistance / signalVelocity * 2.0;
-        System.out.println("delay: " + delay);
-
         ContinuousSignal probeSignal = distanceSensor.generateProbeSignal();
         probeSignal.setRangeStart(probeSignal.getRangeStart() + delay);
         ContinuousSignal feedbackSignal = probeSignal;
 
-        System.out.println("probeSignal: " + probeSignal.toString());
-        System.out.println("feedbackSignal: " + feedbackSignal.toString());
-        System.out.println("itemDistance: " + itemDistance);
-
+        /* update distance sensor */
         distanceSensor.update(feedbackSignal, timestamp);
     }
 }

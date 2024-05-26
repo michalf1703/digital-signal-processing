@@ -45,4 +45,8 @@ public abstract class DiscreteSignal extends Signal {
     }
 
     public abstract String getName();
+
+    public String printCorrelation() {
+        return null;
+    }
 }

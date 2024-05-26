@@ -1,5 +1,6 @@
 package com.example.zad1;
 
+import com.example.zad1.simulation.AnimationThread;
 import com.example.zad1.simulation.DistanceSensor;
 import com.example.zad1.simulation.Environment;
 import javafx.event.ActionEvent;
@@ -10,38 +11,9 @@ import javafx.scene.control.TextField;
 
 public class AnimationPanel {
     @FXML
-    private TextField czestotliwoscProbkowania;
+    private TextField czestotliwoscProbkowania, dlugoscBufora, liczbaPomiarowF, jednostkaCzasowa, okresRaportowania, okresSygnaluSondujacego, predkoscPrzedmiotu,predkoscRzeczywista;
 
-    @FXML
-    private TextField dlugoscBufora;
-    @FXML
-    private TextField liczbaPomiarowF;
-
-    @FXML
-    private TextField jednostkaCzasowa;
-
-    @FXML
-    private TextField okresRaportowania;
-
-    @FXML
-    private TextField okresSygnaluSondujacego;
-
-    @FXML
-    private TextField predkoscRzeczywista;
-
-
-    @FXML
-    private TextField predkoscPrzedmiotu;
-
-    @FXML
-    private TextField textFieldResultCalculatedDistance;
-
-    @FXML
-    private TextField textFieldResultRealDistance;
-
-    @FXML
-    private TextField textFieldResultTimeStamp;
-
+    AnimationThread animationThread = new AnimationThread();
 
 
     @FXML
@@ -61,9 +33,9 @@ public class AnimationPanel {
         liczbaPomiarowF.setText("10");
         jednostkaCzasowa.setText("10");
         predkoscRzeczywista.setText("10");
-        predkoscPrzedmiotu.setText("0.5");
+        predkoscPrzedmiotu.setText("30");
         okresSygnaluSondujacego.setText("1");
-        czestotliwoscProbkowania.setText("20");
+        czestotliwoscProbkowania.setText("40");
         dlugoscBufora.setText("60");
         okresRaportowania.setText("0.5");
     }
@@ -81,19 +53,17 @@ public class AnimationPanel {
             double okresRaportowani = Double.parseDouble(okresRaportowania.getText()); //d
 
             DistanceSensor distanceSensor = new DistanceSensor(okresSygnaluSond, czestotliwoscProbkowa, (int) dlugoscBuff, okresRaportowani, predkoscRzeczywi);
-            Environment environment = new Environment(jednostkaCzasu, predkoscRzeczywi, predkoscPrzed, distanceSensor, liczbaPomiarow);
+            Environment environment = new Environment(jednostkaCzasu, predkoscRzeczywi, predkoscPrzed, distanceSensor,25);
+            animationThread.startAnimation(environment);
 
-            for (int i = 0; i < liczbaPomiarow; i++) {
-                environment.step();
-                System.out.println("Czas: " + environment.getTimestamp());
-                System.out.println("Rzeczywista odległość: " + environment.getItemDistance());
-                System.out.println("Obliczona odległość: " + environment.getDistanceSensor().getDistance());
-            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
     }
 
+    public void createSignal() {
+        //TODO
+    }
 
 
 
