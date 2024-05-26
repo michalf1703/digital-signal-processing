@@ -16,30 +16,12 @@ public class AnimationThread {
 
     private Thread thread;
 
-    public AtomicBoolean getIsAnimationRunning() {
-        return isAnimationRunning;
-    }
-
-    public AtomicBoolean getIsAnimationPaused() {
-        return isAnimationPaused;
-    }
 
     public void startAnimation(Environment environment) {
         isAnimationRunning.set(true);
         run(environment);
     }
 
-    public void pauseAnimation() {
-        isAnimationPaused.set(true);
-    }
-
-    public void repauseAnimation() {
-        isAnimationPaused.set(false);
-    }
-
-    public void stopAnimation() {
-        isAnimationRunning.set(false);
-    }
 
     private void run(Environment environment){
         Task<Void> task = new Task<Void>() {

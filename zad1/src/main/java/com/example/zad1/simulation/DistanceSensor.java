@@ -29,8 +29,10 @@ public class DistanceSensor {
     }
 
     public final ContinuousSignal generateProbeSignal() {
-        /* always return new independent copy of probe signal */
-        return new SinusoidalSignal(0.0, probeSignalTerm, 1.0, probeSignalTerm,sampleRate);
+        return new OperationResultContinuousSignal(
+                new SinusoidalSignal(0.0, 0.0, 1.0, probeSignalTerm,sampleRate),
+                new RectangularSignal(0.0, 0.0, 0.6, probeSignalTerm / 6 * 2, 0.3, sampleRate),
+                (a, b) -> a + b);
 
     }
 
@@ -51,14 +53,11 @@ public class DistanceSensor {
     }
 
     public void update(ContinuousSignal feedbackSignal, double timestamp) {
-        /* fill buffers */
         double rangeStart = timestamp - bufferLength / sampleRate;
         this.discreteProbeSignal = new ContinuousBasedDiscreteSignal(rangeStart, bufferLength,
                 sampleRate, generateProbeSignal());
         this.discreteFeedbackSignal = new ContinuousBasedDiscreteSignal(rangeStart, bufferLength,
                 sampleRate, feedbackSignal);
-
-        /* check if it's time for distance calculation */
         if (timestamp - lastCalculationTimestamp >= reportTerm) {
             lastCalculationTimestamp = timestamp;
             calculateDistance();
@@ -66,18 +65,14 @@ public class DistanceSensor {
     }
 
     private void calculateDistance() {
-        /* correlation */
         this.correlationSignal = new CorrelationSignal(discreteFeedbackSignal, discreteProbeSignal);
-
-        /* find max */
-        int indexOfFirstMax = correlationSignal.getNumberOfSamples() / 2;
+        int indexOfFirstMax = correlationSignal.getNumberOfSamples()  / 2;
         for (int i = indexOfFirstMax + 1; i < correlationSignal.getNumberOfSamples(); i++) {
             if (correlationSignal.value(i) > correlationSignal.value(indexOfFirstMax)) {
                 indexOfFirstMax = i;
             }
         }
 
-        /* calculate distance */
         double delay = (indexOfFirstMax - correlationSignal.getNumberOfSamples() / 2)
                 / sampleRate;
         this.distance = delay * signalVelocity / 2.0;

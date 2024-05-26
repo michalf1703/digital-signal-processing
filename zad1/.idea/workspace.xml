@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/CorrelationAnalysis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/DistanceCalculator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/RadarSimulator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalSampler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/CorrelationSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/CorrelationSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/OperationResultContinuousSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/OperationResultContinuousSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/CorrelationAnalysis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/DistanceCalculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/RadarSimulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalSampler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +50,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "create.test.in.the.same.root": "true",
-    "last_opened_file_path": "C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/resources/com/example/zad1",
+    "last_directory_selection": "C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/java/com/example/zad1",
+    "last_opened_file_path": "C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/java/com/example/zad1",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
@@ -62,6 +60,7 @@
       <recent name="com.example.zad1" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hp\Documents\GitHub\digital-signal-processing\zad1\src\main\java\com\example\zad1" />
       <recent name="C:\Users\Hp\Documents\GitHub\digital-signal-processing\zad1\src\main\resources\com\example\zad1" />
     </key>
   </component>
@@ -85,6 +84,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.zad1.SignalsTask3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.zad1.Main" />
+      <module name="zad1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.zad1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -121,6 +133,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StartApplication" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.RadarSimulator" />
         <item itemvalue="Application.LowPassFilter" />
         <item itemvalue="Application.LineChartSample" />
