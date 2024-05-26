@@ -16,21 +16,39 @@ public class ReconstructedSignalSincBasic extends ContinuousSignal {
 
     @Override
     public double value(double t) {
-
-        int index = (int) Math.floor((t - getRangeStart()) / getRangeLength() * sourceSignal.getNumberOfSamples());
-        int firstSample = Math.max(0, index - neighbourSamples / 2);
-        int lastSample = Math.min(sourceSignal.getNumberOfSamples(), firstSample + neighbourSamples);
-        final double step = getRangeLength() / sourceSignal.getNumberOfSamples();
         double sum = 0.0;
-        System.out.println("Czas: " + t);
-        System.out.println("Pierwsza próbka: " + firstSample);
-        System.out.println("Index:" + index);
-        System.out.println("Ostatnia próbka: " + lastSample);
-        for (int i = firstSample; i < lastSample; i++) {
-            sum += sourceSignal.value(i) * sinc(t / step - i);
+        int sampleRate = (int) sourceSignal.getSampleRate();
+        double startTime = sourceSignal.getRangeStart();
 
+        // Calculate the index of the sample that corresponds to time t
+        int centerIndex = (int) Math.round((t - startTime) * sampleRate);
+
+        // Calculate the number of samples to consider on each side
+        int halfNeighbourSamples = neighbourSamples / 2;
+
+        // Ensure the start index is not negative
+        int startIndex = Math.max(0, centerIndex - halfNeighbourSamples);
+        // Ensure the end index is within bounds
+        int endIndex = Math.min(sourceSignal.getNumberOfSamples() - 1, centerIndex + halfNeighbourSamples);
+
+        // Logging information
+        System.out.println("Time t: " + t);
+        System.out.println("Center Index: " + centerIndex);
+        System.out.println("Start Index: " + startIndex);
+        System.out.println("End Index: " + endIndex);
+
+        // Sum contributions from the calculated range
+        for (int i = startIndex; i <= endIndex; i++) {
+            // Ensure the sample index is within bounds
+            if (i >= 0 && i < sourceSignal.getNumberOfSamples()) {
+                double sampleTime = sourceSignal.argument(i);
+                double sampleValue = sourceSignal.value(i);
+                sum += sampleValue * sinc((t - sampleTime) * sampleRate);
+                System.out.println("Sample Index: " + i + ", Sample Time: " + sampleTime + ", Sample Value: " + sampleValue);
+            }
         }
-        System.out.println("sum:" + sum);
+
+        System.out.println("Sum of contributions: " + sum);
         return sum;
     }
 
