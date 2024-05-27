@@ -16,21 +16,29 @@ public class ReconstructedSignalSincBasic extends ContinuousSignal {
 
     @Override
     public double value(double t) {
-
-        int index = (int) Math.floor((t - getRangeStart()) / getRangeLength() * sourceSignal.getNumberOfSamples());
-        int firstSample = Math.max(0, index - neighbourSamples / 2);
-        int lastSample = Math.min(sourceSignal.getNumberOfSamples(), firstSample + neighbourSamples);
-        final double step = getRangeLength() / sourceSignal.getNumberOfSamples();
         double sum = 0.0;
-        System.out.println("Czas: " + t);
-        System.out.println("Pierwsza próbka: " + firstSample);
-        System.out.println("Index:" + index);
-        System.out.println("Ostatnia próbka: " + lastSample);
-        for (int i = firstSample; i < lastSample; i++) {
-            sum += sourceSignal.value(i) * sinc(t / step - i);
+        int sampleRate = (int) sourceSignal.getSampleRate();
+        double startTime = sourceSignal.getRangeStart();
 
+        int centerIndex = (int) Math.round((t - startTime) * sampleRate);
+
+        int halfNeighbourSamples = neighbourSamples / 2;
+        int startIndex = Math.max(0, centerIndex - halfNeighbourSamples);
+        int endIndex = Math.min(sourceSignal.getNumberOfSamples() - 1, centerIndex + halfNeighbourSamples);
+        System.out.println("Time t: " + t);
+        System.out.println("Center Index: " + centerIndex);
+        System.out.println("Start Index: " + startIndex);
+        System.out.println("End Index: " + endIndex);
+        for (int i = startIndex; i <= endIndex; i++) {
+            if (i >= 0 && i < sourceSignal.getNumberOfSamples()) {
+                double sampleTime = sourceSignal.argument(i);
+                double sampleValue = sourceSignal.value(i);
+                sum += sampleValue * sinc((t - sampleTime) * sampleRate);
+                System.out.println("Sample Index: " + i + ", Sample Time: " + sampleTime + ", Sample Value: " + sampleValue);
+            }
         }
-        System.out.println("sum:" + sum);
+
+        System.out.println("Sum of contributions: " + sum);
         return sum;
     }
 
