@@ -1,6 +1,6 @@
 package com.example.zad1.window;
 
-public class Hamming implements Window{
+public class Hamming implements Window, java.io.Serializable{
     private final int M;
 
     public Hamming(int M) {

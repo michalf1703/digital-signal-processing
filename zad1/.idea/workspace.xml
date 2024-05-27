@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/CorrelationAnalysis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/DistanceCalculator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/RadarSimulator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalSampler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FILTRRR" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RONALDOsINUS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SINUS-probka" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/po_operacji" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sinus_pierwszy_sygnal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprobkowany_sinus" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Blackman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Blackman.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hamming.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hamming.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hanning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hanning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trojkat probka" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trojkatny_essa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwww" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wykres_po_operacjiiiii" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,17 +47,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "create.test.in.the.same.root": "true",
-    "last_directory_selection": "C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/java/com/example/zad1",
-    "last_opened_file_path": "C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/java/com/example/zad1",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/java/com/example/zad1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hp/Documents/GitHub/digital-signal-processing/zad1/src/main/java/com/example/zad1&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.zad1" />

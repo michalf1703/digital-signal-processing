@@ -1,6 +1,6 @@
 package com.example.zad1.window;
 
-public class Hanning implements Window{
+public class Hanning implements Window, java.io.Serializable{
 
     private final int M;
 

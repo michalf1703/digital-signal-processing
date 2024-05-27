@@ -340,16 +340,23 @@ public class AppController {
                                 LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowH);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
                             }
                             if ("Okno Hanninga".equals(windowType)) {
                                 LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowHann);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+
                             }
                             if ("Okno Blackmana".equals(windowType)) {
                                 LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowB);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
                             }
 
                         } else {
@@ -366,6 +373,8 @@ public class AppController {
                                 HighPassFilter filter = new HighPassFilter(filterOrder1,cuttingFrequency1, sampleRate , window);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
                             }
                             if ("Okno Hamminga".equals(windowType)) {
                                 int filterOrder2 = Integer.parseInt(rzadFiltraF.getText());
@@ -374,6 +383,9 @@ public class AppController {
                                 HighPassFilter filter = new HighPassFilter(filterOrder2,cuttingFrequency2, sampleRate , windowH1);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+
                             }
                             if ("Okno Hanninga".equals(windowType)) {
                                 int filterOrder3 = Integer.parseInt(rzadFiltraF.getText());
@@ -382,6 +394,9 @@ public class AppController {
                                 HighPassFilter filter = new HighPassFilter(filterOrder3,cuttingFrequency3, sampleRate , windowHann1);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+
                             }
                             if ("Okno Blackmana".equals(windowType)) {
                                 int filterOrder4 = Integer.parseInt(rzadFiltraF.getText());
@@ -390,6 +405,8 @@ public class AppController {
                                 HighPassFilter filter = new HighPassFilter(filterOrder4,cuttingFrequency4, sampleRate , windowB1);
                                 double [] impulseResponse = filter.getImpulseResponse();
                                 displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
                             }
 
                         } else {
@@ -406,6 +423,9 @@ public class AppController {
                                     BandPassFilter filter = new BandPassFilter(filterOrder1,cuttingFrequency1, sampleRate , window);
                                     double [] impulseResponse = filter.getImpulseResponse();
                                     displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
+
                                 }
                                 if ("Okno Hamminga".equals(windowType)) {
                                     int filterOrder2 = Integer.parseInt(rzadFiltraF.getText());
@@ -414,6 +434,8 @@ public class AppController {
                                     BandPassFilter filter = new BandPassFilter(filterOrder2,cuttingFrequency2, sampleRate , windowH1);
                                     double [] impulseResponse = filter.getImpulseResponse();
                                     displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
                                 }
                                 if ("Okno Hanninga".equals(windowType)) {
                                     int filterOrder3 = Integer.parseInt(rzadFiltraF.getText());
@@ -422,6 +444,8 @@ public class AppController {
                                     BandPassFilter filter = new BandPassFilter(filterOrder3,cuttingFrequency3, sampleRate , windowHann1);
                                     double [] impulseResponse = filter.getImpulseResponse();
                                     displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
                                 }
                                 if ("Okno Blackmana".equals(windowType)) {
                                     int filterOrder4 = Integer.parseInt(rzadFiltraF.getText());
@@ -430,6 +454,8 @@ public class AppController {
                                     BandPassFilter filter = new BandPassFilter(filterOrder4,cuttingFrequency4, sampleRate , windowB1);
                                     double [] impulseResponse = filter.getImpulseResponse();
                                     displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
                                 }
 
                             } else {

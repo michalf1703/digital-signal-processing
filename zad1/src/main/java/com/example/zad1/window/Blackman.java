@@ -1,6 +1,6 @@
 package com.example.zad1.window;
 
-public class Blackman implements Window{
+public class Blackman implements Window, java.io.Serializable{
     private final int M;
 
     public Blackman(int M) {
