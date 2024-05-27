@@ -3,11 +3,23 @@ package com.example.zad1;
 import com.example.zad1.Base.Data;
 import com.example.zad1.Base.Range;
 import com.example.zad1.Signals.*;
+import com.example.zad1.SignalsTask3.*;
+import com.example.zad1.window.Blackman;
+import com.example.zad1.window.Hamming;
+import com.example.zad1.window.Hanning;
+import com.example.zad1.window.Rectangular;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -15,14 +27,17 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
+import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class AppController {
     @FXML
     private ChoiceBox<String> rodzajSygnalu, wybierzOperacje, przedzialHistogramu;
     @FXML
-    private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, czasSkokuF, czestoscProbkowaniaF, numerProbkiSkokuF, prawdopodobienstwoF;
+    private TextField amplitudaF, czasTrwaniaF, okresPodstawowyF, poczatkowyF, wspolczynnikWypelnieniaF, czasSkokuF, czestoscProbkowaniaF, numerProbkiSkokuF, prawdopodobienstwoF, rzadFiltraF, czestotliwoscOdcienciaF;
     @FXML
     private Text skutecznaWynik, sredniaBezwWynik, wariancjaWynik, wartoscSredniaWynik, mocSredniaWynik;
     @FXML
@@ -48,6 +63,7 @@ public class AppController {
     private FileReader<Signal> signalFileReader;
     @FXML
     private TextField liczbaProbekField;
+
     @FXML
     private Text poprawnyOdczyt1;
     ADC adc = new ADC();
@@ -55,19 +71,24 @@ public class AppController {
 
     @FXML
     private Text poprawnyOdczyt2;
+    @FXML
+    private Button wczytajFiltr;
+    @FXML
+    private ChoiceBox<String> typOkna;
 
     private String[] opcje = {"szum o rozkładzie jednostajnym", "szum gaussowski", "sygnał sinusoidalny",
             "sygnał sinusoidalny wyprostowany jednopołówkowo", "sygnał sinusoidalny wyprostowany dwupołówkowo",
             "sygnał prostokątny", "sygnał prostokątny symetryczny", "sygnał trójkątny", "skok jednostkowy",
-            "impuls jednostkowy", "szum impulsowy"};
+            "impuls jednostkowy", "szum impulsowy", "filtr dolnoprzepustowy", "filtr górnoprzepustowy", "filtr pasmowy"};
 
-    private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie"};
+    private String[] opcjeOperacje = {"dodawanie", "odejmowanie", "mnożenie", "dzielenie", "splot", "korelacja"};
     private String[] opcjeJedno = {"próbkowanie", "kwantyzacja", "rekonstrukcja sygnału"};
     private String[] opcjeKwantyzacja = {"kwantyzacja równomierna z obcięciem", "kwantyzacja równomierna z zaokrągleniem"};
     private String [] opcjeRekonstrukcja = {"ekstrapolacja zerowego rzędu", "interpolacja pierwszego rzędu", "rekonstrukcja metodą sinc"};
+    private String [] opcjeOkno = {"Okno Prostokątne", "Okno Hamminga", "Okno Hanninga", "Okno Blackmana"};
     private String[] opcjePrzedzial = {"5", "10", "15", "20"};
     private Integer tabIndex = 1;
-    private Window stage;
+    private Window stage = new Stage();
 
     @FXML
     protected void initialize() {
@@ -77,6 +98,7 @@ public class AppController {
         wybierzMetodeKwantyChoiceBox.getItems().addAll(opcjeKwantyzacja);
         wybierzMetodeRekonstrukcjaChoiceBox.getItems().addAll(opcjeRekonstrukcja);
         przedzialHistogramu.getItems().addAll(opcjePrzedzial);
+        typOkna.getItems().addAll(opcjeOkno);
         rodzajSygnalu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             checkSignal();
         });
@@ -107,29 +129,34 @@ public class AppController {
             switch (signal) {
                 case "szum o rozkładzie jednostajnym":
                 case "szum gaussowski":
-                    setupFields(true, true, false, true, false, false, true, false, false);
+                    setupFields(true, true, false, true, false, false, true, false, false, false, false);
                     break;
                 case "sygnał sinusoidalny":
                 case "sygnał sinusoidalny wyprostowany jednopołówkowo":
                 case "sygnał sinusoidalny wyprostowany dwupołówkowo":
-                    setupFields(true, true, true, true, false, false, true, false, false);
+                    setupFields(true, true, true, true, false, false, true, false, false, false, false);
                     break;
                 case "sygnał prostokątny":
                 case "sygnał prostokątny symetryczny":
                 case "sygnał trójkątny":
-                    setupFields(true, true, true, true, true, false, true, false, false);
+                    setupFields(true, true, true, true, true, false, true, false, false, false, false);
                     break;
                 case "skok jednostkowy":
-                    setupFields(true, true, false, true, false, true, true, false,false);
+                    setupFields(true, true, false, true, false, true, true, false,false, false, false);
                     break;
                 case "impuls jednostkowy":
-                    setupFields(true, true, false, true, false, false, true, true,false);
+                    setupFields(true, true, false, true, false, false, true, true,false, false, false);
                     break;
                 case "szum impulsowy":
-                    setupFields(true, true, false, true, false, false, true, false,true);
+                    setupFields(true, true, false, true, false, false, true, false,true, false, false);
+                    break;
+                case "filtr dolnoprzepustowy":
+                case "filtr górnoprzepustowy":
+                case "filtr pasmowy":
+                    setupFields(false, false, false, false, false, false, true, false,false,true,true);
                     break;
                 default:
-                    setupFields(true, true, true, true, true, true, true, true,false);
+                    setupFields(true, true, true, true, true, true, true, true,true,true,true);
             }
         }
     }
@@ -193,7 +220,7 @@ public class AppController {
 
     }
 
-    private void setupFields(boolean amplituda, boolean czasTrwania, boolean okresPodstawowy, boolean poczatkowy, boolean wspolczynnikWypelnienia, boolean czasSkoku, boolean czestoscProbkowania, boolean numerProbkiSkoku, boolean prawdopodobienstwo){
+    private void setupFields(boolean amplituda, boolean czasTrwania, boolean okresPodstawowy, boolean poczatkowy, boolean wspolczynnikWypelnienia, boolean czasSkoku, boolean czestoscProbkowania, boolean numerProbkiSkoku, boolean prawdopodobienstwo, boolean rzadFiltra, boolean czestotliwoscOdciencia) {
         amplitudaF.setDisable(!amplituda);
         czasTrwaniaF.setDisable(!czasTrwania);
         okresPodstawowyF.setDisable(!okresPodstawowy);
@@ -203,6 +230,8 @@ public class AppController {
         czestoscProbkowaniaF.setDisable(!czestoscProbkowania);
         numerProbkiSkokuF.setDisable(!numerProbkiSkoku);
         prawdopodobienstwoF.setDisable(!prawdopodobienstwo);
+        rzadFiltraF.setDisable(!rzadFiltra);
+        czestotliwoscOdcienciaF.setDisable(!czestotliwoscOdciencia);
     }
 
     public void computeSignals() {
@@ -210,65 +239,290 @@ public class AppController {
         if (signal != null) {
             try {
                 Signal s = null;
-                double amplitude = Double.parseDouble(amplitudaF.getText());
-                double rangeStart = Double.parseDouble(poczatkowyF.getText());
-                double rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                 double sampleRate = Double.parseDouble(czestoscProbkowaniaF.getText());
 
                 switch (signal) {
                     case "szum o rozkładzie jednostajnym":
+                        double amplitude = Double.parseDouble(amplitudaF.getText());
+                        double rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        double rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         s = new UniformNoise(rangeStart, rangeLength, amplitude, sampleRate);
                         break;
                     case "sygnał sinusoidalny":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         double term = Double.parseDouble(okresPodstawowyF.getText());
                         s = new SinusoidalSignal(rangeStart, rangeLength, amplitude, term, sampleRate);
                         break;
                     case "sygnał prostokątny":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         term = Double.parseDouble(okresPodstawowyF.getText());
                         double fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
                         s = new RectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment, sampleRate);
                         break;
                     case "szum gaussowski":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         s = new GaussianNoise(rangeStart, rangeLength, amplitude, sampleRate);
                         break;
                     case "sygnał sinusoidalny wyprostowany jednopołówkowo":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         term = Double.parseDouble(okresPodstawowyF.getText());
                         s = new HalfwaveRectifiedSinusoidalSignal(rangeStart, rangeLength, amplitude, term, sampleRate);
                         break;
                     case "sygnał sinusoidalny wyprostowany dwupołówkowo":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         term = Double.parseDouble(okresPodstawowyF.getText());
                         s = new FullwaveRectifiedSinusoidalSignal(rangeStart, rangeLength, amplitude, term, sampleRate);
                         break;
                     case "sygnał prostokątny symetryczny":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         term = Double.parseDouble(okresPodstawowyF.getText());
                         fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
                         s = new SymmetricRectangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment, sampleRate);
                         break;
                     case "sygnał trójkątny":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         term = Double.parseDouble(okresPodstawowyF.getText());
                         fulfillment = Double.parseDouble(wspolczynnikWypelnieniaF.getText());
                         s = new TriangularSignal(rangeStart, rangeLength, amplitude, term, fulfillment, sampleRate);
                         break;
                     case "skok jednostkowy":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         double jumpMoment = Double.parseDouble(czasSkokuF.getText());
                         s = new UnitStep(rangeStart, rangeLength, amplitude, jumpMoment, sampleRate);
                         break;
                     case "impuls jednostkowy":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         int jumpSampleNumber = Integer.parseInt(numerProbkiSkokuF.getText());
                         s = new UnitImpulse(rangeStart, rangeLength, sampleRate, amplitude, jumpSampleNumber);
                         break;
                     case "szum impulsowy":
+                        amplitude = Double.parseDouble(amplitudaF.getText());
+                        rangeStart = Double.parseDouble(poczatkowyF.getText());
+                        rangeLength = Double.parseDouble(czasTrwaniaF.getText());
                         double probability = Double.parseDouble(prawdopodobienstwoF.getText());
                         s = new ImpulseNoise(rangeStart, rangeLength, sampleRate, amplitude, probability);
                         break;
+                    case "filtr dolnoprzepustowy":
+                        int filterOrder = Integer.parseInt(rzadFiltraF.getText());
+                        double cuttingFrequency = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                        Hamming windowH = new Hamming(filterOrder);
+                        Hanning windowHann = new Hanning(filterOrder);
+                        Blackman windowB = new Blackman(filterOrder);
+                        if (typOkna.getValue() != null) {
+                            String windowType = typOkna.getValue();
+                            if ("Okno Prostokątne".equals(windowType)) {
+                                Rectangular window = new Rectangular();
+                                LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , window);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+                            }
+                            if ("Okno Hamminga".equals(windowType)) {
+                                LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowH);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+                            }
+                            if ("Okno Hanninga".equals(windowType)) {
+                                LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowHann);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+
+                            }
+                            if ("Okno Blackmana".equals(windowType)) {
+                                LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowB);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+                            }
+
+                        } else {
+                            throw new NullPointerException();
+                        }
+                        break;
+                    case "filtr górnoprzepustowy":
+                        if (typOkna.getValue() != null) {
+                            String windowType = typOkna.getValue();
+                            if ("Okno Prostokątne".equals(windowType)) {
+                                Rectangular window = new Rectangular();
+                                int filterOrder1 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency1 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                HighPassFilter filter = new HighPassFilter(filterOrder1,cuttingFrequency1, sampleRate , window);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+                            }
+                            if ("Okno Hamminga".equals(windowType)) {
+                                int filterOrder2 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency2 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                Hamming windowH1 = new Hamming(filterOrder2);
+                                HighPassFilter filter = new HighPassFilter(filterOrder2,cuttingFrequency2, sampleRate , windowH1);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+
+                            }
+                            if ("Okno Hanninga".equals(windowType)) {
+                                int filterOrder3 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency3 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                Hanning windowHann1 = new Hanning(filterOrder3);
+                                HighPassFilter filter = new HighPassFilter(filterOrder3,cuttingFrequency3, sampleRate , windowHann1);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+
+                            }
+                            if ("Okno Blackmana".equals(windowType)) {
+                                int filterOrder4 = Integer.parseInt(rzadFiltraF.getText());
+                                double cuttingFrequency4 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                Blackman windowB1 = new Blackman(filterOrder4);
+                                HighPassFilter filter = new HighPassFilter(filterOrder4,cuttingFrequency4, sampleRate , windowB1);
+                                double [] impulseResponse = filter.getImpulseResponse();
+                                displayFilterChart(impulseResponse);
+                                saveChartProbka(filter);
+                                signals.put(tabIndex, filter);
+                            }
+
+                        } else {
+                            throw new NullPointerException();
+                        }
+                        break;
+                        case "filtr pasmowy":
+                            if (typOkna.getValue() != null) {
+                                String windowType = typOkna.getValue();
+                                if ("Okno Prostokątne".equals(windowType)) {
+                                    Rectangular window = new Rectangular();
+                                    int filterOrder1 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency1 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    BandPassFilter filter = new BandPassFilter(filterOrder1,cuttingFrequency1, sampleRate , window);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
+
+                                }
+                                if ("Okno Hamminga".equals(windowType)) {
+                                    int filterOrder2 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency2 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    Hamming windowH1 = new Hamming(filterOrder2);
+                                    BandPassFilter filter = new BandPassFilter(filterOrder2,cuttingFrequency2, sampleRate , windowH1);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
+                                }
+                                if ("Okno Hanninga".equals(windowType)) {
+                                    int filterOrder3 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency3 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    Hanning windowHann1 = new Hanning(filterOrder3);
+                                    BandPassFilter filter = new BandPassFilter(filterOrder3,cuttingFrequency3, sampleRate , windowHann1);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
+                                }
+                                if ("Okno Blackmana".equals(windowType)) {
+                                    int filterOrder4 = Integer.parseInt(rzadFiltraF.getText());
+                                    double cuttingFrequency4 = Double.parseDouble(czestotliwoscOdcienciaF.getText());
+                                    Blackman windowB1 = new Blackman(filterOrder4);
+                                    BandPassFilter filter = new BandPassFilter(filterOrder4,cuttingFrequency4, sampleRate , windowB1);
+                                    double [] impulseResponse = filter.getImpulseResponse();
+                                    displayFilterChart(impulseResponse);
+                                    saveChartProbka(filter);
+                                    signals.put(tabIndex, filter);
+                                }
+
+                            } else {
+                                throw new NullPointerException();
+                            }
+                            break;
+
+
                 }
+
                 calculateSignal(s);
             } catch (NumberFormatException e) {
                 showAlert("Błąd", "Błędne dane", "Upewnij się, że wszystkie pola zawierają poprawne wartości liczbowe.");
             }
         }
     }
+    public void displayConvolutionSignal(ConvolutionSignal signal) {
+        double[] impulseResponse = signal.getImpulseResponse();
 
+        // Create scatter chart
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.setTitle("Convolution Signal");
+
+        // Create series and add data
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        for (int i = 0; i < impulseResponse.length; i++) {
+            series.getData().add(new XYChart.Data<>(i, impulseResponse[i]));
+        }
+
+        // Add series to chart
+        scatterChart.getData().add(series);
+
+        // Display chart in a new window
+        VBox vbox = new VBox(scatterChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void displayCorrelationSignal(CorrelationSignal signal) {
+        double[] correlationResponse = signal.getCorrelationResponse();
+
+        // Create scatter chart
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.setTitle("Correlation Signal");
+
+        // Create series and add data
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        for (int i = 0; i < correlationResponse.length; i++) {
+            series.getData().add(new XYChart.Data<>(i, correlationResponse[i]));
+        }
+
+        // Add series to chart
+        scatterChart.getData().add(series);
+
+        // Display chart in a new window
+        VBox vbox = new VBox(scatterChart);
+        Scene scene = new Scene(vbox, 800, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -319,6 +573,7 @@ public class AppController {
         }
     }
 
+
     public void loadSignalForOperation() {
         try {
             signalFileReader = new FileReader<>(new FileChooser()
@@ -334,10 +589,6 @@ public class AppController {
     }
 
     public void performOperations() {
-        if (!haveSameSampleRate()) {
-            showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
-            return;
-        }
         String operation = wybierzOperacje.getValue();
         if (operation != null) {
             Signal s1 = signals.get(1);
@@ -345,20 +596,49 @@ public class AppController {
             Signal result = null;
             switch (operation) {
                 case "dodawanie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a + b);
                     break;
                 case "odejmowanie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a - b);
                     break;
                 case "mnożenie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a * b);
                     break;
                 case "dzielenie":
+                    if (!haveSameSampleRate()) {
+                        showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
+                        return;
+                    }
                     result = new OperationSignal(s1, s2, (a, b) -> a / b);
                     break;
+                    case "splot":
+                        result = new ConvolutionSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
+                        displayConvolutionSignal((ConvolutionSignal) result);
+                        break;
+                    case "korelacja":
+                        result = new CorrelationSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
+                        displayCorrelationSignal((CorrelationSignal) result);
+                        break;
             }
             calculateOperationResult(result);
         }
+    }
+
+    public void representSignal(Signal signal) {
+        List<Data> data = signal.generateDiscreteRepresentation();
+
     }
     public void makeComparison() {
         Signal s1 = signals.get(1);
@@ -381,7 +661,46 @@ public class AppController {
             efektywnaLiczbaBitowResult.setText(String.valueOf(effectiveNumberOfBits));
 
     }
+    private List<Data> generateDataFromImpulseResponse(double[] impulseResponse) {
+        ObservableList<Data> data = FXCollections.observableArrayList();
+        for (int i = 0; i < impulseResponse.length; i++) {
+            data.add(new Data(i, impulseResponse[i]));
+        }
+        return data;
+    }
 
+    private void displayFilterChart(double[] impulseResponse) {
+        List<Data> data = generateDataFromImpulseResponse(impulseResponse);
+       // List<Range> histogram = generateHistogram(10, data);
+        ScatterChart<Number, Number> impulseChart = createScatterChart(impulseResponse, "Impulse Response");
+       // BarChart<String, Number> histogramChart = createHistogramChart(histogram);
+        VBox vbox = new VBox(impulseChart);
+        vbox.setSpacing(10);
+        //vbox.setPadding(new Insets(10));
+        Scene scene = new Scene(vbox, 800, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+    private ScatterChart<Number, Number> createScatterChart(double[] impulseResponse, String title) {
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Index");
+        yAxis.setLabel("Amplitude");
+
+        ScatterChart<Number, Number> chart = new ScatterChart<>(xAxis, yAxis);
+        chart.setTitle(title);
+
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        for (int i = 0; i < impulseResponse.length; i++) {
+            series.getData().add(new XYChart.Data<>(i, impulseResponse[i]));
+        }
+
+        chart.getData().add(series);
+        chart.setAnimated(false);
+
+        return chart;
+    }
     public void probowanie(Signal signal) {
         List<Data> data = signal.generateDiscreteRepresentation();
         skutecznaWynik.setText("" + signal.rmsValue(data));
@@ -546,16 +865,19 @@ public class AppController {
             showAlert("Błąd", null, "Nie został wybrany przedział histogramu.");
             return;
         }
+
         List<Data> data = signal.generateDiscreteRepresentation();
         skutecznaWynik.setText("" + signal.rmsValue(data));
         sredniaBezwWynik.setText("" + signal.absMeanValue(data));
         mocSredniaWynik.setText("" + signal.meanPowerValue(data));
         wartoscSredniaWynik.setText("" + signal.meanValue(data));
         wariancjaWynik.setText("" + signal.varianceValue(data));
+
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Czas");
+        xAxis.setLabel("Indeks próbki");
         yAxis.setLabel("Wartość");
+
         String przedzial = przedzialHistogramu.getValue();
         int przedzialInt = Integer.parseInt(przedzial);
 
@@ -566,7 +888,7 @@ public class AppController {
             ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
             scatterChart.setTitle(title);
 
-            XYChart.Series series = new XYChart.Series();
+            XYChart.Series<Number, Number> series = new XYChart.Series<>();
             List<Data> data2 = signal.getData();
             for (Data point : data2) {
                 XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
@@ -584,10 +906,10 @@ public class AppController {
             LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
             lineChart.setTitle(title);
 
-            XYChart.Series series = new XYChart.Series();
+            XYChart.Series<Number, Number> series = new XYChart.Series<>();
             List<Data> data3 = signal.getData();
             for (Data point : data3) {
-                series.getData().add(new XYChart.Data(point.getX(), point.getY()));
+                series.getData().add(new XYChart.Data<>(point.getX(), point.getY()));
             }
             lineChart.getData().add(series);
             lineChart.setAnimated(false);
@@ -595,6 +917,7 @@ public class AppController {
 
             chart = lineChart;
         }
+
         List<Range> histogram = signal.generateHistogram(przedzialInt, data);
         CategoryAxis barXAxis = new CategoryAxis();
         NumberAxis barYAxis = new NumberAxis();
@@ -677,5 +1000,26 @@ public class AppController {
             }
         }
         return true;
+    }
+
+    @FXML
+    void onWczytajFiltr() {
+
+    }
+
+    @FXML
+    void przejdzDoPaneluSymulacji(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("simulation_panel.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
