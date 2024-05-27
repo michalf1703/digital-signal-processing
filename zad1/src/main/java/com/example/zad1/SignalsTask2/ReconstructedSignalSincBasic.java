@@ -20,26 +20,16 @@ public class ReconstructedSignalSincBasic extends ContinuousSignal {
         int sampleRate = (int) sourceSignal.getSampleRate();
         double startTime = sourceSignal.getRangeStart();
 
-        // Calculate the index of the sample that corresponds to time t
         int centerIndex = (int) Math.round((t - startTime) * sampleRate);
 
-        // Calculate the number of samples to consider on each side
         int halfNeighbourSamples = neighbourSamples / 2;
-
-        // Ensure the start index is not negative
         int startIndex = Math.max(0, centerIndex - halfNeighbourSamples);
-        // Ensure the end index is within bounds
         int endIndex = Math.min(sourceSignal.getNumberOfSamples() - 1, centerIndex + halfNeighbourSamples);
-
-        // Logging information
         System.out.println("Time t: " + t);
         System.out.println("Center Index: " + centerIndex);
         System.out.println("Start Index: " + startIndex);
         System.out.println("End Index: " + endIndex);
-
-        // Sum contributions from the calculated range
         for (int i = startIndex; i <= endIndex; i++) {
-            // Ensure the sample index is within bounds
             if (i >= 0 && i < sourceSignal.getNumberOfSamples()) {
                 double sampleTime = sourceSignal.argument(i);
                 double sampleValue = sourceSignal.value(i);
