@@ -1,6 +1,7 @@
 package com.example.zad1.simulation;
 
 
+import com.example.zad1.Signals.DiscreteSignal;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextField;
@@ -36,6 +37,7 @@ public class AnimationThread {
                                 System.out.println("Timestamp: " + environment.getTimestamp());
                                 System.out.println("Real Distance: " + environment.getItemDistance());
                                 System.out.println("Calculated Distance: " + environment.getDistanceSensor().getDistance());
+
                             });
                         });
                     }

@@ -34,6 +34,9 @@ public abstract class Signal implements Serializable {
     public double getRangeLength() {
         return rangeLength;
     }
+    public int getNumberOfSamples() {
+        return (int) (rangeLength * sampleRate);
+    }
 
     public abstract List<Data> generateDiscreteRepresentation();
 

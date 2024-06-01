@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../essa" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kil" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sinus" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sinus1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sinusolek" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sygnalysinus" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tescik" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/ContinuousBasedDiscreteSignal2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/CorrelationSignal2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/DiscreteSignal2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/RadarSimulator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signal2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/Signal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/SinusoidalSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/SinusoidalSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/simulation_panel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/simulation_panel.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +68,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RadarSimulator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.zad1.RadarSimulator" />
+      <module name="zad1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.zad1.RadarSignals.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StartApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.zad1.StartApplication" />
       <module name="zad1" />
@@ -81,6 +97,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StartApplication" />
+        <item itemvalue="Application.RadarSimulator" />
         <item itemvalue="Application.LineChartSample" />
       </list>
     </recent_temporary>
@@ -144,6 +161,11 @@
       <workItem from="1716246289008" duration="1630000" />
       <workItem from="1716791812125" duration="4091000" />
       <workItem from="1716798620886" duration="11000" />
+      <workItem from="1716840845354" duration="159000" />
+      <workItem from="1716922031661" duration="294000" />
+      <workItem from="1717030814902" duration="180000" />
+      <workItem from="1717031224358" duration="9000" />
+      <workItem from="1717229379437" duration="12167000" />
     </task>
     <servers />
   </component>

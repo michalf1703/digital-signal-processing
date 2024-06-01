@@ -10,4 +10,6 @@ module com.example.zad1 {
     exports com.example.zad1;
     exports com.example.zad1.Signals;
     opens com.example.zad1.Signals to javafx.fxml;
+    exports com.example.zad1.RadarSignals;
+    opens com.example.zad1.RadarSignals to javafx.fxml;
 }

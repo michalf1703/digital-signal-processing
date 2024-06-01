@@ -15,6 +15,7 @@ public class SinusoidalSignal extends ContinuousSignal {
 
     @Override
     public double value(double t) {
+        //System.out.println("Liczba probek:"+getNumberOfSamples());
         return amplitude * Math.sin((2.0 * Math.PI / term) * (t - rangeStart));
     }
     @Override
@@ -24,5 +25,9 @@ public class SinusoidalSignal extends ContinuousSignal {
     @Override
     public String getName() {
         return "sygnał sinusoidalny";
+    }
+    @Override
+    public int getNumberOfSamples() {
+        return (int) (getRangeLength() * getSampleRate());
     }
 }

@@ -33,5 +33,6 @@
       <TextField fx:id="textFieldResultCalculatedDistance" layoutX="154.0" layoutY="360.0" prefHeight="26.0" prefWidth="71.0" />
       <Text layoutX="19.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczba pomiarów" />
       <TextField fx:id="liczbaPomiarowF" layoutX="125.0" layoutY="36.0" prefHeight="26.0" prefWidth="71.0" />
+      <Button layoutX="270.0" layoutY="27.0" mnemonicParsing="false" onAction="#backToMenu" text="Wróć do menu głównego" />
    </children>
 </AnchorPane>
