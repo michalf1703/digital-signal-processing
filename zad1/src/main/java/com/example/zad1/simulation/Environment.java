@@ -48,7 +48,6 @@ public class Environment {
     public void step() {
         timestamp += timeStep;
         itemDistance += itemVelocity * timeStep;
-
         double delay = itemDistance / signalVelocity * 2.0;
         ContinuousSignal probeSignal = distanceSensor.generateProbeSignal();
         probeSignal.setRangeStart(probeSignal.getRangeStart() + delay);

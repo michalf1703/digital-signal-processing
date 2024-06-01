@@ -5,6 +5,7 @@ import com.example.zad1.RadarSignals.ContinuousBasedDiscreteSignal2;
 import com.example.zad1.RadarSignals.CorrelationSignal2;
 import com.example.zad1.RadarSignals.DiscreteSignal2;
 import com.example.zad1.Signals.*;
+import com.example.zad1.SignalsTask3.OperationResultContinuousSignal;
 
 public class DistanceSensor {
 
@@ -30,22 +31,15 @@ public class DistanceSensor {
     }
 
     public final ContinuousSignal generateProbeSignal() {
-        return new SinusoidalSignal(0.0, 0.0, 1.0, probeSignalTerm,sampleRate);
+        return new OperationResultContinuousSignal(
+                new SinusoidalSignal(0.0, 0.0, 1.0, probeSignalTerm,sampleRate),
+                new RectangularSignal(0.0, 0.0, 0.6, probeSignalTerm / 6 * 2, 0.3,sampleRate),
+                (a, b) -> a + b);
 
     }
-
-    public DiscreteSignal2 getDiscreteProbeSignal() {
-        return discreteProbeSignal;
+    public double getReportTerm() {
+        return reportTerm;
     }
-
-    public DiscreteSignal2 getDiscreteFeedbackSignal() {
-        return discreteFeedbackSignal;
-    }
-
-    public DiscreteSignal2 getCorrelationSignal() {
-        return correlationSignal;
-    }
-
     public double getDistance() {
         return distance;
     }
@@ -60,8 +54,8 @@ public class DistanceSensor {
             lastCalculationTimestamp = timestamp;
             calculateDistance();
         }
-        System.out.println("Probe signal:" + discreteProbeSignal.value(0));
-        System.out.println("Feedback signal:" + discreteFeedbackSignal.value(0));
+       // System.out.println("Probe signal:" + discreteProbeSignal.value(0));
+        //System.out.println("Feedback signal:" + discreteFeedbackSignal.value(0));
     }
 
     private void calculateDistance() {
@@ -76,9 +70,9 @@ public class DistanceSensor {
         double delay = (indexOfFirstMax - correlationSignal.getNumberOfSamples() / 2)
                 / sampleRate;
         this.distance = delay * signalVelocity / 2.0;
-        System.out.println("indexOfFirstMax: " + indexOfFirstMax);
-        System.out.println("Correlation: " + correlationSignal.value(indexOfFirstMax));
-        System.out.println("Distance: " + distance);
-        System.out.println("Delay: " + delay);
+       // System.out.println("indexOfFirstMax: " + indexOfFirstMax);
+       // System.out.println("Correlation: " + correlationSignal.value(indexOfFirstMax));
+       // System.out.println("Distance: " + distance);
+        //System.out.println("Delay: " + delay);
     }
 }

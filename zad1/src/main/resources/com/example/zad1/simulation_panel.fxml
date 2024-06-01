@@ -2,37 +2,46 @@
 
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zad1.AnimationPanel">
+<AnchorPane prefHeight="449.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zad1.AnimationPanel">
    <children>
       <Text layoutX="14.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jednostka czasowa" />
-      <Text layoutX="8.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prędkość rzeczywista" />
-      <Text layoutX="15.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prędkość w abstrakcyjnym ośrodku" />
-      <Text layoutX="20.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Okres sygnału sondującego" />
-      <Text layoutX="9.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Częstotliwość próbkowania" />
-      <Text layoutX="22.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Długość bufora" />
-      <Text layoutX="10.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Okres raportowania" />
-      <TextField fx:id="jednostkaCzasowa" layoutX="125.0" layoutY="70.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="predkoscRzeczywista" layoutX="125.0" layoutY="103.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="predkoscPrzedmiotu" layoutX="218.0" layoutY="140.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="okresSygnaluSondujacego" layoutX="189.0" layoutY="170.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="czestotliwoscProbkowania" layoutX="172.0" layoutY="201.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="dlugoscBufora" layoutX="130.0" layoutY="231.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="okresRaportowania" layoutX="130.0" layoutY="261.0" prefHeight="26.0" prefWidth="71.0" />
-      <Text layoutX="474.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyniki" />
-      <Text layoutX="46.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Czas(t)" />
-      <Text layoutX="43.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rzeczywisty dystans" />
-      <Text layoutX="45.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obliczony dystans" />
-      <Button fx:id="startAnimation" layoutX="18.0" layoutY="404.0" mnemonicParsing="false" onAction="#startAnimationAction" text="Rozpocznij animacje" />
+      <Text layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prędkość sygnału w ośrodku" />
+      <Text layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prędkość przedmiotu" />
+      <Text layoutX="14.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Okres sygnału sondującego" />
+      <Text layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Częstotliwość próbkowania" />
+      <Text layoutX="14.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Długość bufora" />
+      <Text layoutX="14.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Okres raportowania" />
+      <TextField fx:id="jednostkaCzasowa" layoutX="218.0" layoutY="70.0" prefHeight="26.0" prefWidth="71.0" />
+      <TextField fx:id="predkoscRzeczywista" layoutX="218.0" layoutY="103.0" prefHeight="26.0" prefWidth="71.0" />
+      <TextField fx:id="predkoscPrzedmiotu" layoutX="218.0" layoutY="135.0" prefHeight="26.0" prefWidth="71.0" />
+      <TextField fx:id="okresSygnaluSondujacego" layoutX="218.0" layoutY="170.0" prefHeight="26.0" prefWidth="71.0" />
+      <TextField fx:id="czestotliwoscProbkowania" layoutX="218.0" layoutY="201.0" prefHeight="26.0" prefWidth="71.0" />
+      <TextField fx:id="dlugoscBufora" layoutX="218.0" layoutY="231.0" prefHeight="26.0" prefWidth="71.0" />
+      <TextField fx:id="okresRaportowania" layoutX="218.0" layoutY="261.0" prefHeight="26.0" prefWidth="71.0" />
+      <Text layoutX="556.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyniki">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Text>
+      <Button fx:id="startAnimation" layoutX="19.0" layoutY="306.0" mnemonicParsing="false" onAction="#startAnimationAction" text="Rozpocznij animacje" />
       <NumberAxis layoutX="694.0" layoutY="125.0" side="LEFT" />
-      <TextField fx:id="textFieldResultTimeStamp" layoutX="154.0" layoutY="297.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="textFieldResultRealDistance" layoutX="154.0" layoutY="330.0" prefHeight="26.0" prefWidth="71.0" />
-      <TextField fx:id="textFieldResultCalculatedDistance" layoutX="154.0" layoutY="360.0" prefHeight="26.0" prefWidth="71.0" />
-      <Text layoutX="19.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczba pomiarów" />
-      <TextField fx:id="liczbaPomiarowF" layoutX="125.0" layoutY="36.0" prefHeight="26.0" prefWidth="71.0" />
-      <Button layoutX="270.0" layoutY="27.0" mnemonicParsing="false" onAction="#backToMenu" text="Wróć do menu głównego" />
+      <Text layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liczba pomiarów" />
+      <TextField fx:id="liczbaPomiarowF" layoutX="218.0" layoutY="37.0" prefHeight="26.0" prefWidth="71.0" />
+      <Button layoutX="161.0" layoutY="306.0" mnemonicParsing="false" onAction="#backToMenu" text="Wróć do menu głównego" />
+      <TableView fx:id="resultsTable" layoutX="324.0" layoutY="91.0" prefHeight="322.0" prefWidth="574.0">
+         <columns>
+            <TableColumn fx:id="measurementNumberColumn" prefWidth="153.60003662109375" text="Numer pomiaru" />
+            <TableColumn fx:id="timeColumn" minWidth="6.39996337890625" prefWidth="60.000030517578125" text="Czas" />
+            <TableColumn fx:id="calculatedDistanceColumn" prefWidth="132.00006103515625" text="Obliczony dystans" />
+            <TableColumn fx:id="realDistanceColumn" minWidth="0.0" prefWidth="125.60009765625" text="Oryginalny dystans" />
+            <TableColumn fx:id="differenceColumn" minWidth="0.0" prefWidth="98.39998779296877" text="Różnica" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>
