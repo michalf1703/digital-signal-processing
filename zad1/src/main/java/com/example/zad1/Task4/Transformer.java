@@ -10,24 +10,18 @@ public class Transformer {
     private final InSituFastFourierTransform inSituFastFourierTransform;
     private final RecursiveFastFourierTransform recursiveFastFourierTransform;
 
-    /* discrete cosine transform */
-    private final DiscreteCosineTransform discreteCosineTransform;
 
     /* discrete Walsh-Hadamrd transform */
     private final WalshHadamardTransform walshHadamardTransform;
     private final FastWalshHadamardTransform fastWalshHadamardTransform;
 
-    /* discrete wavelet transform */
-    private final DiscreteWaveletTransform discreteWaveletTransform;
 
     public Transformer() {
         discreteFourierTransform = new DiscreteFourierTransform();
         inSituFastFourierTransform = new InSituFastFourierTransform();
         recursiveFastFourierTransform = new RecursiveFastFourierTransform();
-        discreteCosineTransform = new DiscreteCosineTransform();
         walshHadamardTransform = new WalshHadamardTransform();
         fastWalshHadamardTransform = new FastWalshHadamardTransform();
-        discreteWaveletTransform = new DiscreteWaveletTransform();
     }
 
     public DiscreteComplexSignal discreteFourierTransform(DiscreteSignal discreteSignal) {
@@ -74,6 +68,7 @@ public class Transformer {
 
     private DiscreteComplexSignal transformRealSignalToComplexSignal(DiscreteSignal signal,
                                                                      ComplexTransform complexTransform) {
+        System.out.println("Liczba probek:" + signal.getNumberOfSamples());
         double[] samples = new double[signal.getNumberOfSamples()];
         for (int i = 0; i < signal.getNumberOfSamples(); i++) {
             samples[i] = signal.value(i);

@@ -4,6 +4,10 @@ import com.example.zad1.Base.Data;
 import com.example.zad1.Signals.*;
 import com.example.zad1.Task4.ComplexSignal;
 import com.example.zad1.Task4.Transformer;
+import com.example.zad1.fileOperations.ComplexSignalFileReader;
+import com.example.zad1.fileOperations.ComplexSignalFileWriter;
+import com.example.zad1.fileOperations.RealSignalFileReader;
+import com.example.zad1.fileOperations.RealSignalFileWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import javax.swing.*;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +43,8 @@ public class Zad4Controller {
     private FileReader<Signal> signalFileReader;
     private Window stage = new Stage();
     private Integer tabIndex = 1;
-    private String[] opcjeZad4 = {"Dyskretna transformacja Fouriera z definicji", "Szybka transformacja Fouriera in situ", "Szybka transformacja Fouriera rekurencyjna"
-            , "Transformacja Walsha-Hadamarda z definicji", "Szybka transformacja Walsha-Hadamarda rekurencyjna", "Szybka transformacja Walsha-Hadamarda in situ"};
+    private String[] opcjeZad4 = {"Dyskretna transformacja Fouriera z definicji", "Szybka transformacja Fouriera in situ"
+            , "Transformacja Walsha-Hadamarda z definicji", "Szybka transformacja Walsha-Hadamarda in situ"};
 
     @FXML
     protected void initialize() {
@@ -69,21 +74,19 @@ public class Zad4Controller {
     }
     private Signal calculateInvocationTime(Callable<Signal> callable,
                                            TextField textField) throws Exception {
-        long begin = System.currentTimeMillis();
+        long begin = System.nanoTime();
         Signal signal = callable.call();
-        double end = ((System.currentTimeMillis() - begin) / 1000.0);
-        textField.setText(String.valueOf(end));
+        double end = ((System.nanoTime() - begin) / 1_000_000.0);
+        textField.setText(String.format("%.3f ms", end));
 
         return signal;
     }
     public void performOneArgsOperationOnCharts() {
         String operation = operacjeZad4.getValue();
-
-
         final Transformer transformer = new Transformer();
 
         try {
-            long startTime = System.currentTimeMillis();
+           // long startTime = System.currentTimeMillis();
             Signal s1 = signals.get(1);
             Signal signal = null;
             switch (operation) {
@@ -96,14 +99,8 @@ public class Zad4Controller {
                 case "Szybka transformacja Fouriera in situ":
                      signal = calculateInvocationTime(() -> transformer.fastFourierTransformInSitu((DiscreteSignal) s1),czasObliczen);
                     break;
-                case "Szybka transformacja Fouriera rekurencyjna":
-                    signal = calculateInvocationTime(() ->transformer.fastFourierTransformRecursive((DiscreteSignal) s1),czasObliczen);
-                    break;
                 case "Transformacja Walsha-Hadamarda z definicji":
                     signal = calculateInvocationTime(() ->transformer.walshHadamardTransform((DiscreteSignal) s1),czasObliczen);
-                    break;
-                case "Szybka transformacja Walsha-Hadamarda rekurencyjna":
-                    signal = calculateInvocationTime(() ->transformer.fastWalshHadamardTransform((DiscreteSignal) s1),czasObliczen);
                     break;
                 case "Szybka transformacja Walsha-Hadamarda in situ":
                     signal = calculateInvocationTime(() ->transformer.fastWalshHadamardTransform((DiscreteSignal) s1),czasObliczen);
@@ -111,10 +108,12 @@ public class Zad4Controller {
             }
             if (signal instanceof ComplexSignal) {
                 System.out.println("Number of samples: " + signal.getNumberOfSamples());
+                signals.put(tabIndex, signal);
                 representComplexSignal(signal);
             }
             else {
                 System.out.println("Number of samples: " + signal.getNumberOfSamples());
+                signals.put(tabIndex, signal);
                 scatterRepresent(signal);
             }
 
@@ -226,6 +225,68 @@ public class Zad4Controller {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+
+    private ComplexSignalFileReader complexSignalFileReader;
+    private ComplexSignalFileWriter complexSignalFileWriter;
+
+    public void loadComplexSignal() {
+        try {
+            complexSignalFileReader = new ComplexSignalFileReader(new FileChooser()
+                    .showOpenDialog(stage)
+                    .getName());
+            signals.put(tabIndex, complexSignalFileReader.read());
+            JOptionPane.showMessageDialog(null, "Wczytywanie sygnału się powiodło. Sukces!", "Sukces!", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
+            showAlert("Błąd!", null, "Wczytywanie sygnału się nie powiodło.");
+        }
+        tabIndex++;
+        representComplexSignal((ComplexSignal) signals.get(tabIndex - 1));
+    }
+
+    public void saveComplexSignal() {
+        try {
+            complexSignalFileWriter = new ComplexSignalFileWriter(new FileChooser()
+                    .showSaveDialog(stage)
+                    .getName());
+            complexSignalFileWriter.write((ComplexSignal) signals.get(tabIndex));
+            JOptionPane.showMessageDialog(null, "Zapisywanie sygnału się powiodło. Sukces!", "Sukces!", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
+            showAlert("Błąd!", null, "Zapisywanie sygnału się nie powiodło.");
+        }
+    }
+
+    private RealSignalFileReader realSignalFileReader;
+    private RealSignalFileWriter realSignalFileWriter;
+
+    public void loadRealSignal() {
+        try {
+            realSignalFileReader = new RealSignalFileReader(new FileChooser()
+                    .showOpenDialog(stage)
+                    .getName());
+            signals.put(tabIndex, realSignalFileReader.read());
+            JOptionPane.showMessageDialog(null, "Wczytywanie sygnału się powiodło. Sukces!", "Sukces!", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
+            showAlert("Błąd!", null, "Wczytywanie sygnału się nie powiodło.");
+        }
+        tabIndex++;
+        scatterRepresent(signals.get(tabIndex - 1));
+    }
+
+    public void saveRealSignal() {
+        try {
+            realSignalFileWriter = new RealSignalFileWriter(new FileChooser()
+                    .showSaveDialog(stage)
+                    .getName());
+            realSignalFileWriter.write(signals.get(tabIndex));
+            JOptionPane.showMessageDialog(null, "Zapisywanie sygnału się powiodło. Sukces!", "Sukces!", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
+            showAlert("Błąd!", null, "Zapisywanie sygnału się nie powiodło.");
+        }
     }
 
 }

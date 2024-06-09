@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zad1.Zad4Controller">
+<AnchorPane prefHeight="406.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zad1.Zad4Controller">
    <children>
       <Text layoutX="96.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz operacje">
          <font>
@@ -22,5 +22,9 @@
       <Button layoutX="105.0" layoutY="246.0" mnemonicParsing="false" onAction="#performOneArgsOperationOnCharts" text="Generuj" />
       <TextField fx:id="czasObliczen" layoutX="120.0" layoutY="195.0" />
       <Button layoutX="194.0" layoutY="24.0" mnemonicParsing="false" onAction="#backToMenu" text="Wróć do menu" />
+      <Button layoutX="26.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveComplexSignal" text="Zapisz sygnał o wartościach zespolonych" />
+      <Button layoutX="22.0" layoutY="294.0" mnemonicParsing="false" onAction="#loadComplexSignal" text="Wczytaj sygnał o wartościach zespolonych" />
+      <Button layoutX="289.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveRealSignal" text="Zapisz sygnał" />
+      <Button layoutX="289.0" layoutY="294.0" mnemonicParsing="false" onAction="#loadRealSignal" text="Wczytaj sygnał" />
    </children>
 </AnchorPane>

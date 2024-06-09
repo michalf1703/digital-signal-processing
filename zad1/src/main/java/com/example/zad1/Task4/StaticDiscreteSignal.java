@@ -6,7 +6,7 @@ public class StaticDiscreteSignal extends DiscreteSignal {
     private final double[] samples;
 
     public StaticDiscreteSignal(final double[] samples, final double sampleRate) {
-        super(0.0, samples.length, sampleRate);
+        super(0.0, samples.length/sampleRate, sampleRate);
         this.samples = samples;
     }
 
