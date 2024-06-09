@@ -16,7 +16,7 @@ public abstract class DiscreteSignal extends Signal {
     public DiscreteSignal(double rangeStart, double rangeLength, double sampleRate) {
         super(rangeStart, rangeLength,sampleRate);
         this.sampleRate = sampleRate;
-        this.numberOfSamples = (int) (rangeLength * sampleRate);
+        this.numberOfSamples = (int) (rangeLength * sampleRate)/10;
         this.step = 1.0 / sampleRate;
     }
 

@@ -42,10 +42,6 @@ public class Transformer {
         return transformRealSignalToComplexSignal(discreteSignal, recursiveFastFourierTransform);
     }
 
-    public DiscreteSignal discreteCosineTransform(DiscreteSignal discreteSignal) {
-        return transformRealSignalToRealSignal(discreteSignal, discreteCosineTransform);
-    }
-
 
     public DiscreteSignal walshHadamardTransform(DiscreteSignal discreteSignal) {
         return transformRealSignalToRealSignal(discreteSignal, walshHadamardTransform);
@@ -55,12 +51,9 @@ public class Transformer {
         return transformRealSignalToRealSignal(discreteSignal, fastWalshHadamardTransform);
     }
 
-    public DiscreteSignal discreteWaveletTransform(DiscreteSignal discreteSignal) {
-        return transformRealSignalToRealSignal(discreteSignal, discreteWaveletTransform);
-    }
-
     private DiscreteSignal transformRealSignalToRealSignal(DiscreteSignal signal,
                                                            RealTransform realTransform) {
+        System.out.println("Liczba probek:" + signal.getNumberOfSamples());
         double[] samples = new double[signal.getNumberOfSamples()];
         for (int i = 0; i < signal.getNumberOfSamples(); i++) {
             samples[i] = signal.value(i);

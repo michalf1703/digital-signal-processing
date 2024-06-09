@@ -1,7 +1,7 @@
 package com.example.zad1;
 
-import com.example.zad1.Signals.DiscreteSignal;
-import com.example.zad1.Signals.Signal;
+import com.example.zad1.Base.Data;
+import com.example.zad1.Signals.*;
 import com.example.zad1.Task4.ComplexSignal;
 import com.example.zad1.Task4.Transformer;
 import javafx.event.ActionEvent;
@@ -10,19 +10,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.w3c.dom.Text;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -112,7 +109,15 @@ public class Zad4Controller {
                     signal = calculateInvocationTime(() ->transformer.fastWalshHadamardTransform((DiscreteSignal) s1),czasObliczen);
                     break;
             }
-            representComplexSignal((ComplexSignal) signal);
+            if (signal instanceof ComplexSignal) {
+                System.out.println("Number of samples: " + signal.getNumberOfSamples());
+                representComplexSignal(signal);
+            }
+            else {
+                System.out.println("Number of samples: " + signal.getNumberOfSamples());
+                scatterRepresent(signal);
+            }
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -128,8 +133,8 @@ public class Zad4Controller {
                 .map((it) -> new ChartRecord<Number, Number>(it.getX(), it.getY()))
                 .collect(Collectors.toList());
     }
-    public void representComplexSignal(ComplexSignal complexSignal) {
-        // Tworzenie danych do wykresów
+    public void representComplexSignal(Signal signal) {
+        ComplexSignal complexSignal = (ComplexSignal) signal;
         List<ChartRecord<Number, Number>> chartDataReal =
                 convertDiscreteRepresentationToChartRecord(complexSignal,
                         ComplexSignal.DiscreteRepresentationType.REAL);
@@ -193,4 +198,34 @@ public class Zad4Controller {
         }
 
     }
+
+    public void scatterRepresent(Signal signal) {
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Czas");
+        yAxis.setLabel("Wartość");
+        Parent chart;
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.setTitle("Wykres sygnału");
+        XYChart.Series series = new XYChart.Series();
+        List<Data> data2 = signal.getData();
+        for (Data point : data2) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(point.getX(), point.getY());
+            Circle circle = new Circle(3);
+            circle.setFill(Color.ORANGE);
+            dataPoint.setNode(circle);
+            series.getData().add(dataPoint);
+        }
+        scatterChart.getData().add(series);
+        scatterChart.setAnimated(false);
+        scatterChart.setLegendVisible(false);
+        chart = scatterChart;
+        VBox vbox = new VBox(chart);
+        Scene scene = new Scene(vbox, 800, 600);
+        signals.put(tabIndex, signal);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
