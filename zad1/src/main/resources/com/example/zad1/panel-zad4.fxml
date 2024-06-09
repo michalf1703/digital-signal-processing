@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -17,7 +18,9 @@
       <ChoiceBox fx:id="operacjeZad4" layoutX="67.0" layoutY="131.0" prefWidth="150.0" />
       <Label layoutX="22.0" layoutY="199.0" text="Czas obliczeń (s):" />
       <Text layoutX="131.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Button layoutX="42.0" layoutY="24.0" mnemonicParsing="false" text="Wczytaj sygnał operacji" />
-      <Button layoutX="105.0" layoutY="246.0" mnemonicParsing="false" text="Generuj" />
+      <Button layoutX="42.0" layoutY="24.0" mnemonicParsing="false" onAction="#loadSignalForOperation" text="Wczytaj sygnał operacji" />
+      <Button layoutX="105.0" layoutY="246.0" mnemonicParsing="false" onAction="#performOneArgsOperationOnCharts" text="Generuj" />
+      <TextField fx:id="czasObliczen" layoutX="120.0" layoutY="195.0" />
+      <Button layoutX="194.0" layoutY="24.0" mnemonicParsing="false" onAction="#backToMenu" text="Wróć do menu" />
    </children>
 </AnchorPane>

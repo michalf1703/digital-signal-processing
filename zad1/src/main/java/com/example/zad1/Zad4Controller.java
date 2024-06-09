@@ -1,18 +1,196 @@
 package com.example.zad1;
 
+import com.example.zad1.Signals.DiscreteSignal;
+import com.example.zad1.Signals.Signal;
+import com.example.zad1.Task4.ComplexSignal;
+import com.example.zad1.Task4.Transformer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.w3c.dom.Text;
 
-public class Zad4Controller {
+import javax.swing.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
+public class Zad4Controller {
+    private Map<Integer, Signal> signals = new HashMap<>();
+    @FXML
+    private TextField czasObliczen;
     @FXML
     private ChoiceBox<String> operacjeZad4;
+    private FileReader<Signal> signalFileReader;
+    private Window stage = new Stage();
+    private Integer tabIndex = 1;
     private String[] opcjeZad4 = {"Dyskretna transformacja Fouriera z definicji", "Szybka transformacja Fouriera in situ", "Szybka transformacja Fouriera rekurencyjna"
-            ,"Transformacja Walsha-Hadamarda z definicji", "Szybka transformacja Walsha-Hadamarda rekurencyjna","Szybka transformacja Walsha-Hadamarda in situ" };
+            , "Transformacja Walsha-Hadamarda z definicji", "Szybka transformacja Walsha-Hadamarda rekurencyjna", "Szybka transformacja Walsha-Hadamarda in situ"};
 
     @FXML
     protected void initialize() {
         operacjeZad4.getItems().addAll(opcjeZad4);
+    }
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void loadSignalForOperation() {
+        try {
+            signalFileReader = new FileReader<>(new FileChooser()
+                    .showOpenDialog(stage)
+                    .getName());
+            signals.put(tabIndex, signalFileReader.read());
+            JOptionPane.showMessageDialog(null, "Wczytywanie sygnału się powiodło. Sukces!", "Sukces!", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException | FileOperationException e) {
+            e.printStackTrace();
+            showAlert("Błąd!", null, "Wczytywanie sygnału się nie powiodło.");
+        }
+        tabIndex++;
+    }
+    private Signal calculateInvocationTime(Callable<Signal> callable,
+                                           TextField textField) throws Exception {
+        long begin = System.currentTimeMillis();
+        Signal signal = callable.call();
+        double end = ((System.currentTimeMillis() - begin) / 1000.0);
+        textField.setText(String.valueOf(end));
+
+        return signal;
+    }
+    public void performOneArgsOperationOnCharts() {
+        String operation = operacjeZad4.getValue();
+
+
+        final Transformer transformer = new Transformer();
+
+        try {
+            long startTime = System.currentTimeMillis();
+            Signal s1 = signals.get(1);
+            Signal signal = null;
+            switch (operation) {
+
+                case "Dyskretna transformacja Fouriera z definicji":
+                     signal = calculateInvocationTime(() -> transformer
+                                    .discreteFourierTransform((DiscreteSignal) s1),
+                            czasObliczen);
+                    break;
+                case "Szybka transformacja Fouriera in situ":
+                     signal = calculateInvocationTime(() -> transformer.fastFourierTransformInSitu((DiscreteSignal) s1),czasObliczen);
+                    break;
+                case "Szybka transformacja Fouriera rekurencyjna":
+                    signal = calculateInvocationTime(() ->transformer.fastFourierTransformRecursive((DiscreteSignal) s1),czasObliczen);
+                    break;
+                case "Transformacja Walsha-Hadamarda z definicji":
+                    signal = calculateInvocationTime(() ->transformer.walshHadamardTransform((DiscreteSignal) s1),czasObliczen);
+                    break;
+                case "Szybka transformacja Walsha-Hadamarda rekurencyjna":
+                    signal = calculateInvocationTime(() ->transformer.fastWalshHadamardTransform((DiscreteSignal) s1),czasObliczen);
+                    break;
+                case "Szybka transformacja Walsha-Hadamarda in situ":
+                    signal = calculateInvocationTime(() ->transformer.fastWalshHadamardTransform((DiscreteSignal) s1),czasObliczen);
+                    break;
+            }
+            representComplexSignal((ComplexSignal) signal);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private List<ChartRecord<Number, Number>> convertDiscreteRepresentationToChartRecord(
+            ComplexSignal complexSignal,
+            ComplexSignal.DiscreteRepresentationType discreteRepresentationType) {
+        complexSignal.setDiscreteRepresentationType(discreteRepresentationType);
+
+        return complexSignal.generateDiscreteRepresentation()
+                .stream()
+                .map((it) -> new ChartRecord<Number, Number>(it.getX(), it.getY()))
+                .collect(Collectors.toList());
+    }
+    public void representComplexSignal(ComplexSignal complexSignal) {
+        // Tworzenie danych do wykresów
+        List<ChartRecord<Number, Number>> chartDataReal =
+                convertDiscreteRepresentationToChartRecord(complexSignal,
+                        ComplexSignal.DiscreteRepresentationType.REAL);
+
+        List<ChartRecord<Number, Number>> chartDataImaginary =
+                convertDiscreteRepresentationToChartRecord(complexSignal,
+                        ComplexSignal.DiscreteRepresentationType.IMAGINARY);
+
+        List<ChartRecord<Number, Number>> chartDataAbs =
+                convertDiscreteRepresentationToChartRecord(complexSignal,
+                        ComplexSignal.DiscreteRepresentationType.ABS);
+
+        List<ChartRecord<Number, Number>> chartDataArgument =
+                convertDiscreteRepresentationToChartRecord(complexSignal,
+                        ComplexSignal.DiscreteRepresentationType.ARG);
+
+        LineChart<Number, Number> realChart = createLineChart(chartDataReal, "Część rzeczywista amplitudy w funkcji częstotliwości");
+        LineChart<Number, Number> imaginaryChart = createLineChart(chartDataImaginary, "Część urojona amplitudy w funkcji częstotliwości");
+        LineChart<Number, Number> absChart = createLineChart(chartDataAbs, "Moduł liczby zespolonej");
+        LineChart<Number, Number> argumentChart = createLineChart(chartDataArgument, "Argument liczby w funkcji częstotliwości");
+
+        VBox mainPane = new VBox();
+        mainPane.getChildren().addAll(realChart, imaginaryChart, absChart, argumentChart);
+
+        Scene scene = new Scene(mainPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private LineChart<Number, Number> createLineChart(List<ChartRecord<Number, Number>> data, String title) {
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+
+        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setTitle(title);
+
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        for (ChartRecord<Number, Number> record : data) {
+            series.getData().add(new XYChart.Data<>(record.getX(), record.getY()));
+        }
+
+        lineChart.getData().add(series);
+
+        return lineChart;
+    }
+
+    @FXML
+    void backToMenu(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
