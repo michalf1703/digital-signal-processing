@@ -45,6 +45,9 @@ public class AppController {
     @FXML
     private ChoiceBox<String> wybierzMetodeRekonstrukcjaChoiceBox;
     @FXML
+    private ChoiceBox<String> operacjeZad4;
+
+    @FXML
     private Button generuj2;
     @FXML
     private TextField sasiadProbki;
@@ -1022,4 +1025,24 @@ public class AppController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void przejdzDoPaneluZad4(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("panel-zad4.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // ----------------------------------------------------ZAD4----------------------------------------------------
+
 }

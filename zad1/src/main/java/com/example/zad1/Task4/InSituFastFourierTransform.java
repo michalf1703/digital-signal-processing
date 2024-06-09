@@ -5,7 +5,7 @@ import org.apache.commons.math3.complex.Complex;
 public class InSituFastFourierTransform extends ComplexTransform{
 
     /**
-     * This is in situ implementation of FFT.
+     * in situ with cos z czestotliwoscia
      */
     @Override
     public Complex[] transform(Complex[] x) {
@@ -13,13 +13,13 @@ public class InSituFastFourierTransform extends ComplexTransform{
         Complex[] W = calculateVectorOfWParams(x.length);
 
         for (int N = 2; N <= x.length; N *= 2) {
-            for (int i = 0; i < x.length / N; i++) { /* repeat for each N-point transform */
+            for (int i = 0; i < x.length / N; i++) {
                 for (int m = 0; m < N / 2; m++) {
-                    /* butterfly */
                     int offset = i * N;
-                    Complex tmp = x[offset + m + N / 2].multiply(retrieveWFromVector(N, -m, W));
-                    x[offset + m + N / 2] = x[offset + m].subtract(tmp);
-                    x[offset + m] = x[offset + m].add(tmp);
+                    Complex tmp = x[offset + m].add(x[offset + m + N / 2]);
+                    x[offset + m + N / 2] = x[offset + m].subtract(x[offset + m + N / 2]);
+                    x[offset + m] = tmp;
+                    x[offset + m + N / 2] = x[offset + m + N / 2].multiply(retrieveWFromVector(N, -m, W));
                 }
             }
         }

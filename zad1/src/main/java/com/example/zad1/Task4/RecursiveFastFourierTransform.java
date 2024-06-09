@@ -6,24 +6,20 @@ public class RecursiveFastFourierTransform extends ComplexTransform{
 
     @Override
     public Complex[] transform(Complex[] x) {
-        Complex[] X = new Complex[x.length];
-        for (int m = 0; m < x.length; m++) {
-            X[m] = recursiveFFT(x, m);
-        }
-        return X;
+        return recursiveFFT(x, 0);
     }
 
     /**
      * This is recursive implementation of FFT, each call require new
      * memory allocation
      */
-    protected Complex recursiveFFT(Complex[] x, int m) {
+    protected Complex[] recursiveFFT(Complex[] x, int m) {
 
         int N = x.length;
 
         /* stop condition */
         if (N == 1) {
-            return x[0];
+            return x;
         }
 
         /* split into odd indexed and even indexed samples */
@@ -39,14 +35,21 @@ public class RecursiveFastFourierTransform extends ComplexTransform{
         }
 
         /* call recursively for each group of samples */
-        Complex a = recursiveFFT(even, m);
-        Complex b = recursiveFFT(odd, m);
+        Complex[] a = recursiveFFT(even, m);
+        Complex[] b = recursiveFFT(odd, m);
 
         /* calculate value of W_{N}^{-m} */
         double Warg = 2.0 * Math.PI / N;
         Complex w = new Complex(Math.cos(Warg), Math.sin(Warg)).pow(-m);
 
         /* return result */
-        return a.add(w.multiply(b));
+        for (int i = 0; i < N / 2; i++) {
+            Complex tmp = a[i].add(b[i]);
+            x[i + N / 2] = a[i].subtract(b[i]);
+            x[i] = tmp;
+            x[i + N / 2] = x[i + N / 2].multiply(w.pow(-i));
+        }
+
+        return x;
     }
 }

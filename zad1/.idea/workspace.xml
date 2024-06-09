@@ -5,25 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/AbstractData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/ComplexData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/ComplexSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/ComplexTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/DiscreteComplexSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/DiscreteCosineTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/DiscreteFourierTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/DiscreteWaveletTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/FastWalshHadamardTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/InSituFastFourierTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/RealTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/RecursiveFastFourierTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/StaticDiscreteComplexSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/StaticDiscreteSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/WalshHadamardTransform.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/panel-zad4.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/InSituFastFourierTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/InSituFastFourierTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/RecursiveFastFourierTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/RecursiveFastFourierTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +21,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -173,7 +162,7 @@
       <workItem from="1717030814902" duration="180000" />
       <workItem from="1717031224358" duration="9000" />
       <workItem from="1717229379437" duration="26904000" />
-      <workItem from="1717890626278" duration="2940000" />
+      <workItem from="1717890626278" duration="6996000" />
     </task>
     <servers />
   </component>
