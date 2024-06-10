@@ -8,7 +8,6 @@ public class Transformer {
     /* discrete fourier transform */
     private final DiscreteFourierTransform discreteFourierTransform;
     private final InSituFastFourierTransform inSituFastFourierTransform;
-    private final RecursiveFastFourierTransform recursiveFastFourierTransform;
 
 
     /* discrete Walsh-Hadamrd transform */
@@ -19,7 +18,6 @@ public class Transformer {
     public Transformer() {
         discreteFourierTransform = new DiscreteFourierTransform();
         inSituFastFourierTransform = new InSituFastFourierTransform();
-        recursiveFastFourierTransform = new RecursiveFastFourierTransform();
         walshHadamardTransform = new WalshHadamardTransform();
         fastWalshHadamardTransform = new FastWalshHadamardTransform();
     }
@@ -32,9 +30,6 @@ public class Transformer {
         return transformRealSignalToComplexSignal(discreteSignal, inSituFastFourierTransform);
     }
 
-    public DiscreteComplexSignal fastFourierTransformRecursive(DiscreteSignal discreteSignal) {
-        return transformRealSignalToComplexSignal(discreteSignal, recursiveFastFourierTransform);
-    }
 
 
     public DiscreteSignal walshHadamardTransform(DiscreteSignal discreteSignal) {
@@ -56,15 +51,6 @@ public class Transformer {
         return new StaticDiscreteSignal(samples, signal.getSampleRate());
     }
 
-    private DiscreteComplexSignal transformComplexSignalToComplexSignal(DiscreteComplexSignal signal,
-                                                                        ComplexTransform complexTransform) {
-        Complex[] samples = new Complex[signal.getNumberOfSamples()];
-        for (int i = 0; i < signal.getNumberOfSamples(); i++) {
-            samples[i] = signal.value(i);
-        }
-        samples = complexTransform.transform(samples);
-        return new StaticDiscreteComplexSignal(samples, signal.getSampleRate());
-    }
 
     private DiscreteComplexSignal transformRealSignalToComplexSignal(DiscreteSignal signal,
                                                                      ComplexTransform complexTransform) {

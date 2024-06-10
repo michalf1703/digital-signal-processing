@@ -101,6 +101,7 @@ public class Zad4Controller {
                     break;
                 case "Transformacja Walsha-Hadamarda z definicji":
                     signal = calculateInvocationTime(() ->transformer.walshHadamardTransform((DiscreteSignal) s1),czasObliczen);
+                    signal.getNumberOfSamples();
                     break;
                 case "Szybka transformacja Walsha-Hadamarda in situ":
                     signal = calculateInvocationTime(() ->transformer.fastWalshHadamardTransform((DiscreteSignal) s1),czasObliczen);

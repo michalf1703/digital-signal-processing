@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/fileOperations/ComplexSignalFileReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/fileOperations/ComplexSignalFileWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/fileOperations/RealSignalFileReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/fileOperations/RealSignalFileWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DUPA" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/probeczkaa" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proszeeeee" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sinus" beforeDir="false" afterPath="$PROJECT_DIR$/sinus" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/RecursiveFastFourierTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/RecursiveFastFourierTransform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/StaticDiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/StaticDiscreteSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/panel-zad4.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/panel-zad4.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +160,7 @@
       <workItem from="1717229379437" duration="26904000" />
       <workItem from="1717890626278" duration="16677000" />
       <workItem from="1717931661529" duration="3971000" />
-      <workItem from="1717945525063" duration="8199000" />
+      <workItem from="1717945525063" duration="14554000" />
     </task>
     <servers />
   </component>
