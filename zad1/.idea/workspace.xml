@@ -13,7 +13,17 @@
       <change beforePath="$PROJECT_DIR$/../sygnalysinus" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../tescik" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask2/ReconstructedSignalSincBasic.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/FILTRRR" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RONALDOsINUS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SINUS-probka" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Blackman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Blackman.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hamming.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hamming.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hanning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/window/Hanning.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,9 +151,17 @@
       <workItem from="1715582057899" duration="5330000" />
       <workItem from="1715625933116" duration="122000" />
       <workItem from="1715863358093" duration="418000" />
+<<<<<<< Updated upstream
       <workItem from="1716246289008" duration="1630000" />
       <workItem from="1716791812125" duration="4091000" />
       <workItem from="1716798620886" duration="11000" />
+=======
+      <workItem from="1716246289008" duration="2509000" />
+      <workItem from="1716414936706" duration="9014000" />
+      <workItem from="1716467140133" duration="14262000" />
+      <workItem from="1716589043742" duration="2004000" />
+      <workItem from="1716631794513" duration="22249000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

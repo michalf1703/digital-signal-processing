@@ -349,7 +349,10 @@ public class AppController {
                                 displayFilterChart(impulseResponse);
                                 saveChartProbka(filter);
                                 signals.put(tabIndex, filter);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                             }
                             if ("Okno Blackmana".equals(windowType)) {
                                 LowPassFilter filter = new LowPassFilter(filterOrder,cuttingFrequency, sampleRate , windowB);
@@ -385,7 +388,10 @@ public class AppController {
                                 displayFilterChart(impulseResponse);
                                 saveChartProbka(filter);
                                 signals.put(tabIndex, filter);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                             }
                             if ("Okno Hanninga".equals(windowType)) {
                                 int filterOrder3 = Integer.parseInt(rzadFiltraF.getText());
@@ -396,7 +402,10 @@ public class AppController {
                                 displayFilterChart(impulseResponse);
                                 saveChartProbka(filter);
                                 signals.put(tabIndex, filter);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                             }
                             if ("Okno Blackmana".equals(windowType)) {
                                 int filterOrder4 = Integer.parseInt(rzadFiltraF.getText());
@@ -407,6 +416,10 @@ public class AppController {
                                 displayFilterChart(impulseResponse);
                                 saveChartProbka(filter);
                                 signals.put(tabIndex, filter);
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                             }
 
                         } else {
@@ -425,7 +438,10 @@ public class AppController {
                                     displayFilterChart(impulseResponse);
                                     saveChartProbka(filter);
                                     signals.put(tabIndex, filter);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                                 }
                                 if ("Okno Hamminga".equals(windowType)) {
                                     int filterOrder2 = Integer.parseInt(rzadFiltraF.getText());
@@ -627,10 +643,17 @@ public class AppController {
                         result = new ConvolutionSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
                         displayConvolutionSignal((ConvolutionSignal) result);
                         break;
+<<<<<<< Updated upstream
                     case "korelacja":
                         result = new CorrelationSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
                         displayCorrelationSignal((CorrelationSignal) result);
                         break;
+=======
+                        case "korelacja":
+                            result = new CorrelationSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
+                            displayConvolutionSignal((ConvolutionSignal) result);
+                            break;
+>>>>>>> Stashed changes
             }
             calculateOperationResult(result);
         }
