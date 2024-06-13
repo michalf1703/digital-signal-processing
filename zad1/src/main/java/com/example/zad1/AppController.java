@@ -64,6 +64,7 @@ public class AppController {
 
     private Map<Integer, Signal> signals = new HashMap<>();
     private FileReader<Signal> signalFileReader;
+    private FileReaderWriter<Signal> signalFileReaderWriter;
     @FXML
     private TextField liczbaProbekField;
 
@@ -169,6 +170,9 @@ public class AppController {
         double numberOfSamples = Double.parseDouble(liczbaProbekField.getText());
         if (operation != null) {
             Signal s1 = signals.get(1);
+            if(s1 instanceof OperationSignal) {
+                s1 = ((OperationSignal) s1).toContinuousSignal();
+            }
             switch (operation) {
                 case "próbkowanie":
                     DiscreteSignal result = adc.sampling((ContinuousSignal) s1, numberOfSamples);
@@ -533,6 +537,30 @@ public class AppController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    public void saveChartProbka(Signal signal) {
+        try {
+            signalFileReader = new FileReader<>(new FileChooser()
+                    .showSaveDialog(stage)
+                    .getName());
+            signalFileReader.write(signal);
+        }
+        catch (NullPointerException | FileOperationException e) {
+            e.printStackTrace();
+            showAlert("Błąd", null, "Nie zapisano sygnału.");
+        }
+    }
+    public void saveChart2(Signal signal) {
+        try {
+                signalFileReaderWriter = new FileReaderWriter<>(
+                        new FileChooser().showSaveDialog(stage)
+                                .getName());
+                signalFileReaderWriter.write(signal);
+        } catch (NullPointerException | FileOperationException e) {
+            e.printStackTrace();
+            showAlert("Błąd", null, "Nie zapisano sygnału.");
+        }
+    }
+
 
     public void saveChart() {
         try {
@@ -549,18 +577,6 @@ public class AppController {
             showAlert("Błąd", null, "Nie zapisano sygnału.");
         }
     }
-
-    public void saveChartProbka(Signal signal) {
-        try {
-                signalFileReader = new FileReader<>(new FileChooser()
-                        .showSaveDialog(stage)
-                        .getName());
-                signalFileReader.write(signal);
-            }
-         catch (NullPointerException | FileOperationException e) {
-            e.printStackTrace();
-            showAlert("Błąd", null, "Nie zapisano sygnału.");
-        }}
 
 
     public void loadChart() {
@@ -603,28 +619,29 @@ public class AppController {
                         showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
                         return;
                     }
-                    result = new OperationSignal(s1, s2, (a, b) -> a + b);
+                    result = new OperationSignal(s1, s2,"dodawanie");
+                    saveChart2(result);
                     break;
                 case "odejmowanie":
                     if (!haveSameSampleRate()) {
                         showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
                         return;
                     }
-                    result = new OperationSignal(s1, s2, (a, b) -> a - b);
+                    result = new OperationSignal(s1, s2, "odejmowanie");
                     break;
                 case "mnożenie":
                     if (!haveSameSampleRate()) {
                         showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
                         return;
                     }
-                    result = new OperationSignal(s1, s2, (a, b) -> a * b);
+                    result = new OperationSignal(s1, s2, "mnożenie");
                     break;
                 case "dzielenie":
                     if (!haveSameSampleRate()) {
                         showAlert("Błąd", null, "Nie można wykonać operacji na sygnałach o różnych częstotliwościach próbkowania.");
                         return;
                     }
-                    result = new OperationSignal(s1, s2, (a, b) -> a / b);
+                    result = new OperationSignal(s1, s2, "dzielenie");
                     break;
                     case "splot":
                         result = new ConvolutionSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
@@ -639,10 +656,6 @@ public class AppController {
         }
     }
 
-    public void representSignal(Signal signal) {
-        List<Data> data = signal.generateDiscreteRepresentation();
-
-    }
     public void makeComparison() {
         Signal s1 = signals.get(1);
         Signal s2 = signals.get(2);

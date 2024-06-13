@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/FileReaderWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
