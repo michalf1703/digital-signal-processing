@@ -4,6 +4,7 @@ module com.example.zad1 {
     requires org.apache.commons.lang3;
     requires org.jfree.jfreechart;
     requires java.desktop;
+    requires commons.math3;
 
 
     opens com.example.zad1 to javafx.fxml;

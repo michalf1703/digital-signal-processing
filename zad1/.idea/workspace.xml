@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Measurement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/probeczkaa_sinus" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sinus" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sinusekk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AnimationPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/AnimationThread.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/DistanceSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/simulation/Environment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/zad1/simulation_panel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/zad1/simulation_panel.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trojkat-probka" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/trojkat-przed-probka" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +17,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -166,6 +158,9 @@
       <workItem from="1717030814902" duration="180000" />
       <workItem from="1717031224358" duration="9000" />
       <workItem from="1717229379437" duration="26904000" />
+      <workItem from="1717890626278" duration="16677000" />
+      <workItem from="1717931661529" duration="3971000" />
+      <workItem from="1717945525063" duration="14554000" />
     </task>
     <servers />
   </component>
