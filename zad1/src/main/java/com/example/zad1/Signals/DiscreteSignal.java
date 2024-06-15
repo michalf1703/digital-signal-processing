@@ -11,15 +11,19 @@ public abstract class DiscreteSignal extends Signal {
 
     public final double sampleRate;
     private final int numberOfSamples;
-    private final double step;
+   //private final double step;
 
     public DiscreteSignal(double rangeStart, double rangeLength, double sampleRate) {
         super(rangeStart, rangeLength,sampleRate);
         this.sampleRate = sampleRate;
         this.numberOfSamples = (int) (rangeLength * sampleRate);
-        this.step = 1.0 / sampleRate;
+        //this.step = 1.0 / sampleRate;
     }
-
+    public DiscreteSignal(double rangeStart, int numberOfSamples, double sampleRate) {
+        super(rangeStart, numberOfSamples * (1.0 / sampleRate),sampleRate);
+        this.sampleRate = sampleRate;
+        this.numberOfSamples = numberOfSamples;
+    }
 
     public double getSampleRate() {
         return sampleRate;
@@ -32,7 +36,7 @@ public abstract class DiscreteSignal extends Signal {
     public abstract double value(int i);
 
     public double argument(int i) {
-        return i * step + getRangeStart();
+        return i * (1.0 / sampleRate) + getRangeStart();
     }
 
     @Override
@@ -46,7 +50,4 @@ public abstract class DiscreteSignal extends Signal {
 
     public abstract String getName();
 
-    public String printCorrelation() {
-        return null;
-    }
 }

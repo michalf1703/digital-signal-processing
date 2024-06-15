@@ -1,8 +1,7 @@
 package com.example.zad1.SignalsTask3;
 
+import com.example.zad1.RadarSignals.DiscreteSignal2;
 import com.example.zad1.Signals.DiscreteSignal;
-import com.example.zad1.window.Hamming;
-import com.example.zad1.window.Rectangular;
 import com.example.zad1.window.Window;
 
 public class LowPassFilter extends DiscreteSignal {
@@ -23,13 +22,15 @@ public class LowPassFilter extends DiscreteSignal {
     }
 
 
+    @Override
     public double value(int n) {
         int c = (M - 1) / 2;
         double result;
         if (n == c) {
             result = 2.0 / K;
         } else {
-            result = Math.sin(2.0 * Math.PI * (n - c) / K) / (Math.PI * (n - c));
+            result = Math.sin(2.0 * Math.PI * (n - c) / K)
+                    / (Math.PI * (n - c));
         }
         return result * window.w(n);
     }

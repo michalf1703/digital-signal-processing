@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/FileReaderWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/OperationSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/DiscreteSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/ConvolutionSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/ConvolutionSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/LowPassFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/SignalsTask3/LowPassFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,6 +163,8 @@
       <workItem from="1717890626278" duration="16677000" />
       <workItem from="1717931661529" duration="3971000" />
       <workItem from="1717945525063" duration="14554000" />
+      <workItem from="1718418806244" duration="5000" />
+      <workItem from="1718419707662" duration="5320000" />
     </task>
     <servers />
   </component>

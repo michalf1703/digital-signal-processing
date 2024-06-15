@@ -32,7 +32,7 @@ public class ConvolutionSignal extends DiscreteSignal {
 
     @Override
     public String getName() {
-        return "szum impulsowy";
+        return "Wynik operacji splotu";
     }
 
     public double[] getImpulseResponse() {
