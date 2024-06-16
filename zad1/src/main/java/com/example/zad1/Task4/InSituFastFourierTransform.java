@@ -9,7 +9,6 @@ public class InSituFastFourierTransform extends ComplexTransform {
         mixSamples(x); // Mieszanie próbek, wspólne dla obu metod FFT
 
         int N = x.length;
-        Complex[] W = calculateVectorOfWParams(N);
 
         // Główna pętla FFT (DIF FFT)
         for (int s = 1; s <= Math.log(N) / Math.log(2); s++) {
@@ -28,25 +27,13 @@ public class InSituFastFourierTransform extends ComplexTransform {
                 }
             }
         }
-
+        for (int i = 0; i < N; i++) {
+            x[i] = x[i].divide(N);
+        }
         return x;
     }
 
 
-    protected Complex[] calculateVectorOfWParams(int N) {
-        Complex[] W = new Complex[N / 2];
-        for (int i = 0; i < N / 2; i++) {
-            double Warg = -2.0 * Math.PI * i / N; // Uwaga: minus przed 2.0
-            W[i] = new Complex(Math.cos(Warg), Math.sin(Warg));
-        }
-        return W;
-    }
-
-    /**
-     * Funkcja 'rekurencyjnie' dzieli wektor próbek na dwa wektory (in situ),
-     * jeden zawiera próbki o indeksach nieparzystych, a drugi próbki o indeksach parzystych,
-     * wykonuje to wiele razy, aż wektory będą zawierały tylko jedną próbkę.
-     */
     protected void mixSamples(Complex[] samples) {
         int N = samples.length;
         // Obliczanie liczby bitów długości N
