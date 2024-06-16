@@ -582,6 +582,7 @@ public class AppController {
                         return;
                     }
                     result = new OperationSignal(s1, s2, "odejmowanie");
+                    saveChart2(result);
                     break;
                 case "mnożenie":
                     if (!haveSameSampleRate()) {
@@ -589,6 +590,7 @@ public class AppController {
                         return;
                     }
                     result = new OperationSignal(s1, s2, "mnożenie");
+                    saveChart2(result);
                     break;
                 case "dzielenie":
                     if (!haveSameSampleRate()) {
@@ -596,18 +598,16 @@ public class AppController {
                         return;
                     }
                     result = new OperationSignal(s1, s2, "dzielenie");
+                    saveChart2(result);
                     break;
                     case "splot":
                         result = new ConvolutionSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
-                        //displayConvolutionSignal((ConvolutionSignal) result);
                         break;
                     case "korelacja":
                         result = new CorrelationSignal((DiscreteSignal) s1, (DiscreteSignal) s2);
-                        //displayCorrelationSignal((CorrelationSignal) result);
                         break;
             }
             calculateSignal(result);
-            //calculateOperationResult(result);
         }
     }
 
@@ -632,46 +632,7 @@ public class AppController {
             efektywnaLiczbaBitowResult.setText(String.valueOf(effectiveNumberOfBits));
 
     }
-    private List<Data> generateDataFromImpulseResponse(double[] impulseResponse) {
-        ObservableList<Data> data = FXCollections.observableArrayList();
-        for (int i = 0; i < impulseResponse.length; i++) {
-            data.add(new Data(i, impulseResponse[i]));
-        }
-        return data;
-    }
 
-    private void displayFilterChart(double[] impulseResponse) {
-        List<Data> data = generateDataFromImpulseResponse(impulseResponse);
-       // List<Range> histogram = generateHistogram(10, data);
-        ScatterChart<Number, Number> impulseChart = createScatterChart(impulseResponse, "Impulse Response");
-       // BarChart<String, Number> histogramChart = createHistogramChart(histogram);
-        VBox vbox = new VBox(impulseChart);
-        vbox.setSpacing(10);
-        //vbox.setPadding(new Insets(10));
-        Scene scene = new Scene(vbox, 800, 600);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
-    private ScatterChart<Number, Number> createScatterChart(double[] impulseResponse, String title) {
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Index");
-        yAxis.setLabel("Amplitude");
-
-        ScatterChart<Number, Number> chart = new ScatterChart<>(xAxis, yAxis);
-        chart.setTitle(title);
-
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        for (int i = 0; i < impulseResponse.length; i++) {
-            series.getData().add(new XYChart.Data<>(i, impulseResponse[i]));
-        }
-
-        chart.getData().add(series);
-        chart.setAnimated(false);
-
-        return chart;
-    }
     public void probowanie(Signal signal) {
         List<Data> data = signal.generateDiscreteRepresentation();
         skutecznaWynik.setText("" + signal.rmsValue(data));
@@ -855,7 +816,7 @@ public class AppController {
         Parent chart;
         String title = signal.getName();
 
-        if (title.equals("szum impulsowy") || title.equals("impuls jednostkowy") || title.equals("filtr dolnoprzepustowy") || title.equals("filtr górnoprzepustowy") || title.equals("filtr pasmowy") || title.equals("Wynik operacji splotu")) {
+        if (title.equals("szum impulsowy") || title.equals("impuls jednostkowy") || title.equals("filtr dolnoprzepustowy") || title.equals("filtr górnoprzepustowy") || title.equals("filtr pasmowy") || title.equals("Wynik operacji splotu") || title.equals("Wynik operacji korelacji")) {
             ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
             scatterChart.setTitle(title);
 

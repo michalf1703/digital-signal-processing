@@ -29,7 +29,7 @@ public class CorrelationSignal extends DiscreteSignal {
 
     @Override
     public String getName() {
-        return "CorrelationSignal";
+        return "Wynik operacji korelacji";
     }
 
     public double[] getCorrelationResponse() {
