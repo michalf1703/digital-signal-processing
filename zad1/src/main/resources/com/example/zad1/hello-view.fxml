@@ -125,6 +125,9 @@
             <Button fx:id="wczytajFiltr" layoutX="467.0" layoutY="221.0" mnemonicParsing="false" onAction="#onWczytajFiltr" text="Wczytaj filtr" />
             <Button fx:id="panelSymulacji" layoutX="535.0" layoutY="332.0" mnemonicParsing="false" onAction="#przejdzDoPaneluSymulacji" text="Przejdź do panelu symluacji" />
             <Button layoutX="542.0" layoutY="362.0" mnemonicParsing="false" onAction="#przejdzDoPaneluZad4" text="Przejdź do palenu - zad4" />
+            <Button layoutX="491.0" layoutY="624.0" mnemonicParsing="false" onAction="#generateS1" prefHeight="26.0" prefWidth="38.0" text="S1" />
+            <Button layoutX="546.0" layoutY="624.0" mnemonicParsing="false" onAction="#generateS2" prefHeight="26.0" prefWidth="36.0" text="S2" />
+            <Button layoutX="602.0" layoutY="624.0" mnemonicParsing="false" onAction="#generateS3" prefHeight="26.0" prefWidth="39.0" text="S3" />
          </children></AnchorPane>
   </content>
 </TitledPane>

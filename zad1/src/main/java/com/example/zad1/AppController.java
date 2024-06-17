@@ -433,57 +433,6 @@ public class AppController {
             }
         }
     }
-    public void displayConvolutionSignal(ConvolutionSignal signal) {
-        double[] impulseResponse = signal.getImpulseResponse();
-
-        // Create scatter chart
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
-        scatterChart.setTitle("Convolution Signal");
-
-        // Create series and add data
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        for (int i = 0; i < impulseResponse.length; i++) {
-            series.getData().add(new XYChart.Data<>(i, impulseResponse[i]));
-        }
-
-        // Add series to chart
-        scatterChart.getData().add(series);
-
-        // Display chart in a new window
-        VBox vbox = new VBox(scatterChart);
-        Scene scene = new Scene(vbox, 800, 600);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void displayCorrelationSignal(CorrelationSignal signal) {
-        double[] correlationResponse = signal.getCorrelationResponse();
-
-        // Create scatter chart
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
-        scatterChart.setTitle("Correlation Signal");
-
-        // Create series and add data
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        for (int i = 0; i < correlationResponse.length; i++) {
-            series.getData().add(new XYChart.Data<>(i, correlationResponse[i]));
-        }
-
-        // Add series to chart
-        scatterChart.getData().add(series);
-
-        // Display chart in a new window
-        VBox vbox = new VBox(scatterChart);
-        Scene scene = new Scene(vbox, 800, 600);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -868,58 +817,6 @@ public class AppController {
         stage.show();
     }
 
-    public void calculateOperationResult(Signal result) {
-        if (przedzialHistogramu.getValue() == null) {
-            showAlert("Błąd", null, "Nie został wybrany przedział histogramu.");
-            return;
-        }
-
-        List<Data> data = result.generateDiscreteRepresentation();
-        skutecznaWynik.setText("" + result.rmsValue(data));
-        sredniaBezwWynik.setText("" + result.absMeanValue(data));
-        mocSredniaWynik.setText("" + result.meanPowerValue(data));
-        wartoscSredniaWynik.setText("" + result.meanValue(data));
-        wariancjaWynik.setText("" + result.varianceValue(data));
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Czas");
-        yAxis.setLabel("Wartość");
-        String przedzial = przedzialHistogramu.getValue();
-        int przedzialInt = Integer.parseInt(przedzial);
-        String title = "wykresy po operacji";
-        Parent chart;
-        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle(title);
-
-        XYChart.Series series = new XYChart.Series();
-        List<Data> data2 = result.getData();
-        for (Data point : data2) {
-            series.getData().add(new XYChart.Data(point.getX(), point.getY()));
-        }
-        lineChart.getData().add(series);
-        lineChart.setAnimated(false);
-        lineChart.setCreateSymbols(false);
-
-        chart = lineChart;
-
-        List<Range> histogram = result.generateHistogram(przedzialInt, data);
-        CategoryAxis barXAxis = new CategoryAxis();
-        NumberAxis barYAxis = new NumberAxis();
-        BarChart<String, Number> barChart = new BarChart<>(barXAxis, barYAxis);
-        barChart.setTitle("Histogram");
-        XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
-        for (Range range : histogram) {
-            barSeries.getData().add(new XYChart.Data<>(String.format("%.2f - %.2f", range.getBegin(), range.getEnd()), range.getQuantity()));
-        }
-        barChart.getData().add(barSeries);
-        VBox vbox = new VBox(chart, barChart);
-        Scene scene = new Scene(vbox, 800, 600);
-        signals.put(tabIndex, result);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
-
     private boolean haveSameSampleRate() {
         if (signals.size() < 2) {
             return true;
@@ -971,6 +868,52 @@ public class AppController {
         }
     }
 
+
+    @FXML
+    void generateS1(ActionEvent event) {
+        double rangeStart = 0.0;
+        double rangeLength = 8.0;
+        double sampleRate = 16.0;
+
+        // S1: S(t) = 2sin(2π/2 * t + π/2) + 5sin(2π/0.5 * t + π/2)
+        SinusoidalSignal2 s1_part1 = new SinusoidalSignal2(rangeStart, rangeLength, 2, 1, Math.PI / 2, sampleRate);
+        SinusoidalSignal2 s1_part2 = new SinusoidalSignal2(rangeStart, rangeLength, 5, 0.5, Math.PI / 2, sampleRate);
+        OperationSignal S1 = new OperationSignal(s1_part1, s1_part2, "dodawanie");
+        saveChart2(S1);
+        calculateSignal(S1);
+
+    }
+
+    @FXML
+    void generateS2(ActionEvent event) {
+
+        double rangeStart = 0.0;
+        double rangeLength = 8.0;
+        double sampleRate = 16.0;
+
+        SinusoidalSignal2 s2_part1 = new SinusoidalSignal2(rangeStart, rangeLength, 2, 1, 0, sampleRate);
+        SinusoidalSignal2 s2_part2 = new SinusoidalSignal2(rangeStart, rangeLength, 1, 1, 0, sampleRate);
+        SinusoidalSignal2 s2_part3 = new SinusoidalSignal2(rangeStart, rangeLength, 5, 0.5, 0, sampleRate);
+        OperationSignal s2_temp = new OperationSignal(s2_part1, s2_part2, "dodawanie");
+        OperationSignal S2 = new OperationSignal(s2_temp, s2_part3, "dodawanie");
+        saveChart2(S2);
+        calculateSignal(S2);
+
+    }
+
+    @FXML
+    void generateS3(ActionEvent event) {
+
+        double rangeStart = 0.0;
+        double rangeLength = 8.0;
+        double sampleRate = 16.0;
+        SinusoidalSignal2 s3_part1 = new SinusoidalSignal2(rangeStart, rangeLength, 5, 1, 0, sampleRate);
+        SinusoidalSignal2 s3_part2 = new SinusoidalSignal2(rangeStart, rangeLength, 1, 0.25, 0, sampleRate);
+        OperationSignal S3 = new OperationSignal(s3_part1, s3_part2, "dodawanie");
+        saveChart2(S3);
+        calculateSignal(S3);
+
+    }
 
     // ----------------------------------------------------ZAD4----------------------------------------------------
 
