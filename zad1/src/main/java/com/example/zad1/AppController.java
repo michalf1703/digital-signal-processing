@@ -8,8 +8,6 @@ import com.example.zad1.window.Blackman;
 import com.example.zad1.window.Hamming;
 import com.example.zad1.window.Hanning;
 import com.example.zad1.window.Rectangular;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -873,47 +871,37 @@ public class AppController {
     void generateS1(ActionEvent event) {
         double rangeStart = 0.0;
         double rangeLength = 8.0;
-        double sampleRate = 16.0;
+        double sampleRate = 300.0;
 
-        // S1: S(t) = 2sin(2π/2 * t + π/2) + 5sin(2π/0.5 * t + π/2)
-        SinusoidalSignal2 s1_part1 = new SinusoidalSignal2(rangeStart, rangeLength, 2, 1, Math.PI / 2, sampleRate);
-        SinusoidalSignal2 s1_part2 = new SinusoidalSignal2(rangeStart, rangeLength, 5, 0.5, Math.PI / 2, sampleRate);
-        OperationSignal S1 = new OperationSignal(s1_part1, s1_part2, "dodawanie");
+        S1Generator S1 = new S1Generator(rangeStart, rangeLength, sampleRate);
         saveChart2(S1);
         calculateSignal(S1);
-
     }
+
 
     @FXML
     void generateS2(ActionEvent event) {
-
         double rangeStart = 0.0;
         double rangeLength = 8.0;
-        double sampleRate = 16.0;
+        double sampleRate = 300.0;
 
-        SinusoidalSignal2 s2_part1 = new SinusoidalSignal2(rangeStart, rangeLength, 2, 1, 0, sampleRate);
-        SinusoidalSignal2 s2_part2 = new SinusoidalSignal2(rangeStart, rangeLength, 1, 1, 0, sampleRate);
-        SinusoidalSignal2 s2_part3 = new SinusoidalSignal2(rangeStart, rangeLength, 5, 0.5, 0, sampleRate);
-        OperationSignal s2_temp = new OperationSignal(s2_part1, s2_part2, "dodawanie");
-        OperationSignal S2 = new OperationSignal(s2_temp, s2_part3, "dodawanie");
+        S2Generator S2 = new S2Generator(rangeStart, rangeLength, sampleRate);
         saveChart2(S2);
         calculateSignal(S2);
-
     }
+
 
     @FXML
     void generateS3(ActionEvent event) {
-
         double rangeStart = 0.0;
         double rangeLength = 8.0;
-        double sampleRate = 16.0;
-        SinusoidalSignal2 s3_part1 = new SinusoidalSignal2(rangeStart, rangeLength, 5, 1, 0, sampleRate);
-        SinusoidalSignal2 s3_part2 = new SinusoidalSignal2(rangeStart, rangeLength, 1, 0.25, 0, sampleRate);
-        OperationSignal S3 = new OperationSignal(s3_part1, s3_part2, "dodawanie");
+        double sampleRate = 100.0;
+
+        S3Generator S3 = new S3Generator(rangeStart, rangeLength, sampleRate);
         saveChart2(S3);
         calculateSignal(S3);
-
     }
+
 
     // ----------------------------------------------------ZAD4----------------------------------------------------
 
