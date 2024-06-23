@@ -1,4 +1,4 @@
-package com.example.zad1.Task4;
+package com.example.zad1.Task4.Data;
 
 import org.apache.commons.math3.complex.Complex;
 

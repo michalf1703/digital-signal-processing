@@ -1,8 +1,9 @@
 package com.example.zad1.Task4;
 
+import com.example.zad1.Task4.Data.ComplexTransform;
 import org.apache.commons.math3.complex.Complex;
 
-public class DiscreteFourierTransform extends ComplexTransform{
+public class DiscreteFourierTransform extends ComplexTransform {
 
     @Override
     public Complex[] transform(Complex[] x) {

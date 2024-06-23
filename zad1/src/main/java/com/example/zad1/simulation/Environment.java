@@ -25,13 +25,6 @@ public class Environment {
         return timeStep;
     }
 
-    public double getSignalVelocity() {
-        return signalVelocity;
-    }
-
-    public double getItemVelocity() {
-        return itemVelocity;
-    }
 
     public DistanceSensor getDistanceSensor() {
         return distanceSensor;

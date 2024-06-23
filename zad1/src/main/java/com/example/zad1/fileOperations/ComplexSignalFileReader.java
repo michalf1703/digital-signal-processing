@@ -1,6 +1,6 @@
 package com.example.zad1.fileOperations;
 
-import com.example.zad1.Task4.ComplexSignal;
+import com.example.zad1.Task4.Data.ComplexSignal;
 
 import java.io.*;
 

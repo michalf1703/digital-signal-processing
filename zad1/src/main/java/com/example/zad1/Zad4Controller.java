@@ -2,7 +2,7 @@ package com.example.zad1;
 
 import com.example.zad1.Base.Data;
 import com.example.zad1.Signals.*;
-import com.example.zad1.Task4.ComplexSignal;
+import com.example.zad1.Task4.Data.ComplexSignal;
 import com.example.zad1.Task4.Transformer;
 import com.example.zad1.fileOperations.ComplexSignalFileReader;
 import com.example.zad1.fileOperations.ComplexSignalFileWriter;
@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import javax.swing.*;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;

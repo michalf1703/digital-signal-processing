@@ -1,6 +1,8 @@
 package com.example.zad1.Task4;
 
-public class WalshHadamardTransform extends RealTransform{
+import com.example.zad1.Task4.Data.RealTransform;
+
+public class WalshHadamardTransform extends RealTransform {
 
     @Override
     public double[] transform(final double[] x) {

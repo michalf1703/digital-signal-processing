@@ -1,6 +1,7 @@
 package com.example.zad1.Task4;
 
 import com.example.zad1.Signals.DiscreteSignal;
+import com.example.zad1.Task4.Data.*;
 import org.apache.commons.math3.complex.Complex;
 
 public class Transformer {

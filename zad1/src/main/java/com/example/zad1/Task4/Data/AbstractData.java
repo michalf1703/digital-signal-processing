@@ -1,4 +1,4 @@
-package com.example.zad1.Task4;
+package com.example.zad1.Task4.Data;
 
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -9,11 +9,8 @@ import java.io.Serializable;
 
 public class AbstractData<T> implements Serializable {
 
-    /*------------------------ FIELDS REGION ------------------------*/
     private double x;
     private T y;
-
-    /*------------------------ METHODS REGION ------------------------*/
     public AbstractData(double x, T y) {
         this.x = x;
         this.y = y;
