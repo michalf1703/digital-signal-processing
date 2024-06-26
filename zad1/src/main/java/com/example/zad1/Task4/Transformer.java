@@ -10,8 +10,6 @@ public class Transformer {
     private final DiscreteFourierTransform discreteFourierTransform;
     private final InSituFastFourierTransform inSituFastFourierTransform;
 
-
-    /* discrete Walsh-Hadamrd transform */
     private final WalshHadamardTransform walshHadamardTransform;
     private final FastWalshHadamardTransform fastWalshHadamardTransform;
 
@@ -53,9 +51,7 @@ public class Transformer {
     }
 
 
-    private DiscreteComplexSignal transformRealSignalToComplexSignal(DiscreteSignal signal,
-                                                                     ComplexTransform complexTransform) {
-        System.out.println("Liczba probek:" + signal.getNumberOfSamples());
+    private DiscreteComplexSignal transformRealSignalToComplexSignal(DiscreteSignal signal, ComplexTransform complexTransform) {
         double[] samples = new double[signal.getNumberOfSamples()];
         for (int i = 0; i < signal.getNumberOfSamples(); i++) {
             samples[i] = signal.value(i);

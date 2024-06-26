@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97e2ac1-a3ff-46f9-a470-6a208d05826a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/CombinedSinusoidalSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/S1Generator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/S2Generator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Signals/S3Generator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Data/DiscreteComplexSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Data/DiscreteComplexSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/InSituFastFourierTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/InSituFastFourierTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/zad1/Zad4Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +167,14 @@
       <workItem from="1718419707662" duration="7346000" />
       <workItem from="1718510154347" duration="5561000" />
       <workItem from="1718537878452" duration="1928000" />
-      <workItem from="1718586590349" duration="7545000" />
+      <workItem from="1718586590349" duration="10332000" />
+      <workItem from="1718606169569" duration="2877000" />
+      <workItem from="1718612286983" duration="49000" />
+      <workItem from="1719183353635" duration="2392000" />
+      <workItem from="1719210516973" duration="2228000" />
+      <workItem from="1719217126432" duration="5889000" />
+      <workItem from="1719345049326" duration="2223000" />
+      <workItem from="1719399025835" duration="14701000" />
     </task>
     <servers />
   </component>
@@ -185,5 +191,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/InSituFastFourierTransform.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/zad1/Task4/Transformer.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

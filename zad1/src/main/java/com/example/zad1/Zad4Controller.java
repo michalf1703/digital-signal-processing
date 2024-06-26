@@ -91,16 +91,13 @@ public class Zad4Controller {
             switch (operation) {
 
                 case "Dyskretna transformacja Fouriera z definicji":
-                     signal = calculateInvocationTime(() -> transformer
-                                    .discreteFourierTransform((DiscreteSignal) s1),
-                            czasObliczen);
+                     signal = calculateInvocationTime(() -> transformer.discreteFourierTransform((DiscreteSignal) s1), czasObliczen);
                     break;
                 case "Szybka transformacja Fouriera in situ":
                      signal = calculateInvocationTime(() -> transformer.fastFourierTransformInSitu((DiscreteSignal) s1),czasObliczen);
                     break;
                 case "Transformacja Walsha-Hadamarda z definicji":
                     signal = calculateInvocationTime(() ->transformer.walshHadamardTransform((DiscreteSignal) s1),czasObliczen);
-                    signal.getNumberOfSamples();
                     break;
                 case "Szybka transformacja Walsha-Hadamarda in situ":
                     signal = calculateInvocationTime(() ->transformer.fastWalshHadamardTransform((DiscreteSignal) s1),czasObliczen);

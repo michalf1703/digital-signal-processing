@@ -12,22 +12,6 @@ public abstract class DiscreteComplexSignal extends ComplexSignal {
     private final double sampleRate;
     private final int numberOfSamples;
 
-    /**
-     * This constructor initiate numberOfSamples basing on rangeLength,
-     * in that case rangeLength can be a little bit greater than x-distance
-     * between first and last sample.
-     */
-    public DiscreteComplexSignal(double rangeStart, double rangeLength, double sampleRate) {
-        super(rangeStart, rangeLength, sampleRate);
-        this.sampleRate = sampleRate;
-        this.numberOfSamples = (int) (rangeLength * sampleRate);
-    }
-
-    /**
-     * This constructor initiate rangeLength basing on numberOfSamples,
-     * in that case rangeLength always equals x-distance between first
-     * and last sample.
-     */
     public DiscreteComplexSignal(double rangeStart, int numberOfSamples, double sampleRate) {
         super(rangeStart, numberOfSamples * (1.0 / sampleRate), sampleRate);
         this.sampleRate = sampleRate;
@@ -63,7 +47,7 @@ public abstract class DiscreteComplexSignal extends ComplexSignal {
                 case REAL:
                     value = value(i).getReal();
                     break;
-                default /*IMAGINARY*/:
+                default:
                     value = value(i).getImaginary();
             }
             data.add(new Data(argument(i), value));
