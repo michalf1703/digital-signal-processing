@@ -6,53 +6,48 @@ public class WalshHadamardTransform extends RealTransform {
 
     @Override
     public double[] transform(final double[] x) {
-        int m = (int) Math.round(Math.log(x.length) / Math.log(2.0));
-        double[] H = generateHadamardMatrix(m);
-        double[] X = new double[x.length];
-        for (int i = 0; i < x.length; i++) {
+        int N = x.length;
+        int m = Integer.numberOfTrailingZeros(N);
+        int size = 1 << m; // Rozmiar macierzy Hadamarda Hm
+
+        double[] X = new double[size];
+        double[][] Hm = generateHadamardMatrix(m);
+
+        // Wykonanie transformacji WH-1: X = Hm * x
+        for (int i = 0; i < size; i++) {
             double sum = 0.0;
-            for (int j = 0; j < x.length; j++) {
-                sum += x[j] * H[i * x.length + j];
+            for (int j = 0; j < size; j++) {
+                sum += Hm[i][j] * x[j];
             }
             X[i] = sum;
         }
+
         return X;
     }
 
-    protected double[] generateHadamardMatrix(int m) {
-        int size = 1;
-        double factor = 1.0;
-        double[] H = {1.0};
-        double[] previous;
-        for (int i = 1; i <= m; i++) {
-            size *= 2;
-            previous = H;
-            H = new double[size * size];
-            pasteMatrixIntoMatrix(previous, size / 2, H, size, 0, 0, factor);
-            pasteMatrixIntoMatrix(previous, size / 2, H, size, 0, size / 2, factor);
-            pasteMatrixIntoMatrix(previous, size / 2, H, size, size / 2, 0, factor);
-            pasteMatrixIntoMatrix(previous, size / 2, H, size, size / 2, size / 2, -factor);
-        }
-        return H;
-    }
+    protected double[][] generateHadamardMatrix(int m) {
+        int size = 1 << m; // Rozmiar macierzy Hadamarda Hm
+        double[][] Hm = new double[size][size];
 
-    /**
-     * This function paste one square matrix into another square matrix
-     *
-     * @param src     pasted matrix
-     * @param srcSize number of rows/cols of the source matrix
-     * @param dst     matrix where to paste
-     * @param dstSize size of rows/cols of the destination matrix
-     * @param row     index of row where to paste
-     * @param col     index of column where to paste
-     */
-    protected void pasteMatrixIntoMatrix(double[] src, int srcSize, double[] dst, int dstSize,
-                                         int row, int col,
-                                         double factor) {
-        for (int i = 0; i < srcSize; i++) {
-            for (int j = 0; j < srcSize; j++) {
-                dst[(i + row) * dstSize + (j + col)] = src[i * srcSize + j] * factor;
+        // Bazowy przypadek dla m = 0
+        Hm[0][0] = 1.0;
+
+        // Generowanie macierzy Hadamarda Hm rekurencyjnie
+        for (int s = 1; s <= m; s++) {
+            int m_pow = 1 << (s - 1); // 2^(s-1)
+            int m_pow2 = m_pow * 2; // 2^s
+
+            // Kopiowanie istniejącej macierzy do odpowiednich części
+            for (int i = 0; i < m_pow; i++) {
+                for (int j = 0; j < m_pow; j++) {
+                    Hm[i][j] = Hm[i][j];
+                    Hm[i][j + m_pow] = Hm[i][j];
+                    Hm[i + m_pow][j] = Hm[i][j];
+                    Hm[i + m_pow][j + m_pow] = -Hm[i][j];
+                }
             }
         }
+
+        return Hm;
     }
 }

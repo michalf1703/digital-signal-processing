@@ -9,11 +9,9 @@ public class InSituFastFourierTransform extends ComplexTransform {
     @Override
     public Complex[] transform(Complex[] x) {
         int N = x.length;
-        int numberOfBits = Integer.numberOfTrailingZeros(N);
-        System.out.println("numberOfBits: " + numberOfBits);
-
-        // DIF FFT
-        for (int s = numberOfBits; s >= 1; s--) {
+        int tree_levels = Integer.numberOfTrailingZeros(N);
+        System.out.println("tree_levels: " + tree_levels);
+        for (int s = tree_levels; s >= 1; s--) {
             int m = 1 << s; // m = 2^s
             int halfM = m / 2;
             Complex wm = new Complex(Math.cos(2 * Math.PI / m), -Math.sin(2 * Math.PI / m));
@@ -28,18 +26,14 @@ public class InSituFastFourierTransform extends ComplexTransform {
                 }
             }
         }
-
-        // Bit-reversal permutation
         for (int i = 0; i < N; i++) {
-            int j = Integer.reverse(i) >>> (32 - numberOfBits);
+            int j = Integer.reverse(i) >>> (32 - tree_levels);
             if (j > i) {
                 Complex tmp = x[i];
                 x[i] = x[j];
                 x[j] = tmp;
             }
         }
-
-        // Normalizacja (opcjonalnie)
         for (int i = 0; i < N; i++) {
             x[i] = x[i].divide(N);
         }

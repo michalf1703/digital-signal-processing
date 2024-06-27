@@ -85,7 +85,6 @@ public class Zad4Controller {
         final Transformer transformer = new Transformer();
 
         try {
-           // long startTime = System.currentTimeMillis();
             Signal s1 = signals.get(1);
             Signal signal = null;
             switch (operation) {
