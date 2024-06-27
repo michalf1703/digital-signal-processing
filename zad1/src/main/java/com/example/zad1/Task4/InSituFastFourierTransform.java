@@ -12,7 +12,7 @@ public class InSituFastFourierTransform extends ComplexTransform {
         int tree_levels = Integer.numberOfTrailingZeros(N);
         System.out.println("tree_levels: " + tree_levels);
         for (int s = tree_levels; s >= 1; s--) {
-            int m = 1 << s; // m = 2^s
+            int m = 1 << s;
             int halfM = m / 2;
             Complex wm = new Complex(Math.cos(2 * Math.PI / m), -Math.sin(2 * Math.PI / m));
             for (int k = 0; k < N; k += m) {
